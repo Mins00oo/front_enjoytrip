@@ -30,10 +30,10 @@
               <router-link to="/about" class="nav-link">About</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="shop.html">Shop</a>
+              <router-link to="/tourrecom" class="nav-link">Shop</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <router-link to="/tourfeat" class="nav-link">Concat</router-link>
             </li>
           </ul>
         </div>
