@@ -4,6 +4,8 @@ import TourList from '@/components/main/MainTourList.vue'
 import TourRecommend from '@/components/main/MainTourRecommend.vue'
 import TourListPage from '@/views/TourListPage.vue'
 import TourDetailPage from '@/views/TourDetailPage.vue'
+import BoardListPage from '@/views/BoardListPage.vue'
+import BoardWritePage from '@/views/BoardWritePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +29,15 @@ const router = createRouter({
     {
       path: '/detail',
       component: TourDetailPage
+    },
+    {
+      path: '/board',
+      component: BoardListPage
+    },
+    {
+      path: '/board/write',
+      name: 'board-write',
+      component: BoardWritePage
     }
   ]
 })

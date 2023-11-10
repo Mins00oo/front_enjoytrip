@@ -24,7 +24,7 @@
         <div class="flex-fill">
           <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
             <li class="nav-item">
-              <router-link to="/" class="nav-link">Home</router-link>
+              <router-link to="/" class="nav-link">홈</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/about" class="nav-link">About</router-link>
@@ -33,7 +33,7 @@
               <router-link to="/tour" class="nav-link">관광지</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/board" class="nav-link">Concat</router-link>
+              <router-link to="/board" class="nav-link">게시판</router-link>
             </li>
           </ul>
         </div>
