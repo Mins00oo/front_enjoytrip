@@ -1,21 +1,78 @@
 <template>
   <div class="container mt-2">
+    <input type="text" v-model="title" placeholder="제목을 입력하세요" class="title-input" />
     <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+    <input type="file" @change="handleFileUpload" />
     <button type="button" class="btn btn-primary mt-2" @click="sendTellMe">Send</button>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+
 const ckeditor = CKEditor.component
 const editor = ClassicEditor
-const editorData = ref('<p>Content of Editor</p>')
-const editorConfig = {}
+const title = ref('') // 글 제목을 위한 ref
+const editorData = ref('')
+const editorConfig = {
+  removePlugins: ['Heading', 'Link', 'CKFinder'],
+  toolbar: [
+    'bold',
+    'italic',
+    'bulletedList',
+    'numberedList',
+    'blockQuote',
+    'Heading',
+    'Link',
+    'CKFinder'
+  ]
+}
+const file = ref(null)
 
-const sendTellMe = () => {
-  alert(editorData.value)
+const handleFileUpload = (event) => {
+  file.value = event.target.files[0] // 파일 객체 저장
+}
+
+const sendTellMe = async () => {
+  if (!title.value.trim() || !editorData.value.trim()) {
+    alert('제목과 내용은 필수입니다.')
+    return
+  }
+
+  try {
+    let formData = new FormData()
+
+    // 객체를 JSON 문자열로 변환하여 추가
+    const boardRequestDto = JSON.stringify({
+      userId: 1, // 사용자 ID
+      boardTitle: title.value,
+      boardContent: '테스트용'
+    })
+
+    formData.append('dto', new Blob([boardRequestDto], { type: 'application/json' }))
+
+    // 이미지 추가
+    if (file.value) {
+      formData.append('boardImg', file.value)
+    }
+
+    console.log(boardRequestDto)
+
+    const response = await axios.post('http://localhost:8080/boards', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+
+    console.log(response.data)
+    alert('글이 성공적으로 전송되었습니다.')
+  } catch (error) {
+    console.error('전송 중 에러가 발생했습니다.', error)
+    alert('전송에 실패했습니다.')
+  }
 }
 </script>
 
@@ -48,5 +105,14 @@ const sendTellMe = () => {
   background-color: #0056b3; /* 호버 시 배경색 변경 */
   border-color: #004085; /* 호버 시 테두리 색상 변경 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 효과 추가 */
+}
+
+.title-input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
 }
 </style>

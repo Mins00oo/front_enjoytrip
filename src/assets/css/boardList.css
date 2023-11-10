@@ -80,6 +80,8 @@
     cursor: pointer;
     margin: 0 10px; /* 버튼 사이의 간격을 조정합니다. */
     transition: background-color 0.3s ease;
+
+
   }
   
   /* 추가적인 스타일링 */
