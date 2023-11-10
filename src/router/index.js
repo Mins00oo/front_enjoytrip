@@ -6,6 +6,10 @@ import TourListPage from '@/views/TourListPage.vue'
 import TourDetailPage from '@/views/TourDetailPage.vue'
 import BoardListPage from '@/views/BoardListPage.vue'
 import BoardWritePage from '@/views/BoardWritePage.vue'
+//User 관련 추가
+import LoginPage from '@/components/user/LoginPage.vue'
+import RegisterPage from '@/components/user/RegisterPage.vue'
+import MyPage from '@/components/user/MyPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +42,19 @@ const router = createRouter({
       path: '/board/write',
       name: 'board-write',
       component: BoardWritePage
+    },
+    //User 관련 (로그인, 회원가입, 마이페이지)
+    {
+      path: '/login',
+      component: LoginPage
+    },
+    {
+      path: '/register',
+      component: RegisterPage
+    },
+    {
+      path: '/mypage',
+      component: MyPage
     }
   ]
 })
