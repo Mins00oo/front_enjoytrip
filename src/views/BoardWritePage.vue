@@ -12,7 +12,9 @@ import { ref } from 'vue'
 import axios from 'axios'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const ckeditor = CKEditor.component
 const editor = ClassicEditor
 const title = ref('') // 글 제목을 위한 ref
@@ -69,6 +71,7 @@ const sendTellMe = async () => {
 
     console.log(response.data)
     alert('글이 성공적으로 전송되었습니다.')
+    router.push('/board') // 리다이렉트
   } catch (error) {
     console.error('전송 중 에러가 발생했습니다.', error)
     alert('전송에 실패했습니다.')

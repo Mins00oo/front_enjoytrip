@@ -128,7 +128,6 @@ export default {
         const response = await axios.get(`http://localhost:8080/boards/${boardId}`)
         this.currentPost = response.data
         this.isModalOpen = true // 모달을 열기
-        console.log(this.currentPost)
       } catch (error) {
         console.error('상세 정보를 가져오는데 실패했습니다.', error)
       }
@@ -139,20 +138,24 @@ export default {
         const response = await axios.delete(`http://localhost:8080/boards/${boardId}`)
         this.currentPost = response.data
         this.isModalOpen = false // 모달을 열기
-        this.$router.push('/board')
+        await this.getBoardList() // 게시판 목록 새로고침
       } catch (error) {
         console.error('게시글을 삭제하는데 실패했습니다.', error)
+      }
+    },
+
+    async getBoardList() {
+      try {
+        const response = await axios.get('http://localhost:8080/boards')
+        this.posts = response.data
+      } catch (error) {
+        console.error('게시판 데이터를 가져오는데 실패했습니다.', error)
       }
     }
   },
 
-  async mounted() {
-    try {
-      const response = await axios.get('http://localhost:8080/boards') // 실제 엔드포인트 URL로 대체하세요.
-      this.posts = response.data
-    } catch (error) {
-      console.error('게시판 데이터를 가져오는데 실패했습니다.', error)
-    }
+  mounted() {
+    this.getBoardList()
   }
 }
 </script>
