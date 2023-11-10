@@ -30,10 +30,10 @@
               <router-link to="/about" class="nav-link">About</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/tourrecom" class="nav-link">Shop</router-link>
+              <router-link to="/tour" class="nav-link">관광지</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/tourfeat" class="nav-link">Concat</router-link>
+              <router-link to="/board" class="nav-link">Concat</router-link>
             </li>
           </ul>
         </div>

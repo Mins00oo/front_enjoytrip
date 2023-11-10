@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainPage from '@/components/layouts/MainPage.vue'
-import TourList from '@/components/tours/TourList.vue'
-import TourRecommend from '@/components/tours/TourRecommend.vue'
-import TourFeature from '@/components/tours/TourFeature.vue'
+import MainPage from '@/views/MainPage.vue'
+import TourList from '@/components/main/MainTourList.vue'
+import TourRecommend from '@/components/main/MainTourRecommend.vue'
+import TourListPage from '@/views/TourListPage.vue'
+import TourDetailPage from '@/views/TourDetailPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,16 +17,16 @@ const router = createRouter({
       component: TourList
     },
     {
-      path: '/tourlist',
-      component: TourList
+      path: '/tour',
+      component: TourListPage
     },
     {
       path: '/tourrecom',
       component: TourRecommend
     },
     {
-      path: '/tourfeat',
-      component: TourFeature
+      path: '/detail',
+      component: TourDetailPage
     }
   ]
 })
