@@ -3,7 +3,7 @@
     <input type="text" v-model="title" placeholder="제목을 입력하세요" class="title-input" />
     <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
     <input type="file" @change="handleFileUpload" />
-    <button type="button" class="btn btn-primary mt-2" @click="sendTellMe">Send</button>
+    <button type="button" class="btn btn-primary mt-2" @click="writeBoardContent">Send</button>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ const handleFileUpload = (event) => {
   file.value = event.target.files[0] // 파일 객체 저장
 }
 
-const sendTellMe = async () => {
+const writeBoardContent = async () => {
   if (!title.value.trim() || !editorData.value.trim()) {
     alert('제목과 내용은 필수입니다.')
     return

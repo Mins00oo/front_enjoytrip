@@ -7,15 +7,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import MainTourCategory from '@/components/tours/TourCategory.vue'
 import MainTourList from '@/components/tours/TourList.vue'
-
-export default {
-  components: {
-    // 컴포넌트를 등록
-    MainTourCategory,
-    MainTourList
-  }
-}
 </script>

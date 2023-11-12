@@ -89,76 +89,69 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
-export default {
-  data() {
-    return {
-      posts: [],
-      currentPage: 1,
-      perPage: 10,
-      currentPost: null, // 현재 선택된 게시물의 상세 정보
-      isModalOpen: false // 모달 상태
-    }
-  },
+const posts = ref([])
+const currentPage = ref(1)
+const perPage = 10
+const currentPost = ref(null)
+const isModalOpen = ref(false)
 
-  computed: {
-    paginatedPosts() {
-      const start = (this.currentPage - 1) * this.perPage
-      const end = start + this.perPage
-      return this.posts.slice(start, end)
-    },
-    totalPages() {
-      return Math.ceil(this.posts.length / this.perPage)
-    }
-  },
+const paginatedPosts = computed(() => {
+  const start = (currentPage.value - 1) * perPage
+  const end = start + perPage
+  return posts.value.slice(start, end)
+})
 
-  methods: {
-    nextPage() {
-      if (this.currentPage < this.totalPages) this.currentPage++
-    },
+const totalPages = computed(() => {
+  return Math.ceil(posts.value.length / perPage)
+})
 
-    prevPage() {
-      if (this.currentPage > 1) this.currentPage--
-    },
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) currentPage.value++
+}
 
-    async getBoardDetail(boardId) {
-      try {
-        const response = await axios.get(`http://localhost:8080/boards/${boardId}`)
-        this.currentPost = response.data
-        this.isModalOpen = true // 모달을 열기
-      } catch (error) {
-        console.error('상세 정보를 가져오는데 실패했습니다.', error)
-      }
-    },
+const prevPage = () => {
+  if (currentPage.value > 1) currentPage.value--
+}
 
-    async deleteBoard(boardId) {
-      try {
-        const response = await axios.delete(`http://localhost:8080/boards/${boardId}`)
-        this.currentPost = response.data
-        this.isModalOpen = false // 모달을 열기
-        await this.getBoardList() // 게시판 목록 새로고침
-      } catch (error) {
-        console.error('게시글을 삭제하는데 실패했습니다.', error)
-      }
-    },
-
-    async getBoardList() {
-      try {
-        const response = await axios.get('http://localhost:8080/boards')
-        this.posts = response.data
-      } catch (error) {
-        console.error('게시판 데이터를 가져오는데 실패했습니다.', error)
-      }
-    }
-  },
-
-  mounted() {
-    this.getBoardList()
+const getBoardDetail = async (boardId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/boards/${boardId}`)
+    currentPost.value = response.data
+    isModalOpen.value = true
+  } catch (error) {
+    console.error('상세 정보를 가져오는데 실패했습니다.', error)
   }
 }
+
+const deleteBoard = async (boardId) => {
+  try {
+    await axios.delete(`http://localhost:8080/boards/${boardId}`)
+    currentPost.value = null
+    isModalOpen.value = false
+    await getBoardList()
+  } catch (error) {
+    console.error('게시글을 삭제하는데 실패했습니다.', error)
+  }
+}
+
+const getBoardList = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/boards')
+    posts.value = response.data
+  } catch (error) {
+    console.error('게시판 데이터를 가져오는데 실패했습니다.', error)
+  }
+}
+
+onMounted(async () => {
+  await getBoardList()
+})
 </script>
+
 <style scoped>
 @import url('/src/assets/css/boardList.css');
 
