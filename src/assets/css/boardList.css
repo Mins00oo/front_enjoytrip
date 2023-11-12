@@ -1,0 +1,87 @@
+
+.board-list-page {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .board-list-page h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .board-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  .board-list th,
+  .board-list td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eaeaea;
+    text-align: left;
+  }
+  
+  .board-list th {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .board-list tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .pagination button {
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 10px; /* 버튼 사이의 간격을 조정합니다. */
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination button:hover {
+    background-color: #4cae4c;
+  }
+  
+  .pagination button:disabled {
+    background-color: #eaeaea;
+    cursor: default;
+  }
+  
+  .pagination span {
+    margin: 0 5px;
+    font-size: 1rem;
+  }
+
+  .btn-write {
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 10px; /* 버튼 사이의 간격을 조정합니다. */
+    transition: background-color 0.3s ease;
+
+
+  }
+  
+  /* 추가적인 스타일링 */
