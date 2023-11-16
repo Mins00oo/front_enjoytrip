@@ -66,15 +66,51 @@
               >7</span
             >
           </a>
-          <a class="nav-icon position-relative text-decoration-none" href="#">
+          <router-link to="/mypage" class="nav-icon position-relative text-decoration-none">
             <i class="fa fa-fw fa-user text-dark mr-3"></i>
             <span
               class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"
               >+99</span
             >
-          </a>
+          </router-link>
+
+          <a class="nav-link" v-show="authStore.isLogin" href="#" @click="logout">로그아웃</a>
         </div>
       </div>
     </div>
   </nav>
 </template>
+
+<script setup>
+import { useAuthStore } from '@/stores/userStore'
+import { useRouter } from 'vue-router'
+import http from '@/common/axios.js'
+
+const { authStore, setLogin } = useAuthStore()
+const router = useRouter()
+
+console.log(authStore)
+
+const logout = async () => {
+  try {
+    let { data } = await http.get('/logout')
+    console.log(data)
+    if (data.result == 'success') {
+      // 세션 스토리지에 저장
+      sessionStorage.removeItem('isLogin')
+      sessionStorage.removeItem('userNickName')
+      sessionStorage.removeItem('userId')
+      // store 변경
+      setLogin({
+        isLogin: false,
+        userNickName: '',
+        userId: ''
+      })
+      alert('로그아웃 되었습니다.')
+      router.push('/')
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+</script>

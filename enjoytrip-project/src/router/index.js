@@ -10,6 +10,7 @@ import BoardWritePage from '@/views/BoardWritePage.vue'
 import LoginPage from '@/components/user/LoginPage.vue'
 import RegisterPage from '@/components/user/RegisterPage.vue'
 import MyPage from '@/components/user/MyPage.vue'
+import { useAuthStore } from '@/stores/userStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,7 +55,18 @@ const router = createRouter({
     },
     {
       path: '/mypage',
-      component: MyPage
+      component: MyPage,
+      beforeEnter: (to, from, next) => {
+        // authstore에서 isLogin 확인 후 분기처리 => navigation guard
+        const { authStore } = useAuthStore()
+        let ssLogin = sessionStorage.getItem('isLogin')
+
+        if (authStore.isLogin || ssLogin == 'true') {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     }
   ]
 })
