@@ -20,6 +20,13 @@ if (isLogin == 'true') {
     userNickname: userNickname,
     userId: userId
   })
+} else {
+  setLogin({
+    isLogin: false,
+    userNickName: '',
+    userId: '',
+    userEmail: ''
+  })
 }
 </script>
 

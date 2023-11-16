@@ -2,8 +2,8 @@
   <div class="login-page">
     <div class="form">
       <form class="login-form">
-        <input type="email" placeholder="이메일" v-model="authStore.userEmail" />
-        <input type="password" placeholder="비밀번호" v-model="authStore.userPassword" />
+        <input type="email" placeholder="이메일" v-model="userEmail" />
+        <input type="password" placeholder="비밀번호" v-model="userPassword" />
       </form>
 
       <button @click="login">로그인</button>
@@ -27,6 +27,8 @@
       </p>
     </div>
   </div>
+
+  <SendEmailModal></SendEmailModal>
 </template>
 
 <script setup>
@@ -37,23 +39,27 @@ import http from '@/common/axios.js'
 
 // bootstrap 객체 생성
 import { Modal } from 'bootstrap'
-import { ref } from 'vue'
-const { authStore, setLogin } = useAuthStore()
+import { ref, onMounted } from 'vue'
 
+const { authStore, setLogin } = useAuthStore()
+console.log('auth', authStore)
 const router = useRouter()
 const checkEmail = ref('')
-const isChecked = ref(false)
+const userEmail = ref('')
+const userPassword = ref('')
 
-let sendEmailModal = null
+var sendEmailModal = document.getElementById('sendEmailModal')
 
 onMounted(() => {
   sendEmailModal = new Modal(document.getElementById('sendEmailModal'))
 })
 
+const showSendEmailModal = () => sendEmailModal.show()
+
 const login = async () => {
   let loginObj = {
-    userPassword: authStore.userPassword,
-    userEmail: authStore.userEmail
+    userPassword: userPassword.value,
+    userEmail: userEmail.value
   }
 
   try {
@@ -69,24 +75,9 @@ const login = async () => {
         userNickName: data.userNickName,
         userId: data.userId
       })
-      console.log(authStore)
       router.push('/')
     } else if (data.result == 'fail') {
       alert('이메일 혹은 비밀번호를 확인하세요.')
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const sendEmail = async () => {
-  try {
-    let { data } = await http.get(`/users/email/${checkEmail.value}`)
-    console.log(data)
-    if (data.result == 'success') {
-      isChecked.value = true
-    } else if (data.result == 'fail') {
-      alert('존재하지 않는 이메일입니다.')
     }
   } catch (error) {
     console.log(error)

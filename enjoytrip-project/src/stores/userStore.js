@@ -9,15 +9,16 @@ export const useAuthStore = defineStore('authStore', () => {
     userName: '',
     userEmail: '',
     userId: '',
-    userPassword: '',
     userNickName: ''
   })
 
   // login후 변경
   const setLogin = (payload) => {
+    console.log('before', authStore)
     authStore.isLogin = payload.isLogin
     authStore.userNickName = payload.userNickName
     authStore.userId = payload.userId
+    console.log('after', authStore)
   }
 
   return { authStore, setLogin }

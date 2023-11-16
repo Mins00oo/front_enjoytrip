@@ -104,7 +104,8 @@ const logout = async () => {
       setLogin({
         isLogin: false,
         userNickName: '',
-        userId: ''
+        userId: '',
+        userEmail: ''
       })
       alert('로그아웃 되었습니다.')
       router.push('/')
