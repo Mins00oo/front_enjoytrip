@@ -30,8 +30,8 @@
       </div>
       <div class="right col-lg-8">
         <ul class="nav">
-          <li>Gallery</li>
-          <li>Collections</li>
+          <li @click="selectTab('gallery')" :class="{ 'selected': selectedTab === 'gallery' }">Gallery</li>
+          <li @click="selectTab('review')" :class="{ 'selected': selectedTab === 'review' }">Reviews</li>
           <li>Groups</li>
           <li>About</li>
         </ul>
@@ -48,7 +48,9 @@
         </button>
 
         <!--갤러리 이미지-->
-        <star-list></star-list>
+        <star-list v-show="selectedTab === 'gallery'"></star-list>
+        <!--리뷰-->
+        <review-list v-show="selectedTab === 'review'"></review-list>
       </div>
     </div>
   </div>
@@ -89,6 +91,7 @@
 import http from '@/common/axios.js'
 import UserModifyModal from './modal/UserModifyModal.vue'
 import StarList from "../star/StarList.vue"
+import ReviewList from "../review/ReviewList.vue"
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
@@ -138,8 +141,15 @@ const deleteUser = async () => {
     console.log(error)
   }
 }
-
 userDetail()
+
+//초기값은 gallery
+const selectedTab = ref('gallery');
+
+const selectTab = (tab) => {
+  selectedTab.value = tab;
+}
+
 </script>
 
 <style scoped>

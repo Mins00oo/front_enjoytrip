@@ -7,8 +7,8 @@ export const useAuthStore = defineStore('authStore', () => {
   const authStore = reactive({
     isLogin: false,
     userName: '',
-    userEmail: '',
-    userId: '',
+    userEmail: 'aa@naver.com',
+    userId: '1234',
     userNickName: ''
   })
 
