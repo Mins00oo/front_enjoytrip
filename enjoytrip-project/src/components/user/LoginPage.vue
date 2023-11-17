@@ -48,7 +48,7 @@ const checkEmail = ref('')
 const userEmail = ref('')
 const userPassword = ref('')
 
-var sendEmailModal = document.getElementById('sendEmailModal')
+let sendEmailModal = null
 
 onMounted(() => {
   sendEmailModal = new Modal(document.getElementById('sendEmailModal'))

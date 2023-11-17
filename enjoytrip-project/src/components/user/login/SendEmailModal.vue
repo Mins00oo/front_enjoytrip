@@ -47,13 +47,12 @@ import http from '@/common/axios.js'
 
 const checkEmail = ref('')
 const { authStore, setLogin } = useAuthStore()
-const router = useRouter()
 
 let changePasswordModal = null
 let sendEmailModal = null
 
 onMounted(() => {
-  changePasswordModal = new Modal(document.getElementById('changePasswordModal'))
+  changePasswordModal = new Modal(document.getElementById('changePassword'))
   sendEmailModal = new Modal(document.getElementById('sendEmailModal'))
 })
 
@@ -64,7 +63,6 @@ const sendEmail = async () => {
     if (data.result == 'success') {
       // 이메일 인증 성공 시
       showChangePasswordModal()
-      sendEmailModal.hide()
     } else if (data.result == 'fail') {
       alert('존재하지 않는 이메일입니다.')
     }

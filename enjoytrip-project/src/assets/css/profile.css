@@ -175,6 +175,19 @@ main {
   /* font-weight: 400; */
 }
 
+.btn-delete {
+  position: static;
+  font-size: 11pt;
+  background-color: #198754 !important;
+  color: #fff;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-family: 'SUITE-Regular';
+  /* font-weight: 400; */
+  margin-left: 10px; /* 버튼 사이의 간격 */
+  /* 다른 스타일이 필요하다면 여기에 추가 */
+}
+
 .follow:hover {
   box-shadow: 0 0 15px rgba(0,0,0,0.2), 0 0 15px rgba(0,0,0,0.2);
 }

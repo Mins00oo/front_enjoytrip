@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="changePasswordModal"
+    id="changePassword"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
@@ -80,7 +80,7 @@ import { Modal } from 'bootstrap'
 let changePasswordModal = null
 
 onMounted(() => {
-  changePasswordModal = new Modal(document.getElementById('changePasswordModal'))
+  changePasswordModal = new Modal(document.getElementById('changePassword'))
 })
 
 const router = useRouter()
@@ -133,8 +133,10 @@ const changePassword = async () => {
 
   let userObj = {
     userPassword: userPassword.value,
-    userEmail: 'test@naver.com'
+    userEmail: 'aa@naver.com'
   }
+
+  console.log()
 
   try {
     let { data } = await http.put('/users/pw', userObj)
