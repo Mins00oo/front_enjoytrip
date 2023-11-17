@@ -29,14 +29,15 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_01.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
-                  <router-link to="/detail" class="btn btn-success text-white">
+                  <button @click="star" class="btn btn-success text-white">
                     <i class="far fa-heart"></i>
-                  </router-link>
+                  </button>
+                  <!-- <router-link to="/detail" class="btn btn-success text-white">
+                    <i class="far fa-heart"></i>
+                  </router-link> -->
                 </li>
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white mt-2">
@@ -57,18 +58,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -88,9 +81,7 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_02.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white">
@@ -116,18 +107,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -147,9 +130,7 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_03.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white">
@@ -175,18 +156,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -206,9 +179,7 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_04.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white">
@@ -234,18 +205,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -265,9 +228,7 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_05.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white">
@@ -293,18 +254,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -324,9 +277,7 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_06.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white">
@@ -352,18 +303,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -383,9 +326,7 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_07.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white">
@@ -411,18 +352,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -442,9 +375,7 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_08.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white">
@@ -470,18 +401,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -501,9 +424,7 @@
         <div class="card mb-4 product-wap rounded-0">
           <div class="card rounded-0">
             <img class="card-img rounded-0 img-fluid" src="@/assets/img/shop_09.jpg" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
               <ul class="list-unstyled">
                 <li>
                   <router-link to="/detail" class="btn btn-success text-white">
@@ -529,18 +450,10 @@
               <li>M/L/X/XL</li>
               <li class="pt-2">
                 <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                <span
-                  class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                ></span>
-                <span
-                  class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                ></span>
+                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
               </li>
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
@@ -560,26 +473,36 @@
     <div div="row">
       <ul class="pagination pagination-lg justify-content-end">
         <li class="page-item disabled">
-          <a
-            class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0"
-            href="#"
-            tabindex="-1"
-            >1</a
-          >
+          <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
         </li>
         <li class="page-item">
-          <a
-            class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
-            href="#"
-            >2</a
-          >
+          <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
         </li>
         <li class="page-item">
-          <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#"
-            >3</a
-          >
+          <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
         </li>
       </ul>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import http from '@/common/axios.js'
+
+//관광지 아이디 넣어주면 됨!!
+const contentId = ref('125408')   
+const starObj = {
+  contentId: contentId.value
+}
+
+const star = async () => {
+  try {
+    let { data } = await http.post('tours/stars', starObj)
+    console.log(data.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+</script>
