@@ -86,7 +86,7 @@ import { useAuthStore } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
 import http from '@/common/axios.js'
 
-const { authStore, setLogin } = useAuthStore()
+const { authStore, setLogout } = useAuthStore()
 const router = useRouter()
 
 console.log(authStore)
@@ -101,12 +101,13 @@ const logout = async () => {
       sessionStorage.removeItem('userNickName')
       sessionStorage.removeItem('userId')
       // store 변경
-      setLogin({
+      setLogout({
         isLogin: false,
         userNickName: '',
         userId: '',
         userEmail: ''
       })
+      console.log(authStore)
       alert('로그아웃 되었습니다.')
       router.push('/')
     }

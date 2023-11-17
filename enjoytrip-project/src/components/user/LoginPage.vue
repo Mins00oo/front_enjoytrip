@@ -2,8 +2,8 @@
   <div class="login-page">
     <div class="form">
       <form class="login-form">
-        <input type="email" placeholder="이메일" v-model="userEmail" />
-        <input type="password" placeholder="비밀번호" v-model="userPassword" />
+        <input type="email" placeholder="이메일" v-model="authStore.userEmail" />
+        <input type="password" placeholder="비밀번호" v-model="authStore.userPassword" />
       </form>
 
       <button @click="login">로그인</button>
@@ -58,8 +58,8 @@ const showSendEmailModal = () => sendEmailModal.show()
 
 const login = async () => {
   let loginObj = {
-    userPassword: userPassword.value,
-    userEmail: userEmail.value
+    userPassword: authStore.userPassword,
+    userEmail: authStore.userEmail
   }
 
   try {

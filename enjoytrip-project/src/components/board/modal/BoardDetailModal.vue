@@ -1,6 +1,6 @@
 <template>
-  <div class="modal fade" id="detailModal">
-    <div class="modal-dialog modal-lg">
+  <div class="modal" tabindex="-1" id="detailModal">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">글 상세</h5>
@@ -12,47 +12,49 @@
           ></button>
         </div>
         <div class="modal-body">
-          <table class="table">
+          <table class="table table-hover">
             <tbody>
               <tr>
-                <td>글번호</td>
-                <td id="boardIdDetail">{{ props.boardId }}</td>
+                <td width="20%">글번호</td>
+                <td>{{ boardStore.boardId }}</td>
               </tr>
               <tr>
                 <td>제목</td>
-                <td id="titleDetail">{{ props.boardTitle }}</td>
+                <td>{{ boardStore.title }}</td>
               </tr>
               <tr>
                 <td>내용</td>
-                <td id="contentDetail">{{ props.boardContent }}</td>
+                <td v-html="boardStore.content"></td>
               </tr>
               <tr>
                 <td>작성자</td>
-                <td id="userNameDetail">{{ props.userNickname }}</td>
+                <td>{{ boardStore.userName }}</td>
               </tr>
+              <!-- 아래 코드는 오류 발생 초기 생성 시점에 regDt = {} -->
+              <!-- <tr><td>작성일시</td><td>{{ makeDateStr(regDt.date.year, regDt.date.month, regDt.date.day, '.') }}</td></tr> -->
               <tr>
                 <td>작성일시</td>
-                <td id="regDtDetail">{{ props.boardDate }}</td>
+                <td>{{ boardStore.regDate }}</td>
               </tr>
             </tbody>
           </table>
-          <BoardUpdateModal></BoardUpdateModal>
+        </div>
+        <div class="modal-footer">
           <button
-            id="btnBoardUpdateUI"
+            v-show="boardStore.sameUser"
+            @click="changeToUpdate"
             class="btn btn-sm btn-primary btn-outline"
-            data-bs-dismiss="modal"
+            data-dismiss="modal"
             type="button"
-            @click="showUpdateBoardModal()"
           >
             글 수정하기
           </button>
-          &nbsp;
           <button
-            id="btnBoardDeleteUI"
+            v-show="boardStore.sameUser"
+            @click="changeToDelete"
             class="btn btn-sm btn-warning btn-outline"
-            data-bs-dismiss="modal"
+            data-dismiss="modal"
             type="button"
-            @click="deleteBoard(props.boardId)"
           >
             글 삭제하기
           </button>
@@ -63,36 +65,13 @@
 </template>
 
 <script setup>
-import { defineProps, ref, watch, onMounted } from 'vue'
-import BoardUpdateModal from './BoardUpdateModal.vue'
-import { Modal } from 'bootstrap'
-import http from '@/common/axios.js'
-import { useRouter } from 'vue-router'
+import { useBoardStore } from '@/stores/boardStore'
 
-let updateModal = null
+const { boardStore } = useBoardStore()
 
-onMounted(() => {
-  updateModal = new Modal(document.getElementById('updateModal'))
-})
-
-const router = useRouter()
-const props = defineProps({
-  boardId: Number,
-  boardTitle: String,
-  boardContent: String,
-  userId: Number,
-  userNickname: String,
-  boardDate: String
-})
-
-const deleteBoard = async (boardId) => {
-  try {
-    await http.delete(`http://localhost:8080/boards/${boardId}`)
-    router.push('/board')
-  } catch (error) {
-    console.error('게시글을 삭제하는데 실패했습니다.', error)
-  }
-}
-
-const showUpdateBoardModal = () => updateModal.show()
+const emit = defineEmits(['call-parent-change-to-update', 'call-parent-change-to-delete'])
+const changeToUpdate = () => emit('call-parent-change-to-update')
+const changeToDelete = () => emit('call-parent-change-to-delete')
 </script>
+
+<style></style>

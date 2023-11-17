@@ -4,7 +4,7 @@ import TourList from '@/components/main/MainTourList.vue'
 import TourRecommend from '@/components/main/MainTourRecommend.vue'
 import TourListPage from '@/views/TourListPage.vue'
 import TourDetailPage from '@/views/TourDetailPage.vue'
-import BoardListPage from '@/views/BoardListPage.vue'
+import BoardView from '@/views/BoardView.vue'
 //User 관련 추가
 import LoginPage from '@/components/user/LoginPage.vue'
 import RegisterPage from '@/components/user/RegisterPage.vue'
@@ -36,7 +36,7 @@ const router = createRouter({
     },
     {
       path: '/board',
-      component: BoardListPage,
+      component: BoardView,
       beforeEnter: (to, from, next) => {
         // authstore에서 isLogin 확인 후 분기처리 => navigation guard
         const { authStore } = useAuthStore()

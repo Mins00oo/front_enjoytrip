@@ -1,6 +1,6 @@
 <template>
-  <div class="modal fade" id="insertModal">
-    <div class="modal-dialog modal-lg">
+  <div class="modal" tabindex="-1" id="insertModal">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">글 쓰기</h5>
@@ -13,34 +13,18 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <input type="text" class="form-control" placeholder="제목" v-model="title" />
+            <input v-model="title" type="text" class="form-control" placeholder="제목" />
           </div>
           <div class="mb-3">
+            <!-- <div id=divEditorInsert></div> -->
             <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
           </div>
-
-          <div class="form-check mb-3">
-            <input
-              v-model="attachFile"
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="chkFileUploadInsert"
-            />
-            <label class="form-check-label" for="chkFileUploadInsert">파일 추가</label>
-          </div>
-          <div class="mb-3" v-show="attachFile" id="imgFileUploadInsertWrapper">
-            <input @change="changeFile" type="file" id="inputFileUploadInsert" multiple />
-            <div id="imgFileUploadInsertThumbnail" class="thumbnail-wrapper">
-              <!-- vue way img 를 만들어서 append 하지 않고, v-for 로 처리 -->
-              <img v-for="(file, index) in fileList" v-bind:src="file" v-bind:key="index" />
-            </div>
-          </div>
-
+        </div>
+        <div class="modal-footer">
           <button
-            @click="boardInsert()"
-            class="btn btn-sm btn-primary btn-outline float-end"
-            data-bs-dismiss="modal"
+            @click="boardInsert"
+            class="btn btn-sm btn-primary btn-outline"
+            data-dismiss="modal"
             type="button"
           >
             등록
@@ -52,12 +36,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import http from '@/common/axios.js'
+
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { userAuthStore } from '@/stores/userStore.js'
+import VueAlertify from 'vue-alertify'
 import { useRouter } from 'vue-router'
+
+import { useAuthStore } from '@/stores/userStore'
+const { authStore, setLogout } = useAuthStore()
 
 const router = useRouter()
 const ckeditor = CKEditor.component
@@ -66,54 +54,74 @@ const editorData = ref('')
 const editorConfig = {}
 
 const title = ref('')
-const attachFile = ref(false)
-const fileList = ref([])
 
-const changeFile = (fileEvent) => {
-  fileList.value = [] // thumbnail image 초기화
+onMounted(() => {
+  // console.log( document.querySelector("#inputFileUploadInsert") )
+  initUI()
+})
 
-  const fileArray = Array.from(fileEvent.target.files)
-  fileArray.forEach((file) => fileList.value.push(URL.createObjectURL(file)))
+const initUI = () => {
+  title.value = ''
+  editorData.value = ''
 }
 
+// 굳이 actions 에 있을 필요 없다. backend async 작업이지만, 그 결과로 store 를 변경하는 내용이 없다.
 const boardInsert = async () => {
-  let formData = new FormData()
-  formData.append('boardTitle', title.value)
-  formData.append('boardContent', editorData.value)
-
-  let attachFiles = document.querySelector('#inputFileUploadInsert').files
-  if (attachFiles.length > 0) {
-    const fileArray = Array.from(attachFiles)
-    fileArray.forEach((file) => formData.append('file', file))
+  let boardObj = {
+    boardTitle: title.value,
+    boardContent: editorData.value
   }
+  console.log(boardObj)
 
   let options = {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'application/json' }
   }
 
   try {
-    let { data } = await http.post('/boards', formData, options)
+    let { data } = await http.post('/boards', boardObj, options)
+
+    console.log('InsertModalVue: data : ')
+    console.log('aaa', data)
     if (data.result == 'login') {
+      closeModal()
       doLogout()
     } else {
-      // 등록 성공!!
+      // this.$alertify.success('글이 등록되었습니다.');
+      closeModal()
     }
   } catch (error) {
-    console.error(error)
+    console.log('InsertModalVue: error ')
+    console.log(error)
   }
 }
 
+const emit = defineEmits(['call-parent-insert'])
+const closeModal = () => emit('call-parent-insert')
+
+// logout 처리 별도 method
 const doLogout = () => {
-  // authStore 초기화
-  userAuthStore.setLogout()
+  setLogout({
+    isLogin: false,
+    userNickName: '',
+    userId: '',
+    userEmail: ''
+  })
   router.push('/login')
 }
+
+onMounted(() => {
+  // bootstrap modal show event hook
+  // UpdateModal 이 보일 때 초기화
+  const thisModal = document.getElementById('insertModal')
+  thisModal.addEventListener('show.bs.modal', function () {
+    initUI()
+  })
+})
 </script>
 
 <style scoped>
-/* deep selector >>> 함수 deep() */
 .modal:deep(.ck-editor__editable) {
-  height: 400px;
+  min-height: 300px !important;
 }
 
 .modal:deep(.thumbnail-wrapper) {
