@@ -21,5 +21,16 @@ export const useAuthStore = defineStore('authStore', () => {
     console.log('after', authStore)
   }
 
-  return { authStore, setLogin }
+  const setLogout = () => {
+    sessionStorage.removeItem('isLogin')
+    sessionStorage.removeItem('userName')
+    sessionStorage.removeItem('userNickName')
+
+    authStore.isLogin = false
+    authStore.userName = ''
+    authStore.userId = ''
+    authStore.userNickName = ''
+  }
+
+  return { authStore, setLogin, setLogout }
 })

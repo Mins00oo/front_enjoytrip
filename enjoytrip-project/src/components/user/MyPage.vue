@@ -28,6 +28,7 @@
         <!--좌측 하단 소개말-->
         <p class="desc">버킷리스트: 해외 유명맛집 부수기!!</p>
       </div>
+      <UserModifyModal :userName="userName" :userNickname="userNickname" :userEmail="userEmail" />
       <div class="right col-lg-8">
         <ul class="nav">
           <li @click="selectTab('gallery')" :class="{ 'selected': selectedTab === 'gallery' }">Gallery</li>
@@ -36,16 +37,11 @@
           <li>About</li>
         </ul>
         <span class="edit" @click="showUserModifyModal()">정보 수정</span>
+        &nbsp; &nbsp;
 
+        <UserDeleteModal></UserDeleteModal>
         <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn-delete"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-        >
-          회원 탈퇴
-        </button>
+        <span class="edit" @click="showUserDeleteModal()">회원 탈퇴</span>
 
         <!--갤러리 이미지-->
         <star-list v-show="selectedTab === 'gallery'"></star-list>
@@ -54,44 +50,16 @@
       </div>
     </div>
   </div>
-
-  <!-- 회원탈퇴 Modal -->
-  <div
-    class="modal fade"
-    id="staticBackdrop"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">회원 탈퇴</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">정말 탈퇴하시겠습니까?</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-          <button type="button" class="btn btn-primary" @click="deleteUser()">탈퇴하기</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <UserModifyModal></UserModifyModal>
 </template>
 
 <script setup>
 import http from '@/common/axios.js'
 import UserModifyModal from './modal/UserModifyModal.vue'
+
 import StarList from "../star/StarList.vue"
 import ReviewList from "../review/ReviewList.vue"
+import UserDeleteModal from './modal/UserDeleteModal.vue'
+
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
@@ -119,27 +87,14 @@ const userDetail = async () => {
     userName.value = data.userName
     userNickname.value = data.userNickname
     userEmail.value = data.userEmail
+    console.log(userEmail)
   } catch (error) {
     console.log(error)
   }
 }
 
-const showUserModifyModal = () => userModifyModal.show()
-
-const deleteUser = async () => {
-  try {
-    let { data } = await http.delete(`/users/${authStore.userId}`)
-    userName.value = ''
-    userNickname.value = ''
-    userEmail.value = ''
-    sessionStorage.removeItem('isLogin')
-    sessionStorage.removeItem('userNickName')
-    sessionStorage.removeItem('userId')
-    deleteUserModal.hide()
-    router.push('/')
-  } catch (error) {
-    console.log(error)
-  }
+const showUserModifyModal = () => {
+  userModifyModal.show()
 }
 userDetail()
 
@@ -149,6 +104,16 @@ const selectedTab = ref('gallery');
 const selectTab = (tab) => {
   selectedTab.value = tab;
 }
+
+
+const showUserDeleteModal = () => {
+  deleteUserModal.show()
+}
+
+onMounted(() => {
+  userDetail()
+  console.log(userName.value)
+})
 
 </script>
 
