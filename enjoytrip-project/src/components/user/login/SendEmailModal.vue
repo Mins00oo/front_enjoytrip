@@ -33,12 +33,11 @@
     </div>
   </div>
 
-  <ChangePassword></ChangePassword>
+  <ChangePassword :checkEmail="checkEmail"></ChangePassword>
 </template>
 
 <script setup>
 import { useAuthStore } from '@/stores/userStore'
-import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { Modal } from 'bootstrap'
 

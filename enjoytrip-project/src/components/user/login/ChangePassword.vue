@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, defineProps, watch } from 'vue'
 import http from '@/common/axios.js'
 import { useRouter } from 'vue-router'
 import { Modal } from 'bootstrap'
@@ -83,7 +83,19 @@ onMounted(() => {
   changePasswordModal = new Modal(document.getElementById('changePassword'))
 })
 
+const props = defineProps({
+  checkEmail: String
+})
+
+watch(
+  () => props.checkEmail,
+  (newVal) => {
+    userEmail.value = newVal
+  }
+)
+
 const router = useRouter()
+const userEmail = ref('')
 const userPassword = ref('')
 const userPassword2 = ref('')
 
@@ -133,10 +145,8 @@ const changePassword = async () => {
 
   let userObj = {
     userPassword: userPassword.value,
-    userEmail: 'aa@naver.com'
+    userEmail: userEmail.value
   }
-
-  console.log()
 
   try {
     let { data } = await http.put('/users/pw', userObj)
