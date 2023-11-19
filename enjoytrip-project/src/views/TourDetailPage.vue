@@ -1,8 +1,7 @@
 <template>
   <TourDetailContent></TourDetailContent>
-  <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
-    <TourRelateContent></TourRelateContent>
-  </div>
+  <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel"></div>
+  <TourRelateContent></TourRelateContent>
 </template>
 
 <script setup>

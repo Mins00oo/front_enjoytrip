@@ -1,36 +1,123 @@
 <template>
-  <section class="container py-5">
-    <div class="row text-center pt-3">
-      <div class="col-lg-6 m-auto">
-        <h1 class="h1">Categories of The Month</h1>
-        <p>
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-          anim id est laborum.
-        </p>
+  <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+      <li
+        v-for="(item, index) in tourStore.recommendList"
+        :key="index"
+        data-bs-target="#template-mo-zay-hero-carousel"
+        :data-bs-slide-to="index"
+        :class="{ active: index === 0 }"
+      ></li>
+    </ol>
+    <div class="carousel-inner">
+      <div
+        v-for="(item, index) in tourStore.recommendList"
+        :key="index"
+        :class="['carousel-item', { active: index === 0 }]"
+        @click="tourDetail(item.contentId)"
+      >
+        <div class="container">
+          <div class="row p-5">
+            <div class="product-wap card rounded-0">
+              <div class="col-md-8 col-lg-6 mx-auto order-lg-last text-center">
+                <img class="img-fluid" :src="item.firstImage" />
+                <div
+                  class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
+                >
+                  <ul class="list-unstyled">
+                    <li>
+                      <button
+                        class="btn btn-success text-white"
+                        @click="tourDetail(item.contentId)"
+                      >
+                        <i class="far fa-heart"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="btn btn-success text-white mt-2"
+                        @click="tourDetail(item.contentId)"
+                      >
+                        <i class="far fa-eye"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="btn btn-success text-white mt-2"
+                        @click="tourDetail(item.contentId)"
+                      >
+                        <i class="fas fa-cart-plus"></i>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12 col-md-4 p-5 mt-3">
-        <a href="#"
-          ><img src="src/assets/img/category_img_01.jpg" class="rounded-circle img-fluid border"
-        /></a>
-        <h5 class="text-center mt-3 mb-3">Watches</h5>
-        <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-      </div>
-      <div class="col-12 col-md-4 p-5 mt-3">
-        <a href="#"
-          ><img src="src/assets/img/category_img_02.jpg" class="rounded-circle img-fluid border"
-        /></a>
-        <h2 class="h5 text-center mt-3 mb-3">Shoes</h2>
-        <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-      </div>
-      <div class="col-12 col-md-4 p-5 mt-3">
-        <a href="#"
-          ><img src="src/assets/img/category_img_03.jpg" class="rounded-circle img-fluid border"
-        /></a>
-        <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
-        <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-      </div>
-    </div>
-  </section>
+
+    <!-- 캐러셀 컨트롤러 -->
+    <a
+      class="carousel-control-prev text-decoration-none w-auto ps-3"
+      href="#template-mo-zay-hero-carousel"
+      role="button"
+      data-bs-slide="prev"
+    >
+      <i class="fas fa-chevron-left"></i>
+    </a>
+    <a
+      class="carousel-control-next text-decoration-none w-auto pe-3"
+      href="#template-mo-zay-hero-carousel"
+      role="button"
+      data-bs-slide="next"
+    >
+      <i class="fas fa-chevron-right"></i>
+    </a>
+  </div>
 </template>
+
+<script setup>
+import { useTourStore } from '../../stores/tourStore'
+import { ref, onMounted } from 'vue'
+import http from '@/common/axios.js'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const { tourStore, tourList, tourRecommendList, setTourDetail } = useTourStore()
+
+tourRecommendList()
+
+const tourDetail = async (contentId) => {
+  console.log(contentId)
+  try {
+    let { data } = await http.get('/tours/' + contentId)
+
+    if (data.result == 'login') {
+      console.log(data)
+      doLogout()
+    } else {
+      console.log(data)
+      sessionStorage.setItem('contentId', contentId)
+      setTourDetail(data)
+
+      router.push({ name: 'TourDetail', params: { contentId: contentId } })
+    }
+  } catch (error) {
+    console.log('BoardMainVue: error : ')
+    console.log(error)
+  }
+}
+
+// logout 처리 별도 method
+const doLogout = () => {
+  setLogout({
+    isLogin: false,
+    userNickName: '',
+    userId: '',
+    userEmail: ''
+  })
+  router.push('/login')
+}
+</script>

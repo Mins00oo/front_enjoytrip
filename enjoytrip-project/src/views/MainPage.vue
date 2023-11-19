@@ -1,13 +1,18 @@
 <template>
+  <MainTourRecommend></MainTourRecommend>
   <MainTourList></MainTourList>
   <MainTourCategory></MainTourCategory>
-  <MainTourRecommend></MainTourRecommend>
 </template>
 
 <script setup>
+import MainTourRecommend from '@/components/main/MainTourRecommend.vue'
 import MainTourList from '@/components/main/MainTourList.vue'
 import MainTourCategory from '@/components/main/MainTourCategory.vue'
-import MainTourRecommend from '@/components/main/MainTourRecommend.vue'
+import { useTourStore } from '../stores/tourStore'
 
-console.log('메인페이지 이동!')
+const { tourStore, tourList, tourRecommendList, mainTourRecommendList } = useTourStore()
+
+// 초기 작업
+tourRecommendList()
+mainTourRecommendList()
 </script>

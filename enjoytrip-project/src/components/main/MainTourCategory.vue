@@ -1,96 +1,52 @@
 <template>
-  <section class="bg-light">
-    <div class="container py-5">
-      <div class="row text-center py-3">
-        <div class="col-lg-6 m-auto">
-          <h1 class="h1">Featured Product</h1>
-          <p>
-            Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-            sint occaecat cupidatat non proident.
-          </p>
-        </div>
+  <section class="container py-5">
+    <div class="row text-center pt-3">
+      <div class="col-lg-6 m-auto">
+        <h1 class="h1">지역별</h1>
       </div>
-      <div class="row">
-        <div class="col-12 col-md-4 mb-4">
-          <div class="card h-100">
-            <a href="shop-single.html">
-              <img src="src/assets/img/feature_prod_01.jpg" class="card-img-top" alt="..." />
-            </a>
-            <div class="card-body">
-              <ul class="list-unstyled d-flex justify-content-between">
-                <li>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-muted fa fa-star"></i>
-                  <i class="text-muted fa fa-star"></i>
-                </li>
-                <li class="text-muted text-right">$240.00</li>
-              </ul>
-              <a href="shop-single.html" class="h2 text-decoration-none text-dark">Gym Weight</a>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia
-                deserunt.
-              </p>
-              <p class="text-muted">Reviews (24)</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-4 mb-4">
-          <div class="card h-100">
-            <a href="shop-single.html">
-              <img src="src/assets/img/feature_prod_02.jpg" class="card-img-top" alt="..." />
-            </a>
-            <div class="card-body">
-              <ul class="list-unstyled d-flex justify-content-between">
-                <li>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-muted fa fa-star"></i>
-                  <i class="text-muted fa fa-star"></i>
-                </li>
-                <li class="text-muted text-right">$480.00</li>
-              </ul>
-              <a href="shop-single.html" class="h2 text-decoration-none text-dark"
-                >Cloud Nike Shoes</a
-              >
-              <p class="card-text">
-                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed,
-                commodo ullamcorper.
-              </p>
-              <p class="text-muted">Reviews (48)</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-4 mb-4">
-          <div class="card h-100">
-            <a href="shop-single.html">
-              <img src="src/assets/img/feature_prod_03.jpg" class="card-img-top" alt="..." />
-            </a>
-            <div class="card-body">
-              <ul class="list-unstyled d-flex justify-content-between">
-                <li>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-warning fa fa-star"></i>
-                  <i class="text-warning fa fa-star"></i>
-                </li>
-                <li class="text-muted text-right">$360.00</li>
-              </ul>
-              <a href="shop-single.html" class="h2 text-decoration-none text-dark"
-                >Summer Addides Shoes</a
-              >
-              <p class="card-text">
-                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et
-                scelerisque ipsum lobortis nec.
-              </p>
-              <p class="text-muted">Reviews (74)</p>
-            </div>
-          </div>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4 p-5 mt-3">
+        <img src="/src/assets/img/seoul.jpg" class="rounded-circle img-fluid border" />
+        <h5 class="text-center mt-3 mb-3">서울</h5>
+        <p class="text-center">
+          <button class="btn btn-success" @click="goToCategoryView('서울')">둘러보기</button>
+        </p>
+      </div>
+      <div class="col-12 col-md-4 p-5 mt-3">
+        <img src="src/assets/img/busan.jpg" class="rounded-circle img-fluid border" />
+        <h2 class="h5 text-center mt-3 mb-3">부산</h2>
+        <p class="text-center">
+          <button class="btn btn-success" @click="goToCategoryView('부산')">둘러보기</button>
+        </p>
+      </div>
+      <div class="col-12 col-md-4 p-5 mt-3">
+        <img src="src/assets/img/jeju.webp" class="rounded-circle img-fluid border" />
+        <h2 class="h5 text-center mt-3 mb-3">제주</h2>
+        <p class="text-center">
+          <button class="btn btn-success" @click="goToCategoryView('제주')">둘러보기</button>
+        </p>
       </div>
     </div>
   </section>
 </template>
+
+<script setup>
+import { useTourStore } from '../../stores/tourStore'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const { tourStore, tourList } = useTourStore()
+
+const goToCategoryView = (region) => {
+  router.push({ path: `/tours/region/${region}` })
+}
+</script>
+
+<style>
+.image-fixed-size {
+  width: 250px; /* 고정 너비 */
+  height: 250px; /* 고정 높이 */
+  object-fit: cover; /* 이미지 비율 유지하며 잘라내기 */
+}
+</style>

@@ -1,211 +1,66 @@
 <template>
   <div class="row text-left p-2 pb-3">
-    <h4>Related Products</h4>
+    <h4>관련 관광지</h4>
   </div>
-
   <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
-      <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
-      <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
-      <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+      <li
+        v-for="(item, index) in tourStore.tourRelatedList"
+        :key="index"
+        data-bs-target="#template-mo-zay-hero-carousel"
+        :data-bs-slide-to="index"
+        :class="{ active: index === 0 }"
+      ></li>
     </ol>
     <div class="carousel-inner">
-      <div class="carousel-item active">
+      <div
+        v-for="(item, index) in tourStore.tourRelatedList"
+        :key="index"
+        :class="['carousel-item', { active: index === 0 }]"
+      >
         <div class="container">
-          <div class="p-2 pb-3">
+          <div class="row p-5">
             <div class="product-wap card rounded-0">
-              <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                <img class="img-fluid" src="@/assets/img/banner_img_01.jpg" />
+              <div class="col-md-8 col-lg-6 mx-auto order-lg-last text-center">
+                <img class="img-fluid" :src="item.firstImage" />
                 <div
                   class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
                 >
                   <ul class="list-unstyled">
                     <li>
-                      <router-link to="/detail" class="btn btn-success text-white">
+                      <button
+                        class="btn btn-success text-white"
+                        @click="tourDetail(item.contentId)"
+                      >
                         <i class="far fa-heart"></i>
-                      </router-link>
+                      </button>
                     </li>
                     <li>
-                      <router-link to="/detail" class="btn btn-success text-white mt-2">
+                      <button
+                        class="btn btn-success text-white mt-2"
+                        @click="tourDetail(item.contentId)"
+                      >
                         <i class="far fa-eye"></i>
-                      </router-link>
+                      </button>
                     </li>
                     <li>
-                      <router-link to="/detail" class="btn btn-success text-white mt-2">
+                      <button
+                        class="btn btn-success text-white mt-2"
+                        @click="tourDetail(item.contentId)"
+                      >
                         <i class="fas fa-cart-plus"></i>
-                      </router-link>
+                      </button>
                     </li>
                   </ul>
                 </div>
-              </div>
-              <div class="card-body">
-                <a href="shop-single.html" class="h3 text-decoration-none">Red Clothing</a>
-                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                  <li>M/L/X/XL</li>
-                  <li class="pt-2">
-                    <span
-                      class="product-color-dot color-dot-red float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                    ></span>
-                  </li>
-                </ul>
-                <ul class="list-unstyled d-flex justify-content-center mb-1">
-                  <li>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-muted fa fa-star"></i>
-                  </li>
-                </ul>
-                <p class="text-center mb-0">$20.00</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="container">
-          <div class="p-2 pb-3">
-            <div class="product-wap card rounded-0">
-              <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                <img class="img-fluid" src="@/assets/img/banner_img_01.jpg" />
-                <div
-                  class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-                >
-                  <ul class="list-unstyled">
-                    <li>
-                      <router-link to="/detail" class="btn btn-success text-white">
-                        <i class="far fa-heart"></i>
-                      </router-link>
-                    </li>
-                    <li>
-                      <router-link to="/detail" class="btn btn-success text-white mt-2">
-                        <i class="far fa-eye"></i>
-                      </router-link>
-                    </li>
-                    <li>
-                      <router-link to="/detail" class="btn btn-success text-white mt-2">
-                        <i class="fas fa-cart-plus"></i>
-                      </router-link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card-body">
-                <a href="shop-single.html" class="h3 text-decoration-none">Red Clothing</a>
-                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                  <li>M/L/X/XL</li>
-                  <li class="pt-2">
-                    <span
-                      class="product-color-dot color-dot-red float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                    ></span>
-                  </li>
-                </ul>
-                <ul class="list-unstyled d-flex justify-content-center mb-1">
-                  <li>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-muted fa fa-star"></i>
-                  </li>
-                </ul>
-                <p class="text-center mb-0">$20.00</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="container">
-          <div class="p-2 pb-3">
-            <div class="product-wap card rounded-0">
-              <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                <img class="img-fluid" src="@/assets/img/banner_img_01.jpg" />
-                <div
-                  class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-                >
-                  <ul class="list-unstyled">
-                    <li>
-                      <router-link to="/detail" class="btn btn-success text-white">
-                        <i class="far fa-heart"></i>
-                      </router-link>
-                    </li>
-                    <li>
-                      <router-link to="/detail" class="btn btn-success text-white mt-2">
-                        <i class="far fa-eye"></i>
-                      </router-link>
-                    </li>
-                    <li>
-                      <router-link to="/detail" class="btn btn-success text-white mt-2">
-                        <i class="fas fa-cart-plus"></i>
-                      </router-link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card-body">
-                <a href="shop-single.html" class="h3 text-decoration-none">Red Clothing</a>
-                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                  <li>M/L/X/XL</li>
-                  <li class="pt-2">
-                    <span
-                      class="product-color-dot color-dot-red float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-blue float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-black float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-light float-left rounded-circle ml-1"
-                    ></span>
-                    <span
-                      class="product-color-dot color-dot-green float-left rounded-circle ml-1"
-                    ></span>
-                  </li>
-                </ul>
-                <ul class="list-unstyled d-flex justify-content-center mb-1">
-                  <li>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-warning fa fa-star"></i>
-                    <i class="text-muted fa fa-star"></i>
-                  </li>
-                </ul>
-                <p class="text-center mb-0">$20.00</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- 캐러셀 컨트롤러 -->
     <a
       class="carousel-control-prev text-decoration-none w-auto ps-3"
       href="#template-mo-zay-hero-carousel"
@@ -224,3 +79,37 @@
     </a>
   </div>
 </template>
+
+<script setup>
+import { useTourStore } from '@/stores/tourStore'
+import http from '@/common/axios.js'
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+
+const router = useRouter()
+
+const { tourStore, setTourDetail, tourRelatedList } = useTourStore()
+
+tourRelatedList(tourStore.contentId)
+
+const tourDetail = async (contentId) => {
+  console.log(contentId)
+  try {
+    let { data } = await http.get('/tours/' + contentId)
+
+    if (data.result == 'login') {
+      console.log(data)
+      doLogout()
+    } else {
+      console.log(data)
+      sessionStorage.setItem('contentId', contentId)
+      setTourDetail(data)
+
+      router.push({ name: 'TourDetail', params: { contentId: contentId } })
+    }
+  } catch (error) {
+    console.log('BoardMainVue: error : ')
+    console.log(error)
+  }
+}
+</script>

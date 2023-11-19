@@ -107,6 +107,13 @@ const starObj = {
   contentId: contentId.value
 }
 
+const props = defineProps({
+  region: String
+})
+
+tourStore.region = props.region
+tourList()
+
 const star = async () => {
   try {
     let { data } = await http.post('tours/stars', starObj)

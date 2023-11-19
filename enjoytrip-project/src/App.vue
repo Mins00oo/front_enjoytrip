@@ -7,10 +7,14 @@ import './assets/css/fontawesome.min.css'
 import './assets/css/custom.css'
 
 import { useAuthStore } from '@/stores/userStore'
+import { useTourStore } from '@/stores/tourStore'
 
 // sessionStorage에 login된 상태를 확인하면 sessionStorage에 있는 값을 이용해서 authStore를 갱신
 const { setLogin } = useAuthStore()
+const { tourStore, tourDetail, tourRelatedList, mainTourRecommendList } = useTourStore()
+
 let isLogin = sessionStorage.getItem('isLogin')
+let isContent = sessionStorage.getItem('contentId')
 
 if (isLogin == 'true') {
   let userNickname = sessionStorage.getItem('userNickname')
@@ -27,6 +31,12 @@ if (isLogin == 'true') {
     userId: '',
     userEmail: ''
   })
+}
+
+if (isContent != null) {
+  let contentId = sessionStorage.getItem('contentId')
+  tourDetail(contentId)
+  tourRelatedList(contentId)
 }
 </script>
 

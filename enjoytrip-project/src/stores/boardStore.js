@@ -39,7 +39,6 @@ export const useBoardStore = defineStore('boardStore', () => {
   const setBoardList = (list) => (boardStore.list = list)
   const setTotalListItemCount = (count) => (boardStore.totalListItemCount = count)
   const setBoardMovePage = (pageIndex) => {
-    console.log(pageIndex, 'sss')
     boardStore.offset = (pageIndex - 1) * boardStore.listRowCount
     boardStore.currentPageIndex = pageIndex
     sessionStorage.setItem('currentPageIndex', pageIndex)
@@ -64,6 +63,8 @@ export const useBoardStore = defineStore('boardStore', () => {
       offset: boardStore.offset,
       searchWord: boardStore.searchWord
     }
+
+    console.log(boardStore)
 
     try {
       let { data } = await http.get('/boards', { params }) // params: params shorthand property, let response 도 제거

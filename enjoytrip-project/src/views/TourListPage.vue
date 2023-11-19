@@ -1,13 +1,18 @@
 <template>
   <div class="container py-5">
     <div class="row">
-      <MainTourCategory></MainTourCategory>
-      <MainTourList></MainTourList>
+      <TourCategory></TourCategory>
+      <TourList></TourList>
     </div>
   </div>
 </template>
 
 <script setup>
-import MainTourCategory from '@/components/tours/TourCategory.vue'
-import MainTourList from '@/components/tours/TourList.vue'
+import TourCategory from '@/components/tours/TourCategory.vue'
+import TourList from '@/components/tours/TourList.vue'
+import { useTourStore } from '../stores/tourStore'
+
+const { tourList, totalPages } = useTourStore()
+
+tourList()
 </script>

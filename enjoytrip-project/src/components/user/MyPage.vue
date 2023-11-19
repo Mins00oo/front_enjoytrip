@@ -31,8 +31,12 @@
       <UserModifyModal :userName="userName" :userNickname="userNickname" :userEmail="userEmail" />
       <div class="right col-lg-8">
         <ul class="nav">
-          <li @click="selectTab('gallery')" :class="{ 'selected': selectedTab === 'gallery' }">Gallery</li>
-          <li @click="selectTab('review')" :class="{ 'selected': selectedTab === 'review' }">Reviews</li>
+          <li @click="selectTab('gallery')" :class="{ selected: selectedTab === 'gallery' }">
+            Gallery
+          </li>
+          <li @click="selectTab('review')" :class="{ selected: selectedTab === 'review' }">
+            Reviews
+          </li>
           <li>Groups</li>
           <li>About</li>
         </ul>
@@ -56,8 +60,8 @@
 import http from '@/common/axios.js'
 import UserModifyModal from './modal/UserModifyModal.vue'
 
-import StarList from "../star/StarList.vue"
-import ReviewList from "../review/ReviewList.vue"
+import StarList from '../star/StarList.vue'
+import ReviewList from '../review/ReviewList.vue'
 import UserDeleteModal from './modal/UserDeleteModal.vue'
 
 import { ref, onMounted } from 'vue'
@@ -74,7 +78,7 @@ onMounted(() => {
 })
 
 const router = useRouter()
-const { authStore } = useAuthStore()
+const { authStore, setLogout } = useAuthStore()
 
 const userName = ref('')
 const userNickname = ref('')
@@ -84,6 +88,9 @@ const userDetail = async () => {
   try {
     let { data } = await http.get(`/users/${authStore.userId}`)
     console.log('userDetailData', data)
+    if (data.result == 'login') {
+      doLogout()
+    }
     userName.value = data.userName
     userNickname.value = data.userNickname
     userEmail.value = data.userEmail
@@ -99,12 +106,11 @@ const showUserModifyModal = () => {
 userDetail()
 
 //초기값은 gallery
-const selectedTab = ref('gallery');
+const selectedTab = ref('gallery')
 
 const selectTab = (tab) => {
-  selectedTab.value = tab;
+  selectedTab.value = tab
 }
-
 
 const showUserDeleteModal = () => {
   deleteUserModal.show()
@@ -115,6 +121,16 @@ onMounted(() => {
   console.log(userName.value)
 })
 
+// logout 처리 별도 method
+const doLogout = () => {
+  setLogout({
+    isLogin: false,
+    userNickName: '',
+    userId: '',
+    userEmail: ''
+  })
+  router.push('/login')
+}
 </script>
 
 <style scoped>
