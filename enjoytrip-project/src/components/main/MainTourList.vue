@@ -37,31 +37,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import { useTourStore } from '../../stores/tourStore'
-import http from '@/common/axios.js'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const { tourStore, setTourDetail } = useTourStore()
-
-const goToTourDetail = async (contentId) => {
-  try {
-    let { data } = await http.get('/tours/' + contentId)
-
-    if (data.result == 'login') {
-      console.log(data)
-      doLogout()
-    } else {
-      console.log(data)
-      sessionStorage.setItem('contentId', contentId)
-      setTourDetail(data)
-
-      router.push({ name: 'TourDetail', params: { contentId: contentId } })
-    }
-  } catch (error) {
-    console.log('BoardMainVue: error : ')
-    console.log(error)
-  }
-}
 </script>

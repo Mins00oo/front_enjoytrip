@@ -70,11 +70,13 @@ onMounted(() => {
   insertModal = new Modal(document.getElementById('insertModal'))
   detailModal = new Modal(document.getElementById('detailModal'))
   updateModal = new Modal(document.getElementById('updateModal'))
-  const savedPageIndex = parseInt(sessionStorage.getItem('currentPageIndex')) || 1
-  setBoardMovePage(savedPageIndex)
 })
 
 // 초기 작업
+boardStore.currentPageIndex = 1
+boardStore.limit = 10
+boardStore.offset = 0
+boardStore.searchWord = ''
 boardList()
 
 // pagination

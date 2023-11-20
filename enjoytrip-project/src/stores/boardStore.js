@@ -10,7 +10,7 @@ import http from '@/common/axios.js'
 
 export const useBoardStore = defineStore('boardStore', () => {
   const router = useRouter()
-  const { authStore } = useAuthStore()
+  const { authStore, setLogout } = useAuthStore()
   const boardStore = reactive({
     // list
     list: [],
@@ -41,7 +41,6 @@ export const useBoardStore = defineStore('boardStore', () => {
   const setBoardMovePage = (pageIndex) => {
     boardStore.offset = (pageIndex - 1) * boardStore.listRowCount
     boardStore.currentPageIndex = pageIndex
-    sessionStorage.setItem('currentPageIndex', pageIndex)
   }
   const setBoardDetail = (payload) => {
     boardStore.boardId = payload.boardId
@@ -64,14 +63,10 @@ export const useBoardStore = defineStore('boardStore', () => {
       searchWord: boardStore.searchWord
     }
 
-    console.log(boardStore)
-
     try {
       let { data } = await http.get('/boards', { params }) // params: params shorthand property, let response 도 제거
-      console.log('boardStore: data : ')
-      console.log(data)
       if (data.result == 'login') {
-        router.push('/login')
+        doLogout()
       } else {
         setBoardList(data.list)
         setTotalListItemCount(data.count)
@@ -80,12 +75,13 @@ export const useBoardStore = defineStore('boardStore', () => {
       console.error(error)
     }
   }
+
   // pagination
-  const pageCount = computed(() =>
-    Math.ceil(boardStore.totalListItemCount / boardStore.listRowCount)
-  )
+  const pageCount = computed(() => {
+    return Math.ceil(boardStore.totalListItemCount / boardStore.listRowCount)
+  })
+
   const startPageIndex = computed(() => {
-    console.log(boardStore.pageLinkCount, 'ss')
     if (boardStore.currentPageIndex % boardStore.pageLinkCount == 0) {
       //10, 20...맨마지막
       return (
@@ -108,10 +104,13 @@ export const useBoardStore = defineStore('boardStore', () => {
         boardStore.pageLinkCount
       )
     } else {
-      return (
+      console.log('endPage')
+      console.log(pageCount.value)
+      return Math.min(
         Math.floor(boardStore.currentPageIndex / boardStore.pageLinkCount) *
           boardStore.pageLinkCount +
-        boardStore.pageLinkCount
+          1,
+        pageCount.value
       )
     }
   })
@@ -126,6 +125,16 @@ export const useBoardStore = defineStore('boardStore', () => {
       : true
   )
 
+  const doLogout = () => {
+    setLogout({
+      isLogin: false,
+      userNickName: '',
+      userId: '',
+      userEmail: ''
+    })
+    router.push('/login')
+  }
+
   return {
     boardStore,
     setBoardList,
@@ -138,6 +147,7 @@ export const useBoardStore = defineStore('boardStore', () => {
     startPageIndex,
     endPageIndex,
     prev,
+    doLogout,
     next
   }
 })

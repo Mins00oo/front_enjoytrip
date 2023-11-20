@@ -39,6 +39,7 @@ const router = useRouter()
 const { tourStore, tourList } = useTourStore()
 
 const goToCategoryView = (region) => {
+  window.scroll(0, 0)
   router.push({ path: `/tours/region/${region}` })
 }
 </script>

@@ -13,8 +13,10 @@ import TourList from '@/components/tours/TourList.vue'
 import { useTourStore } from '../stores/tourStore'
 import { onMounted } from 'vue'
 
-const { tourList, totalPages, tourStore } = useTourStore()
+const { tourList, totalPages, tourStore, setTourListDefault } = useTourStore()
 
+setTourListDefault()
+console.log('tourDefault로!')
 tourStore.searchWord = ''
 tourStore.region = ''
 tourList()

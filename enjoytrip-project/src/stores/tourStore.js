@@ -39,13 +39,24 @@ export const useTourStore = defineStore('tourStore', () => {
     avgScore: 0,
     reviewResponseDtos: [],
     favorite: true,
-    overview: ''
+    overview: '',
+    option: 'title',
+    how: 'asc'
   })
 
   const setTourList = (list) => (tourStore.list = list)
   const setTourRecommendList = (list) => (tourStore.recommendList = list)
   const setTourRelatedList = (list) => (tourStore.tourRelatedList = list)
   const setTourRegionList = (list) => (tourStore.regionTourList = list)
+  const setTourListDefault = () => {
+    tourStore.limit = 9
+    tourStore.offset = 0
+    tourStore.searchWord = ''
+    tourStore.region = ''
+    tourStore.category = ''
+    tourStore.option = 'title'
+    tourStore.how = 'asc'
+  }
   const setMainTourRecommendList = (list) => {
     tourStore.mainTourRecommendList = list
   }
@@ -75,12 +86,17 @@ export const useTourStore = defineStore('tourStore', () => {
       offset: tourStore.offset,
       searchWord: tourStore.searchWord,
       region: tourStore.region,
-      category: tourStore.category
+      category: tourStore.category,
+      option: tourStore.option,
+      how: tourStore.how
     }
+
+    console.log(params, 'list 호출 params')
 
     try {
       let { data } = await http.get('/tours', { params })
       setTourList(data.list)
+      console.log(data)
       tourStore.totalListItemCount = data.count
     } catch (error) {
       console.error(error)
@@ -128,6 +144,7 @@ export const useTourStore = defineStore('tourStore', () => {
     try {
       let { data } = await http.get('/tours/main')
       setMainTourRecommendList(data)
+      console.log(data)
     } catch (error) {
       console.error(error)
     }
@@ -144,6 +161,7 @@ export const useTourStore = defineStore('tourStore', () => {
     tourRecommendList,
     setTourDetail,
     setTourRelatedList,
+    setTourListDefault,
     tourRelatedList,
     mainTourRecommendList,
     tourDetail,
