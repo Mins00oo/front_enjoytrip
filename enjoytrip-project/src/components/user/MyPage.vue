@@ -31,14 +31,14 @@
       <UserModifyModal :userName="userName" :userNickname="userNickname" :userEmail="userEmail" />
       <div class="right col-lg-8">
         <ul class="nav">
-          <li @click="selectTab('gallery')" :class="{ selected: selectedTab === 'gallery' }">
-            Gallery
+          <li @click="selectTab('visited')" :class="{ selected: selectedTab === 'visited' }">Visited</li>
+          <li @click="selectTab('star')" :class="{ selected: selectedTab === 'star' }">
+            Stared
           </li>
           <li @click="selectTab('review')" :class="{ selected: selectedTab === 'review' }">
             Reviews
           </li>
-          <li>Groups</li>
-          <li>About</li>
+          <li @click="selectTab('mytrip')" :class="{ selected: selectedTab === 'mytrip' }">MyTrip</li>
         </ul>
         <span class="edit" @click="showUserModifyModal()">정보 수정</span>
         &nbsp; &nbsp;
@@ -48,7 +48,7 @@
         <span class="edit" @click="showUserDeleteModal()">회원 탈퇴</span>
 
         <!--갤러리 이미지-->
-        <star-list v-show="selectedTab === 'gallery'"></star-list>
+        <star-list v-show="selectedTab === 'star'"></star-list>
         <!--리뷰-->
         <review-list v-show="selectedTab === 'review'"></review-list>
       </div>
@@ -105,8 +105,8 @@ const showUserModifyModal = () => {
 }
 userDetail()
 
-//초기값은 gallery
-const selectedTab = ref('gallery')
+//초기값은 visited
+const selectedTab = ref('visited')
 
 const selectTab = (tab) => {
   selectedTab.value = tab

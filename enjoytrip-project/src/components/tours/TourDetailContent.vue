@@ -67,6 +67,9 @@
             </div>
           </div>
         </div>
+        <!-- col end -->
+        <!-- map -->
+        <kakao-map></kakao-map>
       </div>
     </div>
   </section>
@@ -74,6 +77,7 @@
 
 <script setup>
 import { useTourStore } from '../../stores/tourStore'
+import KakaoMap from "../map/KakaoMap.vue";
 
 const { tourStore } = useTourStore()
 </script>
