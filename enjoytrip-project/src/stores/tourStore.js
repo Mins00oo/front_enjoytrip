@@ -18,8 +18,8 @@ export const useTourStore = defineStore('tourStore', () => {
     limit: 9,
     offset: 0,
     searchWord: '',
-    region: '부산',
-
+    region: '',
+    category: '',
     // pagination
     currentPage: 1,
     totalListItemCount: 0,
@@ -70,13 +70,14 @@ export const useTourStore = defineStore('tourStore', () => {
 
   // list
   const tourList = async () => {
-    console.log('리스트 호출')
     let params = {
       limit: tourStore.limit,
       offset: tourStore.offset,
       searchWord: tourStore.searchWord,
-      region: tourStore.region
+      region: tourStore.region,
+      category: tourStore.category
     }
+
     try {
       let { data } = await http.get('/tours', { params })
       setTourList(data.list)
@@ -111,7 +112,6 @@ export const useTourStore = defineStore('tourStore', () => {
   }
 
   const tourRelatedList = async (contentId) => {
-    console.log(contentId)
     try {
       let { data } = await http.get('/tours/relate/' + contentId)
       if (data.result == 'login') {

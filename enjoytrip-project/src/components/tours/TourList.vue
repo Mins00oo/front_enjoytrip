@@ -2,24 +2,16 @@
   <div class="col-lg-9">
     <div class="row">
       <div class="col-md-6">
-        <ul class="list-inline shop-top-menu pb-3 pt-1">
-          <li class="list-inline-item">
-            <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>
-          </li>
-          <li class="list-inline-item">
-            <a class="h3 text-dark text-decoration-none mr-3" href="#">Men's</a>
-          </li>
-          <li class="list-inline-item">
-            <a class="h3 text-dark text-decoration-none" href="#">Women's</a>
-          </li>
-        </ul>
+        <h3>여행 장소</h3>
       </div>
       <div class="col-md-6 pb-4">
         <div class="d-flex">
           <select class="form-control">
-            <option>Featured</option>
-            <option>A to Z</option>
-            <option>Item</option>
+            <option>가나다 순</option>
+            <option>평점 높은순</option>
+            <option>평점 낮은순</option>
+            <option>조회수 높은순</option>
+            <option>조회수 낮은순</option>
           </select>
         </div>
       </div>
@@ -100,6 +92,7 @@ import { useTourStore } from '../../stores/tourStore'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const selectOption = ref('')
 const { tourStore, setTourDetail, tourList } = useTourStore()
 //관광지 아이디 넣어주면 됨!!
 const contentId = ref('125408')
@@ -126,10 +119,8 @@ const tourDetail = async (contentId) => {
     let { data } = await http.get('/tours/' + contentId)
 
     if (data.result == 'login') {
-      console.log(data)
       doLogout()
     } else {
-      console.log(data)
       sessionStorage.setItem('contentId', contentId)
       setTourDetail(data)
 
@@ -146,5 +137,6 @@ const changePage = (page) => {
   tourStore.currentPage = page
   tourStore.offset = (page - 1) * tourStore.limit
   tourList()
+  window.scroll(0, 0)
 }
 </script>

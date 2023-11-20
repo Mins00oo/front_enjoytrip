@@ -98,6 +98,7 @@ import { ref } from 'vue'
 import http from '@/common/axios.js'
 import { useTourStore } from '../../stores/tourStore'
 import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 
 const router = useRouter()
 const { tourStore, setTourDetail, tourList } = useTourStore()
@@ -154,4 +155,8 @@ const changePage = (page) => {
   tourStore.offset = (page - 1) * tourStore.limit
   tourList()
 }
+
+onMounted(() => {
+  window.scroll(0, 0)
+})
 </script>
