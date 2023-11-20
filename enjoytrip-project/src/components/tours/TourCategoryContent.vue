@@ -139,19 +139,29 @@ tourStore.region = props.region
 tourStore.currentPage = 1
 tourList()
 
-const star = async () => {
+const content = ref('')
+
+const star = async (contentId) => {
+  content.value = contentId
+
+  const starObj = {
+    contentId: contentId
+  }
+
   try {
     let { data } = await http.post('tours/stars', starObj)
     if (data.result == 'login') {
-      alert('로그인 후 사용가능합니다.')
+      alert('로그인 후 사용 가능합니다.')
+      doLogout()
+    } else if (data.result == 'false') {
+      alert('이미 즐겨찾기한 관광지입니다')
     } else {
-      // 즐겨찾기 할 수 있게
+      alert('추가 되었습니다!')
     }
   } catch (error) {
     console.log(error)
   }
 }
-
 const tourDetail = async (contentId) => {
   console.log(contentId)
   try {
@@ -219,6 +229,17 @@ watch(selectOption, (newVal) => {
   tourStore.category = category.value
   tourList()
 })
+
+// logout 처리 별도 method
+const doLogout = () => {
+  setLogout({
+    isLogin: false,
+    userNickName: '',
+    userId: '',
+    userEmail: ''
+  })
+  router.push('/login')
+}
 
 onMounted(() => {
   window.scroll(0, 0)
