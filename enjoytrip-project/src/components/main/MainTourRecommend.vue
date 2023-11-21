@@ -79,34 +79,13 @@
 
 <script setup>
 import { useTourStore } from '../../stores/tourStore'
-import { ref, onMounted } from 'vue'
-import http from '@/common/axios.js'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const { tourStore, tourList, tourRecommendList, setTourDetail } = useTourStore()
-
-tourRecommendList()
+const { tourStore, setTourDetail } = useTourStore()
 
 const tourDetail = async (contentId) => {
-  console.log(contentId)
-  try {
-    let { data } = await http.get('/tours/' + contentId)
-
-    if (data.result == 'login') {
-      console.log(data)
-      doLogout()
-    } else {
-      console.log(data)
-      sessionStorage.setItem('contentId', contentId)
-      setTourDetail(data)
-
-      router.push({ name: 'TourDetail', params: { contentId: contentId } })
-    }
-  } catch (error) {
-    console.log('BoardMainVue: error : ')
-    console.log(error)
-  }
+  router.push({ name: 'TourDetail', params: { contentId: contentId } })
 }
 
 // logout 처리 별도 method

@@ -1,0 +1,79 @@
+/* 색상 및 폰트 */
+:root {
+    --primary-color: #4caf50; /* 밝은 녹색 */
+    --text-color: #333;
+    --font-family: 'Roboto', sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+  }
+  
+  /* 카드 스타일 */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: 200px; /* 고정 높이 */
+    object-fit: cover;
+  }
+  
+  /* 후기 스타일 */
+  .list-group-item {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  /* 반응형 미디어 쿼리 */
+  @media screen and (max-width: 768px) {
+    .col-md-8,
+    .col-md-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+  
+  .img-fixed-size {
+    height: 200px; /* 고정 높이 */
+    object-fit: cover; /* 이미지 비율 유지 및 채우기 */
+  }
+  .review-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .review-content {
+    margin-bottom: 10px;
+  }
+
+  .no-reviews {
+    font-style: italic;
+    color: #666;
+  }
+  
+  .review-rating {
+    margin-bottom: 10px;
+  }
+  
+  .review-meta {
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  .star {
+    color: #ddd; /* 기본 별 색상 */
+  }
+  
+  .star.filled {
+    color: #ffc107; /* 평점에 따라 채워진 별 색상 */
+  }

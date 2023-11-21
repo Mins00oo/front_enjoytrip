@@ -13,6 +13,6 @@ import { useTourStore } from '../stores/tourStore'
 const { tourStore, tourList, tourRecommendList, mainTourRecommendList } = useTourStore()
 
 // 초기 작업
-tourRecommendList()
-mainTourRecommendList()
+tourRecommendList() // 메인 이미지 보여주기 위함
+mainTourRecommendList() // 추천 관광지
 </script>

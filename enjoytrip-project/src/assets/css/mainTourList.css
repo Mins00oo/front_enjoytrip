@@ -1,0 +1,26 @@
+/* 카드 스타일 */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: 200px; /* 고정 높이 */
+    object-fit: cover;
+  }
+
+  .favorite-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: red; /* 즐겨찾기 아이콘 색상 */
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10; /* 확실히 상위에 위치하도록 z-index 설정 */
+  }

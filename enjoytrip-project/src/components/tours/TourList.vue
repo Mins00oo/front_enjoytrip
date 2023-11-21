@@ -57,10 +57,14 @@
               <!-- 여기에 사이즈나 색상 등의 정보를 표시할 수 있음 -->
             </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
-              <!-- 별점 표시 -->
-              <li>
-                <i class="text-warning fa fa-star" v-for="n in 5" :key="`star-${index}-${n}`"></i>
-                <!-- 혹은 별점이 숫자로 주어진다면, 반복문 수정 필요 -->
+              <li v-for="n in 5" :key="`star-${index}-${n}`">
+                <i
+                  :class="{
+                    'text-warning': n <= item.averageScore,
+                    'text-muted': n > item.averageScore
+                  }"
+                  class="fa fa-star"
+                ></i>
               </li>
             </ul>
             <p class="text-center mb-0">{{ item.addr1 }}</p>
@@ -97,6 +101,8 @@ const router = useRouter()
 const selectOption = ref('0')
 const { tourStore, setTourDetail, tourList, setTourListDefault } = useTourStore()
 //관광지 아이디 넣어주면 됨!!
+
+tourStore.currentPage = 1
 
 const content = ref('')
 
@@ -144,7 +150,7 @@ const tourDetail = async (contentId) => {
 // 페이지 변경 함수
 const changePage = (page) => {
   tourStore.currentPage = page
-  tourStore.offset = (page - 1) * tourStore.limit
+  tourStore.offset = page - 1
   tourList()
   window.scroll(0, 0)
 }
@@ -157,7 +163,6 @@ const doLogout = () => {
     userId: '',
     userEmail: ''
   })
-  router.push('/login')
 }
 
 watch(selectOption, (newVal) => {
