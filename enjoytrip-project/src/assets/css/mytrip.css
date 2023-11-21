@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SUITE-Regular';
+}
+
+.mytrip-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* 자식 요소들을 여러 줄로 나타내기 위해 wrap 속성 사용 */
+}
+
+.mytrip-item {
+    flex: 1;
+    /* 각 아이템이 동일한 너비를 가지도록 설정 */
+    margin: 10px;
+    /* 각 아이템 간의 간격 조절 */
+    max-width: 300px;
+    /* 각 아이템의 최대 너비 설정 */
+    border: 2px solid #198754;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 255, 235);
+}
+
+.mytrip-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.mytrip-content {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.review-author {
+    font-size: 12px;
+    color: #666;
+}
+
+i {
+    font-family: 'Font Awesome 5 Free';
+}
+
+.user {
+    display: flex; 
+    align-items: center;
+}
+
+.mytrip-title-container {
+    display: flex;
+    justify-content: space-between;
+    /* 아이콘과 제목을 양 끝으로 정렬 */
+    align-items: center;
+    /* 아이콘과 텍스트를 수직 정렬 */
+}
+
+.mytrip-trash-icon {
+    margin-right: 8px;
+    color: #99582a
+    /* 오른쪽 마진 설정 */
+}

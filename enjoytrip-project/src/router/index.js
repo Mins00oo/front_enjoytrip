@@ -11,6 +11,9 @@ import LoginPage from '@/components/user/LoginPage.vue'
 import RegisterPage from '@/components/user/RegisterPage.vue'
 import MyPage from '@/components/user/MyPage.vue'
 import { useAuthStore } from '@/stores/userStore'
+//Mytrip 관련 추가
+import MytripPage from '@/components/mytrip/MytripView.vue'
+import MytripDetailPage from '@/components/mytrip/MytripDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,6 +84,38 @@ const router = createRouter({
           next('/login')
         }
       }
+    },
+    {
+      path: '/mytrip',
+      component: MytripPage,
+      beforeEnter: (to, from, next) => {
+        // authstore에서 isLogin 확인 후 분기처리 => navigation guard
+        const { authStore } = useAuthStore()
+        let ssLogin = sessionStorage.getItem('isLogin')
+
+        if (authStore.isLogin || ssLogin == 'true') {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: '/mytrips/detail/:mytripId',
+      name: 'MytripDetail',
+      component: MytripDetailPage,
+      beforeEnter: (to, from, next) => {
+        // authstore에서 isLogin 확인 후 분기처리 => navigation guard
+        const { authStore } = useAuthStore()
+        let ssLogin = sessionStorage.getItem('isLogin')
+
+        if (authStore.isLogin || ssLogin == 'true') {
+          next()
+        } else {
+          next('/login')
+        }
+      },
+      props: true
     }
   ]
 })

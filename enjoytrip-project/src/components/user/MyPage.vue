@@ -49,12 +49,14 @@
         <!-- Button trigger modal -->
         <span class="edit" @click="showUserDeleteModal()">회원 탈퇴</span>
 
-        <!--갤러리 이미지-->
+        <!-- 방문했던 장소 -->
         <visit-list v-show="selectedTab === 'visited'"></visit-list>
-
+        <!-- 즐겨찾기 -->
         <star-list v-show="selectedTab === 'star'"></star-list>
-        <!--리뷰-->
+        <!-- 리뷰 -->
         <review-list v-show="selectedTab === 'review'"></review-list>
+        <!-- 마이트립 -->
+        <mytrip-list v-show="selectedTab === 'mytrip'"></mytrip-list>
       </div>
     </div>
   </div>
@@ -67,6 +69,7 @@ import UserModifyModal from './modal/UserModifyModal.vue'
 import StarList from '../star/StarList.vue'
 import ReviewList from '../review/ReviewList.vue'
 import VisitList from '../mytrip/VisitList.vue'
+import MytripList from "../mytrip/MytripList.vue"
 import UserDeleteModal from './modal/UserDeleteModal.vue'
 
 import { ref, onMounted } from 'vue'

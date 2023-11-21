@@ -1,11 +1,18 @@
 <template>
     <div>
-        <div v-for="(mytrip, index) in dataList" :key="index" class="mytrip-container">
-            <div class="review-tour">{{ mytrip.title }}</div>
-            <div class="review-score">{{ review.score }}</div>
-            <div class="review-content">{{ review.content }}</div>
-            <div class="review-author">작성자: {{ review.userNickname }}</div>
-            <i @click="deleteReview(review.reviewId)" class="fas fa-trash"></i>
+        <div v-for="(mytrip, index) in dataList" :key="index" class="mytrip-container mt-3">
+            <div class="mytrip-item">
+                <div class="mytrip-title-container">
+                    <div class="mytrip-title" @click="detailMytrip(mytrip.mytripId)">{{ mytrip.title }}</div>
+                    <i v-if="mytrip.isOwner === 1" @click="deleteMytrip(mytrip.mytripId)" class="fas fa-trash mytrip-trash-icon"></i>
+                </div>
+                <div class="user">
+                    <i class="fas fa-users"></i>
+                    <div v-if="mytrip.isOwner === 1">소유자</div>
+                    <div v-if="mytrip.isOwner === 0">게스트</div>
+                </div>
+                <div class="mytrip-userCnt mt-2"><i far fa-calendar-alt></i>생성일: {{ mytrip.creDate }}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -13,12 +20,15 @@
 <script setup>
 import { ref } from "vue";
 import http from '@/common/axios.js'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 //리뷰 정보 가져오기
 const dataList = ref([])
 const list = async () => {
     try {
-        let { data } = await http.get("/tours/reviews");
+        let { data } = await http.get("/mytrips");
         dataList.value = data;
     } catch (error) {
         console.error(error);
@@ -26,11 +36,14 @@ const list = async () => {
 }
 list()
 
-const deleteReview = async (reviewId) => {
+const detailMytrip = (mytripId) => {
+    router.push({ name: 'MytripDetail', params: { mytripId: mytripId } })
+}
+
+const deleteMytrip = async (mytripId) => {
     try {
-        let { data } = await http.delete("/tours/reviews/" + reviewId);
+        let { data } = await http.delete("/mytrips/"+mytripId);
         console.log(data)
-        list()
     } catch (error) {
         console.error(error);
     }
@@ -39,5 +52,5 @@ const deleteReview = async (reviewId) => {
 </script>
 
 <style scoped>
-@import '../../assets/css/reivew.css';
+@import '../../assets/css/mytrip.css';
 </style>
