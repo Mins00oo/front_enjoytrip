@@ -10,7 +10,7 @@ import { useAuthStore } from '@/stores/userStore'
 import { useTourStore } from '@/stores/tourStore'
 
 // sessionStorage에 login된 상태를 확인하면 sessionStorage에 있는 값을 이용해서 authStore를 갱신
-const { setLogin } = useAuthStore()
+const { setLogin, setLogout } = useAuthStore()
 const { tourStore, tourDetail, tourRelatedList, mainTourRecommendList } = useTourStore()
 
 let isLogin = sessionStorage.getItem('isLogin')
@@ -25,7 +25,7 @@ if (isLogin == 'true') {
     userId: userId
   })
 } else {
-  setLogin({
+  setLogout({
     isLogin: false,
     userNickName: '',
     userId: '',

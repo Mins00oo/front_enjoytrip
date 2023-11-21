@@ -6,6 +6,7 @@ import TourListPage from '@/views/TourListPage.vue'
 import TourDetailPage from '@/views/TourDetailPage.vue'
 import BoardView from '@/views/BoardView.vue'
 import TourCategoryContent from '@/components/tours/TourCategoryContent.vue'
+import SearchResultView from '@/components/search/SearchResultView.vue'
 //User 관련 추가
 import LoginPage from '@/components/user/LoginPage.vue'
 import RegisterPage from '@/components/user/RegisterPage.vue'
@@ -35,6 +36,11 @@ const router = createRouter({
       name: 'TourRegion',
       component: TourCategoryContent,
       props: true
+    },
+    {
+      path: '/tours/search',
+      name: 'SearchResult',
+      component: SearchResultView
     },
     {
       path: '/tourrecom',
