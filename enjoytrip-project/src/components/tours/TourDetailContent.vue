@@ -77,7 +77,17 @@
 
 <script setup>
 import { useTourStore } from '../../stores/tourStore'
-import KakaoMap from "../map/KakaoMap.vue";
+import { onMounted } from 'vue'
+import KakaoMap from '../map/KakaoMap.vue'
 
-const { tourStore } = useTourStore()
+const props = defineProps({
+  contentId: String
+})
+
+const { tourStore, tourDetail } = useTourStore()
+
+onMounted(async () => {
+  console.log('상세보기 조회 api 호출')
+  tourDetail(props.contentId)
+})
 </script>

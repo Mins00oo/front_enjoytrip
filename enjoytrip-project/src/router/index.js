@@ -40,7 +40,8 @@ const router = createRouter({
     {
       path: '/detail/:contentId',
       name: 'TourDetail',
-      component: TourDetailPage
+      component: TourDetailPage,
+      props: true
     },
     {
       path: '/board',

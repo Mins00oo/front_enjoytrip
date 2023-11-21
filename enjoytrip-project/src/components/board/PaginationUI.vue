@@ -1,6 +1,6 @@
 <template>
   <!-- a tag href="#" 제외!!
-  route url 이 board 에서 / 로 변경되는 문제 발생 -->
+route url 이 board 에서 / 로 변경되는 문제 발생 -->
   <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
       <li v-if="prev" class="page-item">
@@ -41,10 +41,9 @@
 
 <script setup>
 import { useBoardStore } from '@/stores/boardStore'
-const { boardStore, startPageIndex, endPageIndex, prev, next } = useBoardStore()
+import { storeToRefs } from 'pinia'
+const { boardStore, startPageIndex, endPageIndex, prev, next } = storeToRefs(useBoardStore())
 
-console.log(startPageIndex)
-console.log(endPageIndex, 'end')
 const emit = defineEmits(['call-parent'])
 const paginationChanged = (pageIndex) => {
   console.log('paginationVue : paginationChanged : pageIndex : ' + pageIndex)

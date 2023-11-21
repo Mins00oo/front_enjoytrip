@@ -15,11 +15,13 @@ export const useTourStore = defineStore('tourStore', () => {
     tourRelatedList: [],
     mainTourRecommendList: [],
     regionTourList: [],
+    sidoList: [],
+    gugunList: [],
     limit: 9,
     offset: 0,
     searchWord: '',
-    region: '부산',
-
+    region: '',
+    category: '',
     // pagination
     currentPage: 1,
     totalListItemCount: 0,
@@ -39,13 +41,26 @@ export const useTourStore = defineStore('tourStore', () => {
     avgScore: 0,
     reviewResponseDtos: [],
     favorite: true,
-    overview: ''
+    overview: '',
+    option: 'title',
+    how: 'asc'
   })
 
   const setTourList = (list) => (tourStore.list = list)
   const setTourRecommendList = (list) => (tourStore.recommendList = list)
   const setTourRelatedList = (list) => (tourStore.tourRelatedList = list)
   const setTourRegionList = (list) => (tourStore.regionTourList = list)
+  const setTourGugunList = (list) => (tourStore.gugunList = list)
+  const setTourSidoList = (list) => (tourStore.sidoList = list)
+  const setTourListDefault = () => {
+    tourStore.limit = 9
+    tourStore.offset = 0
+    tourStore.searchWord = ''
+    tourStore.region = ''
+    tourStore.category = ''
+    tourStore.option = 'title'
+    tourStore.how = 'asc'
+  }
   const setMainTourRecommendList = (list) => {
     tourStore.mainTourRecommendList = list
   }
@@ -70,17 +85,45 @@ export const useTourStore = defineStore('tourStore', () => {
 
   // list
   const tourList = async () => {
-    console.log('리스트 호출')
     let params = {
       limit: tourStore.limit,
       offset: tourStore.offset,
       searchWord: tourStore.searchWord,
-      region: tourStore.region
+      region: tourStore.region,
+      category: tourStore.category,
+      option: tourStore.option,
+      how: tourStore.how
     }
+
+    console.log(params, 'list 호출 params')
+
     try {
       let { data } = await http.get('/tours', { params })
       setTourList(data.list)
       tourStore.totalListItemCount = data.count
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // 전체 시도 리스트 조회
+  const tourSidoList = async () => {
+    try {
+      let { data } = await http.get('/tours/sido')
+      setTourSidoList(data.sidoList)
+      console.log(data)
+      console.log('시도 리스트 조회 후', tourStore.sidoList)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const tourGugunList = async (sidoId) => {
+    console.log(sidoId, 'gugun api호출')
+    try {
+      let { data } = await http.get('/tours/gugun/' + sidoId)
+      setTourGugunList(data.gugunList)
+      console.log('구군 리스트 조회 후', tourStore.gugunList.length)
     } catch (error) {
       console.error(error)
     }
@@ -111,7 +154,6 @@ export const useTourStore = defineStore('tourStore', () => {
   }
 
   const tourRelatedList = async (contentId) => {
-    console.log(contentId)
     try {
       let { data } = await http.get('/tours/relate/' + contentId)
       if (data.result == 'login') {
@@ -128,6 +170,7 @@ export const useTourStore = defineStore('tourStore', () => {
     try {
       let { data } = await http.get('/tours/main')
       setMainTourRecommendList(data)
+      console.log(data)
     } catch (error) {
       console.error(error)
     }
@@ -142,9 +185,14 @@ export const useTourStore = defineStore('tourStore', () => {
     tourList,
     tourStore,
     tourRecommendList,
+    tourSidoList,
     setTourDetail,
     setTourRelatedList,
+    setTourListDefault,
+    setTourSidoList,
     tourRelatedList,
+    tourGugunList,
+    setTourGugunList,
     mainTourRecommendList,
     tourDetail,
     totalPages

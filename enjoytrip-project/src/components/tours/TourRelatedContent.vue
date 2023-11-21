@@ -22,34 +22,36 @@
           <div class="row p-5">
             <div class="product-wap card rounded-0">
               <div class="col-md-8 col-lg-6 mx-auto order-lg-last text-center">
-                <img class="img-fluid" :src="item.firstImage" />
+                <router-link :to="`/detail/${item.contentId}`">
+                  <img :src="item.firstImage" class="card-img-top" :alt="item.title" />
+                </router-link>
                 <div
                   class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
                 >
                   <ul class="list-unstyled">
                     <li>
-                      <button
-                        class="btn btn-success text-white"
-                        @click="tourDetail(item.contentId)"
+                      <router-link
+                        :to="`/detail/${item.contentId}`"
+                        class="btn btn-success text-white mt-2"
                       >
-                        <i class="far fa-heart"></i>
-                      </button>
+                        <i class="fas fa-heart"></i>
+                      </router-link>
                     </li>
                     <li>
                       <button
                         class="btn btn-success text-white mt-2"
-                        @click="tourDetail(item.contentId)"
+                        @click="goToDetailPage(item.contentId)"
                       >
                         <i class="far fa-eye"></i>
                       </button>
                     </li>
                     <li>
-                      <button
+                      <router-link
+                        :to="`/detail/${item.contentId}`"
                         class="btn btn-success text-white mt-2"
-                        @click="tourDetail(item.contentId)"
                       >
                         <i class="fas fa-cart-plus"></i>
-                      </button>
+                      </router-link>
                     </li>
                   </ul>
                 </div>
@@ -92,18 +94,14 @@ const { tourStore, setTourDetail, tourRelatedList } = useTourStore()
 
 tourRelatedList(tourStore.contentId)
 
-const tourDetail = async (contentId) => {
-  console.log(contentId)
+const goToDetailPage = async (contentId) => {
   try {
     let { data } = await http.get('/tours/' + contentId)
 
     if (data.result == 'login') {
-      console.log(data)
       doLogout()
     } else {
-      console.log(data)
       sessionStorage.setItem('contentId', contentId)
-      setTourDetail(data)
 
       router.push({ name: 'TourDetail', params: { contentId: contentId } })
     }

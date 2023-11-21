@@ -13,7 +13,9 @@
           :key="index"
         >
           <div class="card h-100">
-            <img :src="item.firstImage" class="card-img-top" :alt="item.title" />
+            <router-link :to="`/detail/${item.contentId}`">
+              <img :src="item.firstImage" class="card-img-top" :alt="item.title" />
+            </router-link>
             <div class="card-body">
               <ul class="list-unstyled d-flex justify-content-between">
                 <li></li>
@@ -35,8 +37,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import { useTourStore } from '../../stores/tourStore'
+import { useRouter } from 'vue-router'
 
-const { tourStore } = useTourStore()
+const router = useRouter()
+const { tourStore, setTourDetail } = useTourStore()
 </script>

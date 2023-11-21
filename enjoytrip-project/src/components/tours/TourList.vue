@@ -2,24 +2,16 @@
   <div class="col-lg-9">
     <div class="row">
       <div class="col-md-6">
-        <ul class="list-inline shop-top-menu pb-3 pt-1">
-          <li class="list-inline-item">
-            <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>
-          </li>
-          <li class="list-inline-item">
-            <a class="h3 text-dark text-decoration-none mr-3" href="#">Men's</a>
-          </li>
-          <li class="list-inline-item">
-            <a class="h3 text-dark text-decoration-none" href="#">Women's</a>
-          </li>
-        </ul>
+        <h3>여행 장소</h3>
       </div>
       <div class="col-md-6 pb-4">
         <div class="d-flex">
-          <select class="form-control">
-            <option>Featured</option>
-            <option>A to Z</option>
-            <option>Item</option>
+          <select class="form-control" v-model="selectOption">
+            <option value="0">가나다 순</option>
+            <option value="1">평점 높은순</option>
+            <option value="2">평점 낮은순</option>
+            <option value="3">조회수 높은순</option>
+            <option value="4">조회수 낮은순</option>
           </select>
         </div>
       </div>
@@ -94,26 +86,36 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import http from '@/common/axios.js'
 import { useTourStore } from '../../stores/tourStore'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/userStore'
 
+const { setLogout } = useAuthStore()
 const router = useRouter()
-const { tourStore, setTourDetail, tourList } = useTourStore()
+const selectOption = ref('0')
+const { tourStore, setTourDetail, tourList, setTourListDefault } = useTourStore()
 //관광지 아이디 넣어주면 됨!!
-const contentId = ref('125408')
-const starObj = {
-  contentId: contentId.value
-}
 
-const star = async () => {
+const content = ref('')
+
+const star = async (contentId) => {
+  content.value = contentId
+
+  const starObj = {
+    contentId: contentId
+  }
+
   try {
     let { data } = await http.post('tours/stars', starObj)
     if (data.result == 'login') {
-      alert('로그인 후 사용가능합니다.')
+      alert('로그인 후 사용 가능합니다.')
+      doLogout()
+    } else if (data.result == 'false') {
+      alert('이미 즐겨찾기한 관광지입니다')
     } else {
-      // 즐겨찾기 할 수 있게
+      alert('추가 되었습니다!')
     }
   } catch (error) {
     console.log(error)
@@ -126,10 +128,8 @@ const tourDetail = async (contentId) => {
     let { data } = await http.get('/tours/' + contentId)
 
     if (data.result == 'login') {
-      console.log(data)
       doLogout()
     } else {
-      console.log(data)
       sessionStorage.setItem('contentId', contentId)
       setTourDetail(data)
 
@@ -146,5 +146,44 @@ const changePage = (page) => {
   tourStore.currentPage = page
   tourStore.offset = (page - 1) * tourStore.limit
   tourList()
+  window.scroll(0, 0)
 }
+
+// logout 처리 별도 method
+const doLogout = () => {
+  setLogout({
+    isLogin: false,
+    userNickName: '',
+    userId: '',
+    userEmail: ''
+  })
+  router.push('/login')
+}
+
+watch(selectOption, (newVal) => {
+  // tourStore의 정렬 옵션을 설정해주고 list호출
+  switch (newVal) {
+    case '0':
+      tourStore.option = 'title'
+      tourStore.how = 'asc'
+      break
+    case '1':
+      tourStore.option = 'average_score'
+      tourStore.how = 'desc'
+      break
+    case '2':
+      tourStore.option = 'average_score'
+      tourStore.how = 'asc'
+      break
+    case '3':
+      tourStore.option = 'readcount'
+      tourStore.how = 'desc'
+      break
+    case '4':
+      tourStore.option = 'readcount'
+      tourStore.how = 'asc'
+      break
+  }
+  tourList()
+})
 </script>

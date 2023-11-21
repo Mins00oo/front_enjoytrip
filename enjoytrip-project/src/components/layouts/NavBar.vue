@@ -26,8 +26,8 @@
             <li class="nav-item">
               <router-link to="/" class="nav-link">홈</router-link>
             </li>
-            <li class="nav-item">
-              <router-link to="/about" class="nav-link">About</router-link>
+            <li class="nav-item" v-show="authStore.isLogin">
+              <router-link to="/mytrip" class="nav-link">마이트립</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/tour" class="nav-link">관광지</router-link>

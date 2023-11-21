@@ -14,7 +14,6 @@
         v-for="(item, index) in tourStore.recommendList"
         :key="index"
         :class="['carousel-item', { active: index === 0 }]"
-        @click="tourDetail(item.contentId)"
       >
         <div class="container">
           <div class="row p-5">
