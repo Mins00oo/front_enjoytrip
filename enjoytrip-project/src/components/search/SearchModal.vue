@@ -17,7 +17,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <form class="d-flex" @submit.prevent="submitSearch">
+          <form class="d-flex">
             <select
               class="form-select w-25 me-2"
               :name="selectedCity"
@@ -47,7 +47,12 @@
               placeholder="Search ..."
               v-model="tourStore.searchWord"
             />
-            <button type="submit" class="btn btn-success ms-2">
+            <button
+              type="submit"
+              class="btn btn-success ms-2"
+              data-bs-dismiss="modal"
+              @click="submitSearch()"
+            >
               <i class="fa fa-fw fa-search text-white"></i>
             </button>
           </form>

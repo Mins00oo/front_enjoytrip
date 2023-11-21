@@ -9,14 +9,17 @@
       <!-- 좌측 카드 섹션 -->
       <div class="col-md-8">
         <div class="row row-cols-1 row-cols-md-2 g-4">
-          <div
-            class="col"
-            v-for="tour in tourStore.tourRelatedList"
-            :key="tour.contentId"
-            @click="goToDetailPage(tour.contentId)"
-          >
+          <div class="col" v-for="tour in tourStore.tourRelatedList" :key="tour.contentId">
             <div class="card h-100">
-              <img :src="tour.firstImage" class="card-img-top img-fixed-size" />
+              <router-link :to="`/detail/${tour.contentId}`">
+                <img :src="tour.firstImage" class="card-img-top img-fixed-size" />
+              </router-link>
+
+              <font-awesome-icon
+                class="favorite-icon"
+                :icon="[tour.favorite ? 'fas' : 'far', 'heart']"
+                @click.stop="handleStar(tour)"
+              />
               <div class="card-body">
                 <h5 class="card-title">{{ tour.title }}</h5>
                 <p class="card-text">{{ tour.addr1 }}</p>
@@ -71,7 +74,8 @@
 <script setup>
 import TourDetailContent from '@/components/tours/TourDetailContent.vue'
 import { useRoute, useRouter } from 'vue-router'
-import { onMounted, watch } from 'vue'
+import { onMounted, watch, ref } from 'vue'
+import http from '@/common/axios.js'
 import { useTourStore } from '../stores/tourStore'
 
 const { tourDetail, tourStore, tourRelatedList } = useTourStore()
@@ -80,8 +84,52 @@ const router = useRouter()
 const props = defineProps({
   contentId: String
 })
+const content = ref('')
 
 tourDetail(props.contentId)
+
+const handleStar = (item) => {
+  if (item.favorite) {
+    deleteStar(item.contentId)
+  } else {
+    addStar(item.contentId)
+  }
+}
+
+const addStar = async (contentId) => {
+  content.value = contentId
+  const starObj = {
+    contentId: contentId
+  }
+
+  try {
+    let { data } = await http.post('tours/stars', starObj)
+    if (data.result == 'login') {
+      alert('로그인 후 사용 가능합니다.')
+      doLogout()
+    } else if (data.result == 'false') {
+      alert('이미 즐겨찾기한 관광지입니다')
+    } else {
+      tourDetail(props.contentId)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const deleteStar = async (contentId) => {
+  try {
+    let { data } = await http.delete('tours/stars/' + contentId)
+    if (data.result == 'login') {
+      alert('로그인 후 사용 가능합니다.')
+      doLogout()
+    } else {
+      tourDetail(props.contentId)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // 새로운 contentId로 값이 변경되었을때 데이터 처리
 watch(
@@ -98,10 +146,6 @@ watch(
 
 tourRelatedList(props.contentId)
 
-const goToDetailPage = (contentId) => {
-  router.push({ name: 'TourDetail', params: { contentId: contentId } })
-}
-
 onMounted(async () => {
   window.scrollTo(0, 0)
 })
@@ -109,4 +153,5 @@ onMounted(async () => {
 
 <style scoped>
 @import '/src/assets/css/tourDetailPage.css';
+@import '@/assets/css/mainTourList.css';
 </style>
