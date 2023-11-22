@@ -1,29 +1,31 @@
 <template>
     <div class="container mt-5 mb-5">
         <h1>마이트립</h1>
-        <mytrip-map
-        :list="mytripStore.list"></mytrip-map>
-        <mytrip-sidebar></mytrip-sidebar>
+        <mytrip-map></mytrip-map>
+        <mytrip-result-list></mytrip-result-list>
     </div>
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router'
 import { useMytripStore } from '../../stores/mytripStore'
-import { onMounted } from 'vue'
 import MytripMap from "../map/MytripMap.vue";
-import MytripSidebar from "./MytripSidebar.vue";
+import MytripResultList from "./MytripResultList.vue"
+
+const route = useRoute()
 
 const props = defineProps({
-  mytripId: String
+  mytripId: Number
 })
 
-const { tourList, mytripStore } = useMytripStore()
+const store = useMytripStore()
 
-// onMounted(async () => {
-  console.log('마이트립 내 관광지 리스트 가져오기')
-tourList(props.mytripId)
-  console.log(mytripStore.list)
-// })
+console.log('마이트립 내 관광지 리스트 가져오기')
+// store.mytripStore.mytripId = props.mytripId
+// store.tourList(props.mytripId)
+store.tourList(route.params.mytripId)
+console.log('mytripDetail mStore', store.mytripStore.list)
+
 </script>
 
 <style scoped>

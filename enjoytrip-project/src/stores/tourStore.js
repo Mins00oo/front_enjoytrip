@@ -141,11 +141,11 @@ export const useTourStore = defineStore('tourStore', () => {
     }
 
     console.log(params, 'list 호출 params')
-
     try {
       let { data } = await http.get('/tours', { params })
       setSearchResultList(data.list)
       setTourSearchParamsDefault()
+      console.log('tourSearchList store', data.list)
       tourStore.totalListItemCount = data.count
     } catch (error) {
       console.error(error)
