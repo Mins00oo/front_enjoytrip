@@ -37,59 +37,37 @@
         <div class="row">
           <div class="col-md-4" v-for="(item, index) in tourStore.searchResultList" :key="index">
             <div class="card mb-4 product-wap rounded-0">
-              <div class="card rounded-0">
-                <img
-                  class="card-img rounded-0 img-fluid"
-                  :src="item.firstImage"
-                  :alt="item.title"
-                />
-                <div
-                  class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-                >
-                  <ul class="list-unstyled">
-                    <li>
-                      <button class="btn btn-success text-white" @click="star(item.contentId)">
-                        <i class="far fa-heart"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="btn btn-success text-white mt-2"
-                        @click="tourDetail(item.contentId)"
-                      >
-                        <i class="far fa-eye"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="btn btn-success text-white mt-2"
-                        @click="tourDetail(item.contentId)"
-                      >
-                        <i class="fas fa-cart-plus"></i>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
+              <div class="card h-100 position-relative">
+                <router-link :to="`/detail/${item.contentId}`">
+                  <img class="card-img-top" :src="item.firstImage" :alt="item.title" />
+                </router-link>
               </div>
+              <font-awesome-icon
+                class="favorite-icon"
+                :icon="[item.favorite ? 'fas' : 'far', 'heart']"
+                @click.stop="handleStar(item)"
+              />
+
               <div class="card-body">
-                <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
-                  item.title
-                }}</a>
-                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                  <!-- 여기에 사이즈나 색상 등의 정보를 표시할 수 있음 -->
+                <ul class="list-unstyled d-flex justify-content-between">
+                  <li></li>
+                  <li class="text-muted text-right">{{ item.addr1 }}</li>
                 </ul>
+
+                {{ item.title }}
                 <ul class="list-unstyled d-flex justify-content-center mb-1">
-                  <!-- 별점 표시 -->
-                  <li>
+                  <li v-for="n in 5" :key="`star-${index}-${n}`">
                     <i
-                      class="text-warning fa fa-star"
-                      v-for="n in 5"
-                      :key="`star-${index}-${n}`"
+                      :class="{
+                        'text-warning': n <= item.averageScore,
+                        'text-muted': n > item.averageScore
+                      }"
+                      class="fa fa-star"
                     ></i>
-                    <!-- 혹은 별점이 숫자로 주어진다면, 반복문 수정 필요 -->
                   </li>
+                  &nbsp; &nbsp; &nbsp;
+                  <p class="text-muted text-center">{{ item.reviewCount }} reviews</p>
                 </ul>
-                <p class="text-center mb-0">{{ item.addr1 }}</p>
               </div>
             </div>
           </div>
@@ -147,9 +125,16 @@ tourStore.currentPage = 1
 
 const content = ref('')
 
-const star = async (contentId) => {
-  content.value = contentId
+const handleStar = (item) => {
+  if (item.favorite) {
+    deleteStar(item.contentId)
+  } else {
+    addStar(item.contentId)
+  }
+}
 
+const addStar = async (contentId) => {
+  content.value = contentId
   const starObj = {
     contentId: contentId
   }
@@ -162,28 +147,23 @@ const star = async (contentId) => {
     } else if (data.result == 'false') {
       alert('이미 즐겨찾기한 관광지입니다')
     } else {
-      alert('추가 되었습니다!')
+      tourSearchList()
     }
   } catch (error) {
     console.log(error)
   }
 }
 
-const tourDetail = async (contentId) => {
-  console.log(contentId)
+const deleteStar = async (contentId) => {
   try {
-    let { data } = await http.get('/tours/' + contentId)
-
+    let { data } = await http.delete('tours/stars/' + contentId)
     if (data.result == 'login') {
+      alert('로그인 후 사용 가능합니다.')
       doLogout()
     } else {
-      sessionStorage.setItem('contentId', contentId)
-      setTourDetail(data)
-
-      router.push({ name: 'TourDetail', params: { contentId: contentId } })
+      tourSearchList()
     }
   } catch (error) {
-    console.log('BoardMainVue: error : ')
     console.log(error)
   }
 }
@@ -261,3 +241,7 @@ onMounted(() => {
   window.scroll(0, 0)
 })
 </script>
+
+<style scoped>
+@import '@/assets/css/mainTourList.css';
+</style>

@@ -20,36 +20,6 @@
             <div class="product-wap card rounded-0">
               <div class="col-md-8 col-lg-6 mx-auto order-lg-last text-center">
                 <img class="img-fluid" :src="item.firstImage" />
-                <div
-                  class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-                >
-                  <ul class="list-unstyled">
-                    <li>
-                      <button
-                        class="btn btn-success text-white"
-                        @click="tourDetail(item.contentId)"
-                      >
-                        <i class="far fa-heart"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="btn btn-success text-white mt-2"
-                        @click="tourDetail(item.contentId)"
-                      >
-                        <i class="far fa-eye"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="btn btn-success text-white mt-2"
-                        @click="tourDetail(item.contentId)"
-                      >
-                        <i class="fas fa-cart-plus"></i>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
@@ -99,3 +69,8 @@ const doLogout = () => {
   router.push('/login')
 }
 </script>
+
+<style scoped>
+@import '/src/assets/css/tourDetailPage.css';
+@import '@/assets/css/mainTourList.css';
+</style>

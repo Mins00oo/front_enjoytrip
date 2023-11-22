@@ -85,7 +85,6 @@ const addStar = async (contentId) => {
       alert('이미 즐겨찾기한 관광지입니다')
     } else {
       mainTourRecommendList()
-      alert('추가 되었습니다!')
     }
   } catch (error) {
     console.log(error)
@@ -100,7 +99,6 @@ const deleteStar = async (contentId) => {
       doLogout()
     } else {
       mainTourRecommendList()
-      alert('삭제 되었습니다!')
     }
   } catch (error) {
     console.log(error)

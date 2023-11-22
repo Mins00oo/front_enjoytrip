@@ -186,7 +186,7 @@ export const useTourStore = defineStore('tourStore', () => {
       if (data.result == 'login') {
         router.push('/login')
       } else {
-        setTourRelatedList(data)
+        setTourRelatedList(data.list)
       }
     } catch (error) {
       console.error(error)

@@ -19,36 +19,17 @@
     <div class="row">
       <div class="col-md-4" v-for="(item, index) in tourStore.list" :key="index">
         <div class="card mb-4 product-wap rounded-0">
-          <div class="card rounded-0">
-            <img class="card-img rounded-0 img-fluid" :src="item.firstImage" :alt="item.title" />
-            <div
-              class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
-            >
-              <ul class="list-unstyled">
-                <li>
-                  <button class="btn btn-success text-white" @click="star(item.contentId)">
-                    <i class="far fa-heart"></i>
-                  </button>
-                </li>
-                <li>
-                  <button
-                    class="btn btn-success text-white mt-2"
-                    @click="tourDetail(item.contentId)"
-                  >
-                    <i class="far fa-eye"></i>
-                  </button>
-                </li>
-                <li>
-                  <button
-                    class="btn btn-success text-white mt-2"
-                    @click="tourDetail(item.contentId)"
-                  >
-                    <i class="fas fa-cart-plus"></i>
-                  </button>
-                </li>
-              </ul>
-            </div>
+          <div class="card h-100 position-relative">
+            <router-link :to="`/detail/${item.contentId}`">
+              <img class="card-img-top" :src="item.firstImage" :alt="item.title" />
+            </router-link>
           </div>
+          <font-awesome-icon
+            class="favorite-icon"
+            :icon="[item.favorite ? 'fas' : 'far', 'heart']"
+            @click.stop="handleStar(item)"
+          />
+
           <div class="card-body">
             <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
               item.title
@@ -106,9 +87,17 @@ tourStore.currentPage = 1
 
 const content = ref('')
 
-const star = async (contentId) => {
-  content.value = contentId
+const handleStar = (item) => {
+  if (item.favorite) {
+    deleteStar(item.contentId)
+  } else {
+    console.log('addstar')
+    addStar(item.contentId)
+  }
+}
 
+const addStar = async (contentId) => {
+  content.value = contentId
   const starObj = {
     contentId: contentId
   }
@@ -121,28 +110,23 @@ const star = async (contentId) => {
     } else if (data.result == 'false') {
       alert('이미 즐겨찾기한 관광지입니다')
     } else {
-      alert('추가 되었습니다!')
+      tourList()
     }
   } catch (error) {
     console.log(error)
   }
 }
 
-const tourDetail = async (contentId) => {
-  console.log(contentId)
+const deleteStar = async (contentId) => {
   try {
-    let { data } = await http.get('/tours/' + contentId)
-
+    let { data } = await http.delete('tours/stars/' + contentId)
     if (data.result == 'login') {
+      alert('로그인 후 사용 가능합니다.')
       doLogout()
     } else {
-      sessionStorage.setItem('contentId', contentId)
-      setTourDetail(data)
-
-      router.push({ name: 'TourDetail', params: { contentId: contentId } })
+      tourList()
     }
   } catch (error) {
-    console.log('BoardMainVue: error : ')
     console.log(error)
   }
 }
@@ -192,3 +176,7 @@ watch(selectOption, (newVal) => {
   tourList()
 })
 </script>
+
+<style scoped>
+@import '@/assets/css/mainTourList.css';
+</style>

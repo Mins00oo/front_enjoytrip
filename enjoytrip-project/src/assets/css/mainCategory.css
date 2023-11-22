@@ -1,0 +1,32 @@
+.icon-section {
+  max-width: 960px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 자동 마진으로 가운데 정렬 */
+  padding: 20px; /* 상하좌우 패딩 */
+}
+.icon-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
+  grid-gap: 20px; /* 아이콘 사이 간격 */
+  justify-items: center; /* 가로 정렬 */
+  align-items: center; /* 세로 정렬 */
+  margin-bottom: 20px; /* 아래 컴포넌트와의 간격 */
+}
+
+.icon-large {
+  font-size: 2em; /* 아이콘 크기 증가 */
+  margin-bottom: 5px; /* 아이콘과 설명 사이 간격 */
+}
+
+.icon-grid-item {
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.font-awesome-icon {
+  font-size: 2rem; /* 아이콘 크기 */
+  margin-bottom: 5px; /* 아이콘과 설명 사이 간격 */
+}
+
+.icon-label {
+  display: block; /* 라벨을 블록 요소로 만듬 */
+  font-size: 0.9rem; /* 라벨 폰트 크기 */
+}
