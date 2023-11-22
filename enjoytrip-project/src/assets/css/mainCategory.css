@@ -30,3 +30,40 @@
   display: block; /* 라벨을 블록 요소로 만듬 */
   font-size: 0.9rem; /* 라벨 폰트 크기 */
 }
+
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.search-input-group {
+  max-width: 600px;
+  width: 100%;
+}
+
+.search-input {
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 15px 20px;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

@@ -45,6 +45,9 @@
         <span class="edit" @click="showUserModifyModal()">정보 수정</span>
         &nbsp; &nbsp;
 
+        <span class="edit" @click="showChangePasswordModal()">비밀 번호 수정</span>
+        &nbsp; &nbsp;
+
         <UserDeleteModal></UserDeleteModal>
         <!-- Button trigger modal -->
         <span class="edit" @click="showUserDeleteModal()">회원 탈퇴</span>
@@ -59,6 +62,7 @@
         <mytrip-list v-show="selectedTab === 'mytrip'"></mytrip-list>
       </div>
     </div>
+    <ChangePasswordModal :userId="userId"></ChangePasswordModal>
   </div>
 </template>
 
@@ -69,8 +73,9 @@ import UserModifyModal from './modal/UserModifyModal.vue'
 import StarList from '../star/StarList.vue'
 import ReviewList from '../review/ReviewList.vue'
 import VisitList from '../mytrip/VisitList.vue'
-import MytripList from "../mytrip/MytripList.vue"
+import MytripList from '../mytrip/MytripList.vue'
 import UserDeleteModal from './modal/UserDeleteModal.vue'
+import ChangePasswordModal from './modal/ChangePasswordModal.vue'
 
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/userStore'
@@ -79,10 +84,12 @@ import { Modal } from 'bootstrap'
 
 let deleteUserModal = null
 let userModifyModal = null
+let changePasswordModal = null
 
 onMounted(() => {
   deleteUserModal = new Modal(document.getElementById('staticBackdrop'))
   userModifyModal = new Modal(document.getElementById('userEditModal'))
+  changePasswordModal = new Modal(document.getElementById('editPasswordModal'))
 })
 
 const router = useRouter()
@@ -91,6 +98,7 @@ const { authStore, setLogout } = useAuthStore()
 const userName = ref('')
 const userNickname = ref('')
 const userEmail = ref('')
+const userId = ref('')
 
 const userDetail = async () => {
   try {
@@ -102,6 +110,7 @@ const userDetail = async () => {
     userName.value = data.userName
     userNickname.value = data.userNickname
     userEmail.value = data.userEmail
+    userId.value = data.userId
     console.log(userEmail)
   } catch (error) {
     console.log(error)
@@ -110,6 +119,10 @@ const userDetail = async () => {
 
 const showUserModifyModal = () => {
   userModifyModal.show()
+}
+
+const showChangePasswordModal = () => {
+  changePasswordModal.show()
 }
 userDetail()
 

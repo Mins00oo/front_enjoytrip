@@ -198,6 +198,17 @@ const validateUserEmail = () => {
 }
 
 const register = async () => {
+  if (
+    !isUserPasswordValid.value ||
+    !isUserPassword2Valid.value ||
+    !isUserEmailValid ||
+    !isUserNameValid ||
+    !isUserNicknameValid
+  ) {
+    alert('입력 정보를 확인해주세요.')
+    return
+  }
+
   let userObj = {
     userPassword: userPassword.value,
     userEmail: userEmail.value,

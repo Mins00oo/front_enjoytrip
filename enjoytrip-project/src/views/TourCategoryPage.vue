@@ -1,23 +1,7 @@
 <template>
   <div class="container py-5">
     <div class="row">
-      <div class="col-lg-3">
-        <h1 class="h2 pb-4">Categories</h1>
-        <ul class="list-unstyled templatemo-accordion">
-          <ul class="collapse show list-unstyled pl-3">
-            <li><a class="text-decoration-none" @click="TourCategory('')">전체</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('12')">관광지</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('14')">문화시설</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('15')">축제공연행사</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('25')">여행코스</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('28')">레포츠</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('32')">숙박</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('38')">쇼핑</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('39')">음식점</a></li>
-          </ul>
-        </ul>
-      </div>
-      <div class="col-lg-9">
+      <div class="col-lg-12">
         <div class="row">
           <div class="col-md-6">
             <h3>여행 장소</h3>
@@ -35,7 +19,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4" v-for="(item, index) in tourStore.searchResultList" :key="index">
+          <div class="col-md-4" v-for="(item, index) in tourStore.list" :key="index">
             <div class="card mb-4 product-wap rounded-0">
               <div class="card h-100 position-relative">
                 <router-link :to="`/detail/${item.contentId}`">
@@ -49,12 +33,12 @@
               />
 
               <div class="card-body">
-                <ul class="list-unstyled d-flex justify-content-between">
-                  <li></li>
-                  <li class="text-muted text-right">{{ item.addr1 }}</li>
+                <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
+                  item.title
+                }}</a>
+                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                  <!-- 여기에 사이즈나 색상 등의 정보를 표시할 수 있음 -->
                 </ul>
-
-                {{ item.title }}
                 <ul class="list-unstyled d-flex justify-content-center mb-1">
                   <li v-for="n in 5" :key="`star-${index}-${n}`">
                     <i
@@ -65,9 +49,8 @@
                       class="fa fa-star"
                     ></i>
                   </li>
-                  &nbsp; &nbsp; &nbsp;
-                  <p class="text-muted text-center">{{ item.reviewCount }} reviews</p>
                 </ul>
+                <p class="text-center mb-0">{{ item.addr1 }}</p>
               </div>
             </div>
           </div>
@@ -92,37 +75,34 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import http from '@/common/axios.js'
-import { useTourStore } from '../../stores/tourStore'
+import { useTourStore } from '../stores/tourStore'
+import { onMounted, ref, watch } from 'vue'
 import { useAuthStore } from '@/stores/userStore'
-import { useRouter, useRoute } from 'vue-router'
-import { onMounted } from 'vue'
+import http from '@/common/axios.js'
 
-const route = useRoute()
-const router = useRouter()
-const selectOption = ref('0')
-const category = ref('')
-const { tourStore, tourSearchList, store } = useTourStore()
 const { setLogout } = useAuthStore()
+const selectOption = ref('0')
+const { tourStore, setTourDetail, tourList, setTourListDefault } = useTourStore()
 //관광지 아이디 넣어주면 됨!!
-
-// 쿼리 파라미터 접근
-
-tourStore.sidoCode = route.query.sidoCode
-tourStore.gugunCode = route.query.gugunCode
-tourStore.searchWord = route.query.searchWord
-
-tourSearchList()
-
+const props = defineProps({
+  categoryId: String
+})
 tourStore.currentPage = 1
 
 const content = ref('')
+
+// 초기작업
+if (props.categoryId == -1) {
+  tourStore.category = ''
+} else tourStore.category = props.categoryId
+tourList()
+window.scroll(0, 0)
 
 const handleStar = (item) => {
   if (item.favorite) {
     deleteStar(item.contentId)
   } else {
+    console.log('addstar')
     addStar(item.contentId)
   }
 }
@@ -141,7 +121,7 @@ const addStar = async (contentId) => {
     } else if (data.result == 'false') {
       alert('이미 즐겨찾기한 관광지입니다')
     } else {
-      tourSearchList()
+      tourList()
     }
   } catch (error) {
     console.log(error)
@@ -155,7 +135,7 @@ const deleteStar = async (contentId) => {
       alert('로그인 후 사용 가능합니다.')
       doLogout()
     } else {
-      tourSearchList()
+      tourList()
     }
   } catch (error) {
     console.log(error)
@@ -166,31 +146,19 @@ const deleteStar = async (contentId) => {
 const changePage = (page) => {
   tourStore.currentPage = page
   tourStore.offset = page - 1
+  tourList()
   window.scroll(0, 0)
-  tourSearchList()
 }
 
-const TourCategory = (categoryId) => {
-  category.value = categoryId
-  tourStore.category = categoryId
-  window.scroll(0, 0)
-  tourSearchList()
+// logout 처리 별도 method
+const doLogout = () => {
+  setLogout({
+    isLogin: false,
+    userNickName: '',
+    userId: '',
+    userEmail: ''
+  })
 }
-
-// Query 파라미터의 변경을 감지하기 위한 watch 설정
-watch(
-  () => route.query,
-  (newQuery) => {
-    // 새로운 쿼리 파라미터로 검색 로직 수행
-    tourStore.sidoCode = newQuery.sidoCode
-    tourStore.gugunCode = newQuery.gugunCode
-    tourStore.searchWord = newQuery.searchWord
-
-    // 검색 실행
-    tourSearchList()
-  },
-  { immediate: true }
-) // 컴포넌트 마운트 시 즉시 실행
 
 watch(selectOption, (newVal) => {
   // tourStore의 정렬 옵션을 설정해주고 list호출
@@ -216,23 +184,9 @@ watch(selectOption, (newVal) => {
       tourStore.how = 'asc'
       break
   }
-
-  tourStore.category = category.value
-  tourSearchList()
-})
-
-// logout 처리 별도 method
-const doLogout = () => {
-  setLogout({
-    isLogin: false,
-    userNickName: '',
-    userId: '',
-    userEmail: ''
-  })
-}
-
-onMounted(() => {
-  window.scroll(0, 0)
+  tourList()
+  tourStore.option = 'title'
+  tourStore.how = 'asc'
 })
 </script>
 

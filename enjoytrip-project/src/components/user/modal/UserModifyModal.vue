@@ -79,11 +79,6 @@ const localUserEmail = ref('')
 const localUserName = ref('')
 const localUserNickname = ref('')
 
-// 모달 인스턴스 생성
-onMounted(() => {
-  userEditModal = new Modal(document.getElementById('userEditModal'))
-})
-
 const updateUser = async () => {
   let userObj = {
     userEmail: localUserEmail.value,
@@ -97,7 +92,6 @@ const updateUser = async () => {
     let { data } = await http.put(`/users/${authStore.userId}`, userObj)
     console.log(data)
     alert('회원정보가 변경되었습니다!')
-    userEditModal.hide()
     // 모달 닫기
     router.push('/')
   } catch (error) {

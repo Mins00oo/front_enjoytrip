@@ -18,6 +18,7 @@ export const useTourStore = defineStore('tourStore', () => {
     sidoList: [],
     gugunList: [],
     searchResultList: [],
+    recentSearchList: ['aa', 'bb', 'cc', 'dd'],
     limit: 9,
     offset: 0,
     searchWord: '',
@@ -69,6 +70,17 @@ export const useTourStore = defineStore('tourStore', () => {
   const setMainTourRecommendList = (list) => {
     tourStore.mainTourRecommendList = list
   }
+  const setTourSearchParamsDefault = () => {
+    tourStore.offset = 0
+    tourStore.limit = 9
+    tourStore.searchWord = ''
+    tourStore.region = ''
+    tourStore.category = ''
+    tourStore.option = 'title'
+    tourStore.how = 'asc'
+    tourStore.sidoCode = ''
+    tourStore.gugunCode = ''
+  }
   const setTourDetail = (payload) => {
     tourStore.contentId = payload.contentId
     tourStore.title = payload.title
@@ -102,6 +114,8 @@ export const useTourStore = defineStore('tourStore', () => {
       gugunCode: tourStore.gugunCode
     }
 
+    console.log('리스트 조회 params', params)
+
     try {
       let { data } = await http.get('/tours', { params })
       setTourList(data.list)
@@ -131,7 +145,7 @@ export const useTourStore = defineStore('tourStore', () => {
     try {
       let { data } = await http.get('/tours', { params })
       setSearchResultList(data.list)
-      console.log(data.list)
+      setTourSearchParamsDefault()
       tourStore.totalListItemCount = data.count
     } catch (error) {
       console.error(error)

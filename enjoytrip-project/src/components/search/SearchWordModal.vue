@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="search"
+    id="templatemo_search"
     tabindex="-1"
     aria-labelledby="searchModalLabel"
     aria-hidden="true"
@@ -18,41 +18,16 @@
         </div>
         <div class="modal-body">
           <form @submit.prevent="submitSearch" class="d-flex">
-            <select
-              class="form-select w-25 me-2"
-              :name="selectedCity"
-              v-model="selectedCity"
-              @click="updateGugun(selectedCity)"
-            >
-              <option
-                v-for="city in tourStore.sidoList"
-                :key="city.sidoCode"
-                :value="city.sidoName"
-              >
-                {{ city.sidoName }}
-              </option>
-            </select>
-            <select class="form-select w-25 me-2" v-model="selectedGugun">
-              <option
-                v-for="gugun in tourStore.gugunList"
-                :key="gugun.gugunCode"
-                :value="gugun.gugunName"
-              >
-                {{ gugun.gugunName }}
-              </option>
-            </select>
-
             <input
               type="text"
               class="form-control"
-              placeholder="Search ..."
+              placeholder="검색어 입력"
               v-model="tourStore.searchWord"
             />
-            <button class="btn btn-success ms-2" data-bs-dismiss="modal" @click="submitSearch()">
+            <button class="btn btn-success ms-2" data-bs-dismiss="modal">
               <i class="fa fa-fw fa-search text-white"></i>
             </button>
           </form>
-
           <div class="recent-searches mt-3">
             <h5>최근 검색어</h5>
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -89,46 +64,25 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch, onMounted } from 'vue'
 import { useTourStore } from '../../stores/tourStore'
 import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
 
 const router = useRouter()
-const { tourStore, tourSidoList, tourGugunList, tourSearchList } = useTourStore()
-
-const selectedCity = ref('') // 시도
-const selectedGugun = ref('') // 구군
+const { tourStore } = useTourStore()
 const recentSearches = ref([])
 const searchSavingEnabled = ref(true) // 최근 검색어 저장 기능 활성화 상태
-
-const updateGugun = async (sidoName) => {
-  const selectedSido = tourStore.sidoList.find((sido) => sido.sidoName === sidoName)
-  if (selectedSido) {
-    const sidoCode = selectedSido.sidoCode
-    // 해당 시도 코드를 사용하여 구/군 데이터를 비동기적으로 업데이트
-    await tourGugunList(sidoCode)
-    // tourGugunList 완료 후, 첫 번째 구/군 이름을 selectedGugun에 할당
-    if (tourStore.gugunList.length > 0) {
-      selectedGugun.value = tourStore.gugunList[0].gugunName
-      console.log(selectedGugun.value)
-    }
-  }
-}
 
 const submitSearch = () => {
   if (searchSavingEnabled.value) {
     addSearchTerm(tourStore.searchWord)
   }
-  const sido = tourStore.sidoList.find((sido) => sido.sidoName === selectedCity.value)
-  const gugun = tourStore.gugunList.find((gugun) => gugun.gugunName === selectedGugun.value)
-  tourStore.sidoCode = sido.sidoCode
-  tourStore.gugunCode = gugun.gugunCode
   // URL 변경
   router.push({
     path: '/tours/search',
     query: {
-      sidoCode: sido.sidoCode,
-      gugunCode: gugun.gugunCode,
+      sidoCode: '',
+      gugunCode: '',
       searchWord: tourStore.searchWord
     }
   })
@@ -173,25 +127,30 @@ const clearAllSearchTerms = () => {
 onMounted(() => {
   loadRecentSearches()
 })
-
-onMounted(async () => {
-  await tourSidoList()
-  if (tourStore.sidoList.length > 0) {
-    console.log(tourStore.sidoList)
-    selectedCity.value = tourStore.sidoList[0].sidoName
-    await tourGugunList(tourStore.sidoList[0].sidoCode)
-    if (tourStore.gugunList.length > 0) {
-      selectedGugun.value = tourStore.gugunList[0].gugunName
-    }
-  }
-})
 </script>
 
 <style scoped>
-.modal-header {
-  border-bottom: 0;
+.recent-searches h5 {
+  margin-bottom: 10px;
 }
-.modal-body {
-  padding: 2rem;
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.search-term:hover {
+  text-decoration: underline;
+}
+
+.list-group-item button {
+  margin-left: 10px;
 }
 </style>

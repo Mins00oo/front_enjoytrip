@@ -74,13 +74,11 @@
 import { ref, watch } from 'vue'
 import http from '@/common/axios.js'
 import { useTourStore } from '../../stores/tourStore'
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/userStore'
 
 const { setLogout } = useAuthStore()
-const router = useRouter()
 const selectOption = ref('0')
-const { tourStore, setTourDetail, tourList, setTourListDefault } = useTourStore()
+const { tourStore, tourList } = useTourStore()
 //관광지 아이디 넣어주면 됨!!
 
 tourStore.currentPage = 1

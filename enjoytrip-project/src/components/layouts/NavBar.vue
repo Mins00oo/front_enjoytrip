@@ -4,7 +4,6 @@
       <router-link class="navbar-brand text-success logo h1 align-self-center" to="/"
         >EnJoyTrip</router-link
       >
-
       <button
         class="navbar-toggler border-0"
         type="button"
@@ -51,14 +50,9 @@
               </div>
             </div>
           </div>
-          <a
-            class="nav-icon d-none d-lg-inline"
-            href="#"
-            data-bs-toggle="modal"
-            data-bs-target="#templatemo_search"
-          >
+          <button class="btn nav-icon d-none d-lg-inline" type="button" @click="showSearchModal()">
             <i class="fa fa-fw fa-search text-dark mr-2"></i>
-          </a>
+          </button>
           <a class="nav-icon position-relative text-decoration-none" href="#">
             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
             <span
@@ -71,23 +65,38 @@
               class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"
             ></span>
           </router-link>
-
-          <a class="nav-link" v-show="authStore.isLogin" href="#" @click="logout">로그아웃</a>
+          <a class="nav-icon position-relative text-decoration-none" href="#">
+            <font-awesome-icon
+              :icon="['fas', 'power-off']"
+              class="nav-icon position-relative text-decoration-none"
+              v-show="authStore.isLogin"
+              @click="logout()"
+            />
+          </a>
         </div>
       </div>
     </div>
   </nav>
+  <search-word-modal></search-word-modal>
 </template>
 
 <script setup>
 import { useAuthStore } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+import { Modal } from 'bootstrap'
 import http from '@/common/axios.js'
+import SearchWordModal from '../search/SearchWordModal.vue'
 
 const { authStore, setLogout } = useAuthStore()
 const router = useRouter()
+let searchWordModal = null
 
-console.log(authStore)
+const showSearchModal = () => searchWordModal.show()
+
+onMounted(() => {
+  searchWordModal = new Modal(document.getElementById('templatemo_search'))
+})
 
 const logout = async () => {
   try {
