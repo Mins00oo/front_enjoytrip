@@ -14,6 +14,7 @@ export const useMytripStore = defineStore('mytripStore', () => {
 
   // list
   const tourList = async (mytripId) => {
+    console.log('tourList')
     try {
       mytripStore.mytripId = mytripId
       let { data } = await http.get('/mytrips/' + mytripId)
@@ -28,8 +29,18 @@ export const useMytripStore = defineStore('mytripStore', () => {
 
   const getLength = () => (mytripStore.len = mytripStore.list.length)
 
+  const deleteTour = async (contentId) => {
+    try {
+      let res = await http.delete('/mytrips/tour/' + mytripStore.mytripId + '/' + contentId)
+      tourList(mytripStore.mytripId)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return {
     tourList,
-    mytripStore
+    mytripStore,
+    deleteTour
   }
 })

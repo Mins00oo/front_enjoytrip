@@ -1,0 +1,93 @@
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SUITE-Regular';
+}
+
+.result-container {
+    display: flex;
+    /* 자식 요소들을 가로로 나열하기 위해 flex 속성 추가 */
+    flex-wrap: wrap;
+    /* 자식 요소들을 여러 줄로 나타내기 위해 wrap 속성 추가 */
+    justify-content: space-between;
+    /* 자식 요소들을 양 끝으로 정렬하기 위해 space-between 속성 추가 */
+}
+
+.result-item {
+    flex: 1;
+    /* 각 아이템이 동일한 너비를 가지도록 설정 */
+    margin: 10px;
+    /* 각 아이템 간의 간격 조절 */
+    max-width: 500px;
+    /* 각 아이템의 최대 너비 설정 */
+
+    border: 2px solid #198754;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 255, 235);
+}
+
+.content-container {
+    display: flex;
+    /* 자식 요소들을 가로로 나열하기 위해 flex 속성 추가 */
+}
+
+.tour-title {
+    font-weight: bold !important;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.tour-content {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+i {
+    font-family: 'Font Awesome 5 Free';
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.tour-title-container {
+    display: flex;
+    justify-content: space-between;
+    /* 아이콘과 제목을 양 끝으로 정렬 */
+    align-items: center;
+    /* 아이콘과 텍스트를 수직 정렬 */
+}
+
+.plus {
+    margin-right: 8px;
+    margin-bottom: 10px;
+    color: #99582a
+        /* 오른쪽 마진 설정 */
+}
+
+.image-container {
+    max-width: 50%;
+    display: flex;
+    /* 자식 요소들을 가로로 나열하기 위해 flex 속성 추가 */
+    align-items: center;
+    /* 세로 중앙 정렬을 위한 속성 추가 */
+    margin-right: 10px;
+    /* 이미지와 텍스트 사이 간격 조절 */
+}
+
+/* 이미지의 스타일 설정 */
+.tour-image {
+    max-width: 100%;
+    /* 이미지가 컨테이너를 넘어가지 않도록 설정 */
+    height: auto;
+    /* 이미지의 가로세로 비율을 유지하면서 크기 조절 */
+    border-radius: 8px;
+}

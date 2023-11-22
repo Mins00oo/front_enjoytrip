@@ -30,8 +30,8 @@
 }
 
 .mytrip-title {
+    font-weight: bold !important;
     font-size: 16px;
-    font-weight: bold;
     margin-bottom: 8px;
 }
 
@@ -63,7 +63,9 @@ i {
 }
 
 .mytrip-trash-icon {
+    float: right;
     margin-right: 8px;
+    margin-bottom: 10px;
     color: #99582a
     /* 오른쪽 마진 설정 */
 }

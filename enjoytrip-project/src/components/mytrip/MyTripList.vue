@@ -43,7 +43,6 @@ const detailMytrip = (mytripId) => {
 const deleteMytrip = async (mytripId) => {
     try {
         let { data } = await http.delete("/mytrips/"+mytripId);
-        console.log(data)
     } catch (error) {
         console.error(error);
     }
