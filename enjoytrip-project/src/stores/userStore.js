@@ -11,7 +11,8 @@ export const useAuthStore = defineStore('authStore', () => {
     userEmail: 'aa@naver.com',
     userId: '',
     userNickName: '',
-    userPassword: '1234'
+    userPassword: '1234',
+    userDescription: ''
   })
 
   // login후 변경

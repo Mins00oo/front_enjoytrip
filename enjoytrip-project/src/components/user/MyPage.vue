@@ -13,22 +13,27 @@
         <!--사용자 정보-->
         <div class="stats">
           <div class="stat">
-            <p class="number-stat">13</p>
+            <p class="number-stat">{{ visitedCount }}</p>
             <p class="desc-stat">Visited</p>
           </div>
           <div class="stat">
-            <p class="number-stat">5</p>
+            <p class="number-stat">{{ reviewCount }}</p>
             <p class="desc-stat">Reviews</p>
           </div>
           <div class="stat">
-            <p class="number-stat">7</p>
+            <p class="number-stat">{{ boardCount }}</p>
             <p class="desc-stat">Uploads</p>
           </div>
         </div>
         <!--좌측 하단 소개말-->
-        <p class="desc">버킷리스트: 해외 유명맛집 부수기!!</p>
+        <p class="desc">소개글: {{ userDescription }}</p>
       </div>
-      <UserModifyModal :userName="userName" :userNickname="userNickname" :userEmail="userEmail" />
+      <UserModifyModal
+        :userName="userName"
+        :userNickname="userNickname"
+        :userEmail="userEmail"
+        :userDescription="userDescription"
+      />
       <div class="right col-lg-8">
         <ul class="nav">
           <li @click="selectTab('visited')" :class="{ selected: selectedTab === 'visited' }">
@@ -77,7 +82,7 @@ import MytripList from '../mytrip/MytripList.vue'
 import UserDeleteModal from './modal/UserDeleteModal.vue'
 import ChangePasswordModal from './modal/ChangePasswordModal.vue'
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, effect } from 'vue'
 import { useAuthStore } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
 import { Modal } from 'bootstrap'
@@ -99,6 +104,11 @@ const userName = ref('')
 const userNickname = ref('')
 const userEmail = ref('')
 const userId = ref('')
+const userDescription = ref('')
+const visitedCount = ref('')
+const reviewCount = ref('')
+const boardCount = ref('')
+const starCount = ref('')
 
 const userDetail = async () => {
   try {
@@ -111,6 +121,11 @@ const userDetail = async () => {
     userNickname.value = data.userNickname
     userEmail.value = data.userEmail
     userId.value = data.userId
+    visitedCount.value = data.visitedCount
+    reviewCount.value = data.reviewCount
+    boardCount.value = data.boardCount
+    starCount.value = data.starCount
+    userDescription.value = data.userDescription
     console.log(userEmail)
   } catch (error) {
     console.log(error)

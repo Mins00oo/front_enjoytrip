@@ -43,6 +43,16 @@
                 v-model="localUserNickname"
               />
             </div>
+
+            <div class="mb-3">
+              <label for="userDescription" class="form-label">소개글</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userDescription"
+                v-model="userDescription"
+              />
+            </div>
             <!-- 기타 필드 추가 -->
           </form>
         </div>
@@ -78,12 +88,14 @@ const { authStore } = useAuthStore()
 const localUserEmail = ref('')
 const localUserName = ref('')
 const localUserNickname = ref('')
+const userDescription = ref('')
 
 const updateUser = async () => {
   let userObj = {
     userEmail: localUserEmail.value,
     userName: localUserName.value,
-    userNickname: localUserNickname.value
+    userNickname: localUserNickname.value,
+    userDescription: userDescription.value
   }
 
   console.log(userObj)
@@ -102,7 +114,8 @@ const updateUser = async () => {
 const props = defineProps({
   userName: String,
   userNickname: String,
-  userEmail: String
+  userEmail: String,
+  userDescription: String
 })
 
 // Props와 로컬 데이터 동기화
@@ -110,6 +123,13 @@ watch(
   () => props.userName,
   (newVal) => {
     localUserName.value = newVal
+  }
+)
+
+watch(
+  () => props.userDescription,
+  (newVal) => {
+    userDescription.value = newVal
   }
 )
 

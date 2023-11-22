@@ -7,7 +7,7 @@ import http from '@/common/axios.js'
 
 export const useTourStore = defineStore('tourStore', () => {
   const router = useRouter()
-  const { authStore } = useAuthStore()
+  const { authStore, setLogout } = useAuthStore()
   const tourStore = reactive({
     // list
     list: [],
@@ -118,8 +118,16 @@ export const useTourStore = defineStore('tourStore', () => {
 
     try {
       let { data } = await http.get('/tours', { params })
+      if (!data.login) {
+        setLogout({
+          isLogin: false,
+          userNickName: '',
+          userId: '',
+          userEmail: ''
+        })
+      }
       setTourList(data.list)
-      console.log(data.list)
+      console.log(data)
       tourStore.totalListItemCount = data.count
     } catch (error) {
       console.error(error)
@@ -211,7 +219,15 @@ export const useTourStore = defineStore('tourStore', () => {
   const mainTourRecommendList = async () => {
     try {
       let { data } = await http.get('/tours/main')
-      setMainTourRecommendList(data)
+      if (!data.login) {
+        setLogout({
+          isLogin: false,
+          userNickName: '',
+          userId: '',
+          userEmail: ''
+        })
+      }
+      setMainTourRecommendList(data.list)
       console.log(data)
     } catch (error) {
       console.error(error)

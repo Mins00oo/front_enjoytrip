@@ -21,22 +21,43 @@
           <!-- 여기에 폼 입력 필드 추가 -->
           <form>
             <div class="mb-3">
-              <label for="userPassword" class="form-label">비밀번호</label>
               <input
                 type="password"
-                class="form-control"
-                id="userPassword"
+                placeholder="비밀번호"
+                :class="{
+                  'is-valid': isUserPasswordFocusAndValid,
+                  'is-invalid': isUserPasswordFocusAndInValid
+                }"
+                name="userPassword"
+                required
                 v-model="userPassword"
+                @input="validateUserPassword"
+                @focus="isUserPasswordFocus = true"
+                @blur="isUserPasswordFocus = false"
               />
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">
+                1개 이상의 특수문자, 대소문자 및 숫자를 포함하고 8자리 이상이여야 합니다.
+              </div>
             </div>
+
             <div class="mb-3">
-              <label for="userPassword2" class="form-label">비밀번호 확인</label>
               <input
                 type="password"
-                class="form-control"
-                id="userPassword2"
+                placeholder="비밀번호 확인"
+                :class="{
+                  'is-valid': isUserPassword2FocusAndValid,
+                  'is-invalid': isUserPassword2FocusAndInValid
+                }"
+                name="userPassword2"
                 v-model="userPassword2"
+                required
+                @input="validateUserPassword2"
+                @focus="isUserPassword2Focus = true"
+                @blur="isUserPassword2Focus = false"
               />
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
             </div>
             <!-- 기타 필드 추가 -->
           </form>
@@ -106,6 +127,11 @@ const validateUserPassword2 = () => {
 }
 
 const updateUser = async () => {
+  // if (!isUserPasswordValid.value || !isUserPassword2Valid.value) {
+  //   alert('비밀번호를 다시 확인해주세요.')
+  //   return
+  // }
+
   let userObj = {
     userPassword: userPassword.value
   }
@@ -115,9 +141,12 @@ const updateUser = async () => {
   try {
     let { data } = await http.put('/users/pw', userObj)
     console.log(data)
-    alert('회원정보가 변경되었습니다!')
+    if (data.result == 'false') {
+      alert('기존과 동일한 비밀번호입니다.')
+    } else {
+      alert('회원정보가 변경되었습니다!')
+    }
     // 모달 닫기
-    router.push('/')
   } catch (error) {
     console.log(error)
   }
