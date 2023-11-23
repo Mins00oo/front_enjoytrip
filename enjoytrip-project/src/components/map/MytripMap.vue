@@ -2,12 +2,8 @@
   <div>
     <!-- 검색 바 -->
     <div class="input-group mb-3">
-      <input
-        type="text"
-        v-model="store.tourStore.searchWord"
-        class="form-control form-control-lg"
-        placeholder="Search Here"
-      />
+      <input type="text" v-model="store.tourStore.searchWord" class="form-control form-control-lg"
+        placeholder="Search Here" />
       <button @click="search" type="button" class="input-group-text btn-success">
         <i class="fas fa-search"></i> Search
       </button>
@@ -18,12 +14,15 @@
       <div id="map" class="map"></div>
       <div class="sidebar">
         <!-- 현재 관광지 표시하기 -->
-        <div v-for="(p, index) in mStore.mytripStore.list" :key="index" class="item">
-          <div>
-            {{ p.contentTitle }}
-            <i @click="deleteTour(p.contentId)" class="fas fa-trash trash"></i>
+          <div v-for="(p, index) in mStore.mytripStore.list" :key="index" class="item">
+            <div v-if="p.contentId !== 0">
+              {{ p.contentTitle }}
+              <i @click="deleteTour(p.contentId)" class="fas fa-trash trash"></i>
+            </div>
+            <div v-if="p.contentId === 0">
+              관광지를 추가해주세요!
+            </div>
           </div>
-        </div>
       </div>
     </div>
     <ShareModal></ShareModal>

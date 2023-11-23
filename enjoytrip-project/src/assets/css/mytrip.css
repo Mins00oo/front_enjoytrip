@@ -11,8 +11,7 @@
 
 .mytrip-container {
     display: flex;
-    flex-wrap: wrap;
-    /* 자식 요소들을 여러 줄로 나타내기 위해 wrap 속성 사용 */
+    flex-direction: row; /* 가로로 나열되도록 설정 */
 }
 
 .mytrip-item {
@@ -25,7 +24,7 @@
     border: 2px solid #198754;
     padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(74, 73, 73, 0.1);
     background-color: rgb(255, 255, 235);
 }
 
@@ -66,6 +65,16 @@ i {
     float: right;
     margin-right: 8px;
     margin-bottom: 10px;
-    color: #99582a
+    color: #99582a;
     /* 오른쪽 마진 설정 */
+}
+
+.add{
+    height: 121px;
+}
+.mytrip-plus-icon {
+    font-size: 40px;
+    margin-left: 45%;
+    margin-top: 10%;
+    color: #99582a;
 }

@@ -43,6 +43,7 @@ const addTour = async (contentId) => {
         try {
             let { data } = await http.post("/mytrips/tour", param);
             mStore.tourList(mStore.mytripStore.mytripId)
+            alert('관광지가 추가되었습니다!')
         } catch (error) {
             console.error(error);
         }

@@ -64,6 +64,8 @@ const login = async () => {
 
   try {
     let { data } = await http.post('/login', loginObj)
+    console.log(loginObj);
+    console.log(data);
     if (data.result == 'success') {
       // 세션 스토리지에 저장
       sessionStorage.setItem('isLogin', 'true')

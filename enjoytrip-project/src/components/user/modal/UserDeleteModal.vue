@@ -44,12 +44,7 @@ import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/userStore'
 import { Modal } from 'bootstrap'
 
-let userDeleteModal = null
 
-// 모달 인스턴스 생성
-onMounted(() => {
-  userDeleteModal = new Modal(document.getElementById('staticBackdrop'))
-})
 
 const router = useRouter()
 const { authStore, setLogin } = useAuthStore()
@@ -71,7 +66,6 @@ const deleteUser = async () => {
     })
     alert('탈퇴 완료되었습니다.')
 
-    userDeleteModal.hide()
     router.push('/')
   } catch (error) {
     console.log(error)

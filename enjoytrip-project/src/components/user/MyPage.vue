@@ -64,7 +64,7 @@
         <!-- 리뷰 -->
         <review-list v-show="selectedTab === 'review'"></review-list>
         <!-- 마이트립 -->
-        <mytrip-list v-show="selectedTab === 'mytrip'"></mytrip-list>
+        <my-trip-list v-show="selectedTab === 'mytrip'"></my-trip-list>
       </div>
     </div>
     <ChangePasswordModal :userId="userId"></ChangePasswordModal>
@@ -77,8 +77,8 @@ import UserModifyModal from './modal/UserModifyModal.vue'
 
 import StarList from '../star/StarList.vue'
 import ReviewList from '../review/ReviewList.vue'
-import VisitList from '../mytrip/VisitList.vue'
-import MytripList from '../mytrip/MytripList.vue'
+import VisitList from '../review/VisitList.vue'
+import MyTripList from "../mytrip/MyTripList.vue"
 import UserDeleteModal from './modal/UserDeleteModal.vue'
 import ChangePasswordModal from './modal/ChangePasswordModal.vue'
 

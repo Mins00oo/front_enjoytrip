@@ -12,18 +12,19 @@
 .review-container {
     display: flex;
     flex-direction: column;
-    width: 95%;
-    border: 1px solid #ccc;
+    width: 45%;
     margin: 10px;
     padding: 10px;
+
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    border: 2px solid #FF3366;
+    background-color: #fbedf2; 
 }
 
 .review-title {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: bold !important;
     margin-bottom: 8px;
 }
 
@@ -37,6 +38,30 @@
     color: #666;
 }
 
+.review-star {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.star {
+    color:#FFD54F;
+}
+
 i {
     font-family: 'Font Awesome 5 Free';
+}
+
+
+.icon-container {
+    display: flex;
+    gap: 10px;
+    /* 아이콘들 사이의 간격을 설정 (예시) */
+    margin-left: 40%;
+    margin-bottom: 5px;
+}
+
+.review-title-container {
+    display: flex;
+    align-items: center;
+    /* 아이콘과 제목을 수직 가운데 정렬 */
 }

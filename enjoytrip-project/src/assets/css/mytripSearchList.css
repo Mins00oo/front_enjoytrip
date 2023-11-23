@@ -69,8 +69,12 @@ i {
 .plus {
     margin-right: 8px;
     margin-bottom: 10px;
-    color: #99582a
+    color: #99582a;
         /* 오른쪽 마진 설정 */
+}
+
+.plus:hover {
+    color:indianred;
 }
 
 .image-container {

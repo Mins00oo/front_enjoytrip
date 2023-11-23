@@ -118,14 +118,14 @@ export const useTourStore = defineStore('tourStore', () => {
 
     try {
       let { data } = await http.get('/tours', { params })
-      if (!data.login) {
-        setLogout({
-          isLogin: false,
-          userNickName: '',
-          userId: '',
-          userEmail: ''
-        })
-      }
+      // if (!data.login) {
+      //   setLogout({
+      //     isLogin: false,
+      //     userNickName: '',
+      //     userId: '',
+      //     userEmail: ''
+      //   })
+      // }
       setTourList(data.list)
       console.log(data)
       tourStore.totalListItemCount = data.count
@@ -219,14 +219,14 @@ export const useTourStore = defineStore('tourStore', () => {
   const mainTourRecommendList = async () => {
     try {
       let { data } = await http.get('/tours/main')
-      if (!data.login) {
-        setLogout({
-          isLogin: false,
-          userNickName: '',
-          userId: '',
-          userEmail: ''
-        })
-      }
+      // if (!data.login) {
+      //   setLogout({
+      //     isLogin: false,
+      //     userNickName: '',
+      //     userId: '',
+      //     userEmail: ''
+      //   })
+      // }
       setMainTourRecommendList(data.list)
       console.log(data)
     } catch (error) {

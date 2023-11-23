@@ -9,21 +9,45 @@
             <p>{{ visit.title }}</p>
           </router-link>
           <hr />
-          <i @click="writeReview(visit.contentId)" class="fas fa-trash"></i>
+          <i @click="writeReview(visit.contentId)" class="fas fa-edit"></i>
         </div>
       </div>
     </div>
+    <write-review-modal></write-review-modal>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import http from '@/common/axios.js'
 import { useAuthStore } from '@/stores/userStore'
+import { useReviewStore } from "../../stores/reivewStore";
+import WriteReviewModal from "./modal/WriteReviewModal.vue";
+import { storeToRefs } from "pinia";
+import { Modal } from 'bootstrap'
+
+// //Modal 세팅
+const store = useReviewStore()
+let writeModal = null
 
 //관광지 정보 세팅하기
 const { setLogout } = useAuthStore()
 const dataList = ref([])
+
+onMounted(() => {
+  writeModal = new Modal(document.getElementById('writeReview'))
+})
+
+//마이트립 추가하기
+const writeReview = async (contentId) => {
+  //contentId 설정
+  store.setContentId(contentId)
+  writeModal.show()
+  //다시 리스트 불러오기
+  list()
+}
+
+
 const list = async () => {
   try {
     let { data } = await http.get('/tours/users')
@@ -38,6 +62,7 @@ const list = async () => {
   }
 }
 list()
+
 
 const doLogout = () => {
   setLogout({

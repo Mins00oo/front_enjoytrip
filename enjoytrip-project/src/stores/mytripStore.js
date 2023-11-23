@@ -6,8 +6,8 @@ import http from '@/common/axios.js'
 
 export const useMytripStore = defineStore('mytripStore', () => {
   const mytripStore = reactive({
-    // 관광지 정보 list
-    list: [],
+    mytripList: [],
+    list: [], // 관광지 정보 list
     mytripId: 0,
     len: 0
   })
@@ -25,7 +25,18 @@ export const useMytripStore = defineStore('mytripStore', () => {
     }
   }
 
+  const getMytripList = async () => {
+    console.log('mytripList')
+    try {
+      let { data } = await http.get('/mytrips')
+      setMytripList(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const setTourList = (list) => (mytripStore.list = list)
+  const setMytripList = (list) => (mytripStore.mytripList = list)
 
   const getLength = () => (mytripStore.len = mytripStore.list.length)
 
@@ -41,6 +52,7 @@ export const useMytripStore = defineStore('mytripStore', () => {
   return {
     tourList,
     mytripStore,
-    deleteTour
+    deleteTour,
+    getMytripList
   }
 })

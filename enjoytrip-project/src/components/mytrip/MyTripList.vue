@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="(mytrip, index) in dataList" :key="index" class="mytrip-container mt-3">
+        <div v-for="(mytrip, index) in store.mytripStore.mytripList" :key="index" class="mytrip-container mt-3">
             <div class="mytrip-item">
                 <div class="mytrip-title-container">
                     <div class="mytrip-title" @click="detailMytrip(mytrip.mytripId)">{{ mytrip.title }}</div>
@@ -14,27 +14,41 @@
                 <div class="mytrip-userCnt mt-2"><i far fa-calendar-alt></i>생성일: {{ mytrip.creDate }}</div>
             </div>
         </div>
+        <div class="mytrip-item add">
+            <i @click="addMytrip" class="fas fa-plus mytrip-plus-icon"></i>
+        </div>
+        <add-modal></add-modal>
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import http from '@/common/axios.js'
 import { useRouter } from 'vue-router'
+import AddModal from '@/components/mytrip/modal/AddModal.vue'
+import { Modal } from 'bootstrap'
+import { useMytripStore } from "../../stores/mytripStore";
 
 const router = useRouter()
 
-//리뷰 정보 가져오기
-const dataList = ref([])
-const list = async () => {
-    try {
-        let { data } = await http.get("/mytrips");
-        dataList.value = data;
-    } catch (error) {
-        console.error(error);
-    }
+const store = useMytripStore()
+let addModal = null
+
+//리스트 초기화
+store.getMytripList()
+console.log(store.mytripStore.mytripList)
+
+onMounted(() => {
+    addModal = new Modal(document.getElementById('addModal'))
+})
+
+//마이트립 추가하기
+const addMytrip = async () => {
+    //모달 띄우기
+    addModal.show()
+    //다시 리스트 불러오기
+    store.mytripList()
 }
-list()
 
 const detailMytrip = (mytripId) => {
     router.push({ name: 'MytripDetail', params: { mytripId: mytripId } })
