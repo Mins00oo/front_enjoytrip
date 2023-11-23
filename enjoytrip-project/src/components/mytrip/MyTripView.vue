@@ -1,13 +1,14 @@
 <template>
-    <div class="container mt-5">
-        <h1>마이트립</h1>
-        <mytrip-list></mytrip-list>
+    <div class="top">
+        <div class="container mt-5">
+            <h1>마이트립</h1>
+            <my-trip-list></my-trip-list>
+        </div>
     </div>
-
 </template>
 
 <script setup>
-import MytripList from "./MytripList.vue";
+import MyTripList from "./MyTripList.vue";
 
 </script>
 

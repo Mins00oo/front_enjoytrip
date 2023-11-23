@@ -1,6 +1,6 @@
 <template>
   <div class="row text-left p-2 pb-3">
-    <h4>관련 관광지</h4>
+    <h4 style="font-weight: bold !important;">관련 관광지</h4>
   </div>
   <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
@@ -115,3 +115,21 @@ const goToDetailPage = async (contentId) => {
   }
 }
 </script>
+
+<style scoped>
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SUITE-Regular';
+}
+
+i {
+    font-family: 'Font Awesome 5 Free';
+}
+
+</style>

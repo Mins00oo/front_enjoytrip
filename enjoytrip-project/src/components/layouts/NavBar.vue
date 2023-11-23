@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light shadow">
     <div class="container d-flex justify-content-between align-items-center">
       <router-link class="navbar-brand text-success logo h1 align-self-center" to="/"
-        >EnJoyTrip</router-link
+        >Avocado</router-link
       >
       <button
         class="navbar-toggler border-0"
@@ -53,12 +53,6 @@
           <button class="btn nav-icon d-none d-lg-inline" type="button" @click="showSearchModal()">
             <i class="fa fa-fw fa-search text-dark mr-2"></i>
           </button>
-          <a class="nav-icon position-relative text-decoration-none" href="#">
-            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-            <span
-              class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"
-            ></span>
-          </a>
           <router-link to="/mypage" class="nav-icon position-relative text-decoration-none">
             <i class="fa fa-fw fa-user text-dark mr-3"></i>
             <span
@@ -134,3 +128,27 @@ const logout = async () => {
   }
 }
 </script>
+
+<style scoped>
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SUITE-Regular';
+    font-weight: bold !important;
+}
+
+.nav-link {
+  font-size: 20px !important;
+}
+
+i {
+    font-family: 'Font Awesome 5 Free';
+}
+
+
+</style>

@@ -8,15 +8,15 @@
         <i class="fas fa-search"></i> Search
       </button>
     </div>
-    <button @click="setBound"><i class="fas fa-map-marker-alt"></i> 마커 한눈에 보기</button>
-    <button @click="showShareModal"><i class="fas fa-user-plus"></i> 친구 추가하기</button>  
+    <button @click="setBound" style="font-weight: bold !important;"><i class="fas fa-map-marker-alt icon"></i> 마커 한눈에 보기</button>
+    <button @click="showShareModal" style="font-weight: bold !important;"><i class="fas fa-user-plus icon"></i> 친구 추가하기</button>  
     <div class="container mt-3 mb-3">
       <div id="map" class="map"></div>
       <div class="sidebar">
         <h3 style="font-weight: bold; margin-left: 10px;">List</h3>
         <!-- 현재 관광지 표시하기 -->
           <div v-for="(p, index) in mStore.mytripStore.list" :key="index" class="item">
-            <div v-if="p.contentId !== 0">
+            <div v-if="p.contentId !== 0" style="font-weight: bold !important;">
               {{ p.contentTitle }}
               <i @click="deleteTour(p.contentId)" class="fas fa-trash trash"></i>
             </div>
@@ -160,8 +160,8 @@ button {
   padding: 5px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 2px solid #FF3366;
-  background-color: #fbedf2; 
+  border: 2px solid #198754;
+    background-color: rgb(255, 255, 235);
 }
 
 i {
@@ -194,13 +194,18 @@ i {
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 2px solid #FF3366;
-  background-color: #fbedf2; 
+  border: 2px solid #198754;
+    background-color: rgb(255, 255, 235);
 }
 
 .trash {
   float: right;
   margin-top: 3px;
+  color: #99582a;
+}
+
+.icon {
+  color: #99582a;
 }
 
 

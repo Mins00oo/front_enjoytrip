@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: 'SUITE-Regular';
+}
+
+i {
+  font-family: 'Font Awesome 5 Free';
+}
+
 .icon-section {
   max-width: 960px; /* 최대 너비 설정 */
   margin: 0 auto; /* 자동 마진으로 가운데 정렬 */
@@ -15,6 +30,7 @@
 .icon-large {
   font-size: 2em; /* 아이콘 크기 증가 */
   margin-bottom: 5px; /* 아이콘과 설명 사이 간격 */
+  color: #59ab6e;
 }
 
 .icon-grid-item {
@@ -29,6 +45,8 @@
 .icon-label {
   display: block; /* 라벨을 블록 요소로 만듬 */
   font-size: 0.9rem; /* 라벨 폰트 크기 */
+  font-weight: bold !important;
+  color:#59ab6e;
 }
 
 

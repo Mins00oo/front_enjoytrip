@@ -2,7 +2,7 @@
   <div class="col-lg-9">
     <div class="row">
       <div class="col-md-6">
-        <h3>여행 장소</h3>
+        <h3 style="font-weight: bold !important;">여행 장소</h3>
       </div>
       <div class="col-md-6 pb-4">
         <div class="d-flex">

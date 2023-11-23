@@ -37,3 +37,17 @@ route url 이 board 에서 / 로 변경되는 문제 발생 -->
   }
 
 </script>
+
+<style scoped>
+
+.page-item.active .page-link {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.page-item.active .page-link:hover {
+    background-color: #59ab6e;
+    border-color: #59ab6e;
+}
+
+</style>

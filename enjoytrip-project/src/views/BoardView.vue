@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
-    <h4 class="text-center">게시판</h4>
+  <div class="container mt-5">
+    <h4 class="text-center" style="font-weight: bold !important; font-size: 30px !important;">게시판</h4>
 
-    <div class="input-group mb-3">
+    <div class="input-group mt-3 mb-3">
       <!-- store 사용 -->
       <input
         v-model="boardStore.searchWord"
@@ -19,7 +19,7 @@
 
     <PaginationUI v-on:call-parent="movePage"></PaginationUI>
 
-    <button class="btn btn-sm btn-primary" @click="showInsertModal">글쓰기</button>
+    <button class="btn btn-sm mb-5" @click="showInsertModal" style="color: white; background-color: #198754; font-size: 15px !important;;">글쓰기</button>
 
     <insert-modal v-on:call-parent-insert="closeAfterInsert"></insert-modal>
     <!-- props 제거 -->
@@ -142,3 +142,21 @@ const doLogout = () => {
   router.push('/login')
 }
 </script>
+
+<style scoped>
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SUITE-Regular';
+}
+
+i {
+    font-family: 'Font Awesome 5 Free';
+}
+
+</style>

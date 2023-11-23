@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-3">
-      <h1 class="h2 pb-4">Categories</h1>
+      <h1 class="h2 pb-4" style="font-weight: bold !important;">Categories</h1>
         <div v-for="category in categories" :key="category.id" class="category-box">
             <i :class="category.icon"></i>
             <a class="category" @click="TourCategory(category.id)">
@@ -38,6 +38,21 @@ const TourCategory = (category) => {
 </script>
 
 <style scoped>
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SUITE-Regular';
+}
+
+i {
+    font-family: 'Font Awesome 5 Free';
+}
+
 .templatemo-accordion {
     padding: 0;
   }

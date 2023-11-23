@@ -17,8 +17,10 @@
         </div>
       </div>
     </div>
-    <div class="mytrip-item add">
-      <i @click="addMytrip" class="fas fa-plus mytrip-plus-icon"></i>
+    <div class="mytrip-container mt-3">
+      <div class="mytrip-item add">
+        <i @click="addMytrip" class="fas fa-plus mytrip-plus-icon"></i>
+      </div>
     </div>
     <add-modal></add-modal>
   </div>

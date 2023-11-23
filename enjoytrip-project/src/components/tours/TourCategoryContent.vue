@@ -2,7 +2,7 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-lg-3">
-        <h1 class="h2 pb-4">Categories</h1>
+        <h1 class="h2 pb-4" style="font-weight: bold !important;">Categories</h1>
         <div v-for="category in categories" :key="category.id" class="category-box">
             <i :class="category.icon"></i>
             <a class="category" @click="TourCategory(category.id)">
@@ -13,7 +13,7 @@
       <div class="col-lg-9">
         <div class="row">
           <div class="col-md-6">
-            <h3>여행 장소</h3>
+            <h3 style="font-weight: bold !important;">여행 장소</h3>
           </div>
           <div class="col-md-6 pb-4">
             <div class="d-flex">

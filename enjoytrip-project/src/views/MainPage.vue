@@ -14,7 +14,7 @@
   </div>
 
   <MainTourRecommend></MainTourRecommend>
-  <div class="container">
+  <div class="container mt-5 mb-5">
     <div class="icon-section">
       <div class="icon-grid-container">
         <div class="icon-grid-item">

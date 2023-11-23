@@ -9,9 +9,14 @@
     font-family: 'SUITE-Regular';
 }
 
+.top {
+    height: 100vh;
+}
+
 .mytrip-container {
     display: flex;
     flex-direction: row; /* 가로로 나열되도록 설정 */
+
 }
 
 .mytrip-item {
@@ -74,7 +79,7 @@ i {
 }
 .mytrip-plus-icon {
     font-size: 40px;
-    margin-left: 47%;
-    margin-top: 9%;
+    margin-left: 45%;
+    margin-top: 8%;
     color: #99582a;
 }

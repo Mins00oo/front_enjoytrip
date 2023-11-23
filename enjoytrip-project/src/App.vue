@@ -45,4 +45,5 @@ if (isContent != null) {
   <footer-bar></footer-bar>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
