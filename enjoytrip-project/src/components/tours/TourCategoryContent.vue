@@ -32,7 +32,11 @@
             <div class="card mb-4 product-wap rounded-0">
               <div class="card h-100 position-relative">
                 <router-link :to="`/detail/${item.contentId}`">
-                  <img class="card-img-top" :src="item.firstImage" :alt="item.title" />
+                  <img
+                    :src="item.firstImage || '/src/assets/img/default_img.jpg'"
+                    class="card-img-top"
+                    :alt="item.title"
+                  />
                 </router-link>
               </div>
               <font-awesome-icon
@@ -65,20 +69,37 @@
             </div>
           </div>
         </div>
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation">
           <ul class="pagination justify-content-center">
+            <li v-if="prev" class="page-item">
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Previous"
+                @click="movePage(startPageIndex - 1)"
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
             <li
-              v-for="page in 10"
-              :key="page"
+              v-for="index in endPageIndex - startPageIndex + 1"
+              :key="index"
+              v-bind:class="{ active: startPageIndex + index - 1 == tourStore.currentPage }"
               class="page-item"
-              :class="{ active: page === tourStore.currentPage }"
             >
-              <a class="page-link" href="#" @click.prevent="changePage(page)">
-                {{ page }}
+              <a @click="movePage(startPageIndex + index - 1)" class="page-link">{{
+                startPageIndex + index - 1
+              }}</a>
+              <!-- href 는 그대로, 커서 모양 유지-->
+            </li>
+            <li v-if="next" class="page-item">
+              <a class="page-link" href="#" aria-label="Next" @click="movePage(endPageIndex + 1)">
+                <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
           </ul>
         </nav>
+        {{ tourStore.startPageIndex }}
       </div>
     </div>
   </div>
@@ -87,6 +108,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import http from '@/common/axios.js'
+import { storeToRefs } from 'pinia'
 import { useTourStore } from '../../stores/tourStore'
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
@@ -94,7 +116,6 @@ import { onMounted } from 'vue'
 const router = useRouter()
 const selectOption = ref('0')
 const category = ref('')
-const { tourStore, setTourDetail, tourList, setTourListDefault } = useTourStore()
 
 const categories = [
   { id: '', name: '전체', icon: 'fas fa-globe' },
@@ -107,6 +128,9 @@ const categories = [
   { id: '38', name: '쇼핑', icon: 'fas fa-shopping-cart' },
   { id: '39', name: '음식점', icon: 'fas fa-utensils' }
 ]
+
+const { startPageIndex, endPageIndex, prev, next } = storeToRefs(useTourStore()) // destructuring 에 의한 reactive 손실 보정
+const { tourStore, setTourDetail, tourList, setTourListDefault, setTourMovePage } = useTourStore()
 
 //관광지 아이디 넣어주면 됨!!
 const contentId = ref('125408')
@@ -168,13 +192,10 @@ const deleteStar = async (contentId) => {
   }
 }
 
-// 페이지 변경 함수
-const changePage = (page) => {
-  tourStore.currentPage = page
-  tourStore.offset = (page - 1) * tourStore.limit
-  tourStore.region = props.region
-  window.scroll(0, 0)
+const movePage = (pageIndex) => {
+  setTourMovePage(pageIndex)
   tourList()
+  window.scroll(0, 0)
 }
 
 const TourCategory = (categoryId) => {

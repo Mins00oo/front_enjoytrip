@@ -5,10 +5,9 @@
         <div class="col-lg-5 mt-5">
           <div class="card mb-3">
             <img
-              class="card-img img-fluid"
-              :src="tourStore.firstImage"
-              alt="Card image cap"
-              id="product-detail"
+              :src="tourStore.firstImage || '/src/assets/img/default_img.png'"
+              class="card-img-top"
+              :alt="tourStore.title"
             />
           </div>
         </div>
@@ -47,11 +46,6 @@
               </p>
 
               <div class="row pb-3">
-                <div class="col d-grid">
-                  <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">
-                    마이트립 추가
-                  </button>
-                </div>
                 <div class="col d-grid">
                   <button
                     v-if="tourStore.favorite"

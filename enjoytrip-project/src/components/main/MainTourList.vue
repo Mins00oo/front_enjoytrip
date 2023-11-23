@@ -14,7 +14,11 @@
         >
           <div class="card h-100 position-relative">
             <router-link :to="`/detail/${item.contentId}`">
-              <img :src="item.firstImage" class="card-img-top" :alt="item.title" />
+              <img
+                :src="item.firstImage || '/src/assets/img/default_img.jpg'"
+                class="card-img-top"
+                :alt="item.title"
+              />
             </router-link>
             <font-awesome-icon
               class="favorite-icon"

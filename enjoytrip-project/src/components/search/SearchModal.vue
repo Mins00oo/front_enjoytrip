@@ -75,7 +75,11 @@
                 :key="index"
                 class="list-group-item d-flex justify-content-between align-items-center"
               >
-                <button class="search-term" @click="useSearchTerm(word)" data-bs-dismiss="modal">
+                <button
+                  class="btn btn-light fs-5"
+                  @click="useSearchTerm(word)"
+                  data-bs-dismiss="modal"
+                >
                   {{ word }}
                 </button>
                 <button class="btn btn-outline-danger btn-sm" @click="removeSearchTerm(word)">
@@ -118,7 +122,8 @@ const updateGugun = async (sidoName) => {
 }
 
 const submitSearch = () => {
-  if (searchSavingEnabled.value) {
+  if (tourStore.searchWord != '' && searchSavingEnabled.value) {
+    console.log(tourStore.searchWord)
     addSearchTerm(tourStore.searchWord)
   }
   const sido = tourStore.sidoList.find((sido) => sido.sidoName === selectedCity.value)

@@ -50,7 +50,11 @@
                 :key="index"
                 class="list-group-item d-flex justify-content-between align-items-center"
               >
-                <button class="search-term" @click="useSearchTerm(word)" data-bs-dismiss="modal">
+                <button
+                  class="btn btn-light fs-5"
+                  @click="useSearchTerm(word)"
+                  data-bs-dismiss="modal"
+                >
                   {{ word }}
                 </button>
                 <button class="btn btn-outline-danger btn-sm" @click="removeSearchTerm(word)">
@@ -76,6 +80,11 @@ const recentSearches = ref([])
 const searchSavingEnabled = ref(true) // 최근 검색어 저장 기능 활성화 상태
 
 const submitSearch = () => {
+  if (tourStore.searchWord == '') {
+    alert('검색어를 입력해주세요!')
+    return
+  }
+
   if (searchSavingEnabled.value) {
     addSearchTerm(tourStore.searchWord)
   }

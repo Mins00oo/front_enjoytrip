@@ -23,7 +23,11 @@
             <div class="product-wap card rounded-0">
               <div class="col-md-8 col-lg-6 mx-auto order-lg-last text-center">
                 <router-link :to="`/detail/${item.contentId}`">
-                  <img :src="item.firstImage" class="card-img-top" :alt="item.title" />
+                  <img
+                    :src="item.firstImage || '@/assets/img/default_img.png'"
+                    class="card-img-top"
+                    :alt="item.title"
+                  />
                 </router-link>
                 <div
                   class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"
