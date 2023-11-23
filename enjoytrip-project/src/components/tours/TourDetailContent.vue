@@ -17,16 +17,7 @@
           <div class="card">
             <div class="card-body">
               <h1 class="h2">{{ tourStore.title }}</h1>
-              <p class="py-2">
-                <i class="fa fa-star text-warning"></i>
-                <i class="fa fa-star text-warning"></i>
-                <i class="fa fa-star text-warning"></i>
-                <i class="fa fa-star text-warning"></i>
-                <i class="fa fa-star text-secondary"></i>
-                <span class="list-inline-item text-dark"
-                  >Rating {{ tourStore.avgScore }} | 조회수 {{ tourStore.readCount }}</span
-                >
-              </p>
+
               <ul class="list-inline">
                 <li class="list-inline-item">
                   <h6>위치:</h6>
@@ -36,6 +27,18 @@
                     <strong>{{ tourStore.addr1 }}</strong>
                   </p>
                 </li>
+
+                <ul class="list-unstyled d-flex justify-content-center mb-1">
+                  <li v-for="n in 5" :key="`star-${tourStore.averageScore}-${n}`">
+                    <i
+                      :class="{
+                        'text-warning': n <= tourStore.averageScore,
+                        'text-muted': n > tourStore.averageScore
+                      }"
+                      class="fa fa-star"
+                    ></i>
+                  </li>
+                </ul>
               </ul>
 
               <h6>Description:</h6>

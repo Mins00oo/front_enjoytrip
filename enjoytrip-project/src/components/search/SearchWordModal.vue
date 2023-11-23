@@ -50,7 +50,9 @@
                 :key="index"
                 class="list-group-item d-flex justify-content-between align-items-center"
               >
-                <span class="search-term" @click="useSearchTerm(word)">{{ word }}</span>
+                <button class="search-term" @click="useSearchTerm(word)" data-bs-dismiss="modal">
+                  {{ word }}
+                </button>
                 <button class="btn btn-outline-danger btn-sm" @click="removeSearchTerm(word)">
                   X
                 </button>
@@ -84,6 +86,19 @@ const submitSearch = () => {
       sidoCode: '',
       gugunCode: '',
       searchWord: tourStore.searchWord
+    }
+  })
+  tourStore.searchWord = ''
+}
+
+const useSearchTerm = (word) => {
+  // URL 변경
+  router.push({
+    path: '/tours/search',
+    query: {
+      sidoCode: '',
+      gugunCode: '',
+      searchWord: word
     }
   })
   tourStore.searchWord = ''

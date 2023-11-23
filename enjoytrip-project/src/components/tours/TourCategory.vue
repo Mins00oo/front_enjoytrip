@@ -23,6 +23,8 @@ import { useTourStore } from '../../stores/tourStore'
 const { tourStore, tourList } = useTourStore()
 const TourCategory = (category) => {
   tourStore.category = category
+  tourStore.option = 'title'
+  tourStore.how = 'asc'
   tourList()
   window.scroll(0, 0)
 }

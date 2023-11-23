@@ -22,15 +22,28 @@
           <div class="col-md-6">
             <h3>여행 장소</h3>
           </div>
+
           <div class="col-md-6 pb-4">
-            <div class="d-flex">
-              <select class="form-control" v-model="selectOption">
-                <option value="0">가나다 순</option>
-                <option value="1">평점 높은순</option>
-                <option value="2">평점 낮은순</option>
-                <option value="3">조회수 높은순</option>
-                <option value="4">조회수 낮은순</option>
-              </select>
+            <div class="d-flex justify-content-end align-items-center">
+              <div class="filter-select mr-3">
+                <select class="form-control" v-model="selectOption">
+                  <option value="0">가나다 순</option>
+                  <option value="1">평점 높은순</option>
+                  <option value="2">평점 낮은순</option>
+                  <option value="3">조회수 높은순</option>
+                  <option value="4">조회수 낮은순</option>
+                </select>
+              </div>
+              <div class="search-icon">
+                <form @submit.prevent="submitSearch" class="d-flex">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search ..."
+                    v-model="tourStore.againSearchWord"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -72,20 +85,37 @@
             </div>
           </div>
         </div>
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation">
           <ul class="pagination justify-content-center">
+            <li v-if="prev" class="page-item">
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Previous"
+                @click="movePage(startPageIndex - 1)"
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
             <li
-              v-for="page in 10"
-              :key="page"
+              v-for="index in endPageIndex - startPageIndex + 1"
+              :key="index"
+              v-bind:class="{ active: startPageIndex + index - 1 == tourStore.currentPage }"
               class="page-item"
-              :class="{ active: page === tourStore.currentPage }"
             >
-              <a class="page-link" href="#" @click.prevent="changePage(page)">
-                {{ page }}
+              <a @click="movePage(startPageIndex + index - 1)" class="page-link">{{
+                startPageIndex + index - 1
+              }}</a>
+              <!-- href 는 그대로, 커서 모양 유지-->
+            </li>
+            <li v-if="next" class="page-item">
+              <a class="page-link" href="#" aria-label="Next" @click="movePage(endPageIndex + 1)">
+                <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
           </ul>
         </nav>
+        {{ tourStore.startPageIndex }}
       </div>
     </div>
   </div>
@@ -94,30 +124,46 @@
 <script setup>
 import { ref, watch } from 'vue'
 import http from '@/common/axios.js'
+import { storeToRefs } from 'pinia'
 import { useTourStore } from '../../stores/tourStore'
 import { useAuthStore } from '@/stores/userStore'
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted } from 'vue'
+const { startPageIndex, endPageIndex, prev, next } = storeToRefs(useTourStore()) // destructuring 에 의한 reactive 손실 보정
 
 const route = useRoute()
 const router = useRouter()
 const selectOption = ref('0')
 const category = ref('')
-const { tourStore, tourSearchList, store } = useTourStore()
+const { tourStore, tourSearchList, store, setTourMovePage } = useTourStore()
 const { setLogout } = useAuthStore()
 //관광지 아이디 넣어주면 됨!!
 
 // 쿼리 파라미터 접근
-
+const fisrtSearchWord = ref('') // 초기 검색어
+const localSidoCode = ref('')
+const localGugunCode = ref('')
+const localOption = ref('title')
+const localHow = ref('asc')
 tourStore.sidoCode = route.query.sidoCode
 tourStore.gugunCode = route.query.gugunCode
 tourStore.searchWord = route.query.searchWord
+fisrtSearchWord.value = route.query.searchWord
+localSidoCode.value = route.query.sidoCode
+localGugunCode.value = route.query.gugunCode
 
 tourSearchList()
 
 tourStore.currentPage = 1
 
 const content = ref('')
+
+const submitSearch = () => {
+  tourStore.sidoCode = localSidoCode.value
+  tourStore.gugunCode = localGugunCode.value
+  console.log('재검색!!')
+  tourSearchList()
+}
 
 const handleStar = (item) => {
   if (item.favorite) {
@@ -141,6 +187,9 @@ const addStar = async (contentId) => {
     } else if (data.result == 'false') {
       alert('이미 즐겨찾기한 관광지입니다')
     } else {
+      tourStore.sidoCode = localSidoCode.value
+      tourStore.gugunCode = localGugunCode.value
+
       tourSearchList()
     }
   } catch (error) {
@@ -155,6 +204,8 @@ const deleteStar = async (contentId) => {
       alert('로그인 후 사용 가능합니다.')
       doLogout()
     } else {
+      tourStore.sidoCode = localSidoCode.value
+      tourStore.gugunCode = localGugunCode.value
       tourSearchList()
     }
   } catch (error) {
@@ -162,17 +213,18 @@ const deleteStar = async (contentId) => {
   }
 }
 
-// 페이지 변경 함수
-const changePage = (page) => {
-  tourStore.currentPage = page
-  tourStore.offset = page - 1
-  window.scroll(0, 0)
+// pagination
+const movePage = (pageIndex) => {
+  setTourMovePage(pageIndex)
   tourSearchList()
+  window.scroll(0, 0)
 }
 
 const TourCategory = (categoryId) => {
   category.value = categoryId
   tourStore.category = categoryId
+  tourStore.sidoCode = localSidoCode.value
+  tourStore.gugunCode = localGugunCode.value
   window.scroll(0, 0)
   tourSearchList()
 }
@@ -202,18 +254,26 @@ watch(selectOption, (newVal) => {
     case '1':
       tourStore.option = 'average_score'
       tourStore.how = 'desc'
+      localOption.value = tourStore.option
+      localHow.value = tourStore.how
       break
     case '2':
       tourStore.option = 'average_score'
       tourStore.how = 'asc'
+      localOption.value = tourStore.option
+      localHow.value = tourStore.how
       break
     case '3':
       tourStore.option = 'readcount'
       tourStore.how = 'desc'
+      localOption.value = tourStore.option
+      localHow.value = tourStore.how
       break
     case '4':
       tourStore.option = 'readcount'
       tourStore.how = 'asc'
+      localOption.value = tourStore.option
+      localHow.value = tourStore.how
       break
   }
 

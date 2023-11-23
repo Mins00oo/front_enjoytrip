@@ -129,6 +129,9 @@ const categoryTour = (categoryId) => {
 }
 
 const showModal = () => {
+  tourStore.searchWord = ''
+  tourStore.againSearchWord = ''
+  tourStore.category = ''
   searchModal.show()
 }
 

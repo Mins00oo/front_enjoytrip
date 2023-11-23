@@ -75,7 +75,9 @@
                 :key="index"
                 class="list-group-item d-flex justify-content-between align-items-center"
               >
-                <span class="search-term" @click="useSearchTerm(word)">{{ word }}</span>
+                <button class="search-term" @click="useSearchTerm(word)" data-bs-dismiss="modal">
+                  {{ word }}
+                </button>
                 <button class="btn btn-outline-danger btn-sm" @click="removeSearchTerm(word)">
                   X
                 </button>
@@ -130,6 +132,21 @@ const submitSearch = () => {
       sidoCode: sido.sidoCode,
       gugunCode: gugun.gugunCode,
       searchWord: tourStore.searchWord
+    }
+  })
+  tourStore.searchWord = ''
+}
+
+const useSearchTerm = (word) => {
+  const sido = tourStore.sidoList.find((sido) => sido.sidoName === selectedCity.value)
+  const gugun = tourStore.gugunList.find((gugun) => gugun.gugunName === selectedGugun.value)
+  // URL 변경
+  router.push({
+    path: '/tours/search',
+    query: {
+      sidoCode: sido.sidoCode,
+      gugunCode: gugun.gugunCode,
+      searchWord: word
     }
   })
   tourStore.searchWord = ''
