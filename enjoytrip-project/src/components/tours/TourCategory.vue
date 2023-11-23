@@ -1,26 +1,33 @@
 <template>
   <div class="col-lg-3">
-    <h1 class="h2 pb-4">Categories</h1>
-    <ul class="list-unstyled templatemo-accordion">
-      <ul class="collapse show list-unstyled pl-3">
-        <li><a class="text-decoration-none" @click="TourCategory('')">전체</a></li>
-        <li><a class="text-decoration-none" @click="TourCategory('12')">관광지</a></li>
-        <li><a class="text-decoration-none" @click="TourCategory('14')">문화시설</a></li>
-        <li><a class="text-decoration-none" @click="TourCategory('15')">축제공연행사</a></li>
-        <li><a class="text-decoration-none" @click="TourCategory('25')">여행코스</a></li>
-        <li><a class="text-decoration-none" @click="TourCategory('28')">레포츠</a></li>
-        <li><a class="text-decoration-none" @click="TourCategory('32')">숙박</a></li>
-        <li><a class="text-decoration-none" @click="TourCategory('38')">쇼핑</a></li>
-        <li><a class="text-decoration-none" @click="TourCategory('39')">음식점</a></li>
-      </ul>
-    </ul>
-  </div>
+      <h1 class="h2 pb-4">Categories</h1>
+        <div v-for="category in categories" :key="category.id" class="category-box">
+            <i :class="category.icon"></i>
+            <a class="category" @click="TourCategory(category.id)">
+            {{ category.name }}
+            </a>
+        </div>
+    </div>
 </template>
 
 <script setup>
 import { useTourStore } from '../../stores/tourStore'
 
 const { tourStore, tourList } = useTourStore()
+
+const categories = [
+  { id: '', name: '전체', icon: 'fas fa-globe' },
+  { id: '12', name: '관광지', icon: 'fas fa-archway' },
+  { id: '14', name: '문화시설', icon: 'fas fa-synagogue' },
+  { id: '15', name: '축제공연행사', icon: 'fas fa-theater-masks' },
+  { id: '25', name: '여행코스', icon: 'fas fa-map' },
+  { id: '28', name: '레포츠', icon: 'fas fa-running' },
+  { id: '32', name: '숙박', icon: 'fas fa-bed' },
+  { id: '38', name: '쇼핑', icon: 'fas fa-shopping-cart' },
+  { id: '39', name: '음식점', icon: 'fas fa-utensils' }
+]
+
+
 const TourCategory = (category) => {
   tourStore.category = category
   tourStore.option = 'title'
@@ -29,3 +36,34 @@ const TourCategory = (category) => {
   window.scroll(0, 0)
 }
 </script>
+
+<style scoped>
+.templatemo-accordion {
+    padding: 0;
+  }
+  
+  .category-box {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .category-box:hover {
+    background-color: #8bc34a; /* 초록색 */
+  }
+
+  .category-box i {
+    margin-right: 10px;
+  }
+  
+  .category {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .category:hover {
+    text-decoration: underline;
+  }
+</style>

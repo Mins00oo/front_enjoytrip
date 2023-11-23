@@ -8,11 +8,12 @@
         <i class="fas fa-search"></i> Search
       </button>
     </div>
-    <button @click="setBound">마커 한눈에 보기</button>
-    <button @click="showShareModal">친구 추가하기</button>
-    <div class="container">
+    <button @click="setBound"><i class="fas fa-map-marker-alt"></i> 마커 한눈에 보기</button>
+    <button @click="showShareModal"><i class="fas fa-user-plus"></i> 친구 추가하기</button>  
+    <div class="container mt-3 mb-3">
       <div id="map" class="map"></div>
       <div class="sidebar">
+        <h3 style="font-weight: bold; margin-left: 10px;">List</h3>
         <!-- 현재 관광지 표시하기 -->
           <div v-for="(p, index) in mStore.mytripStore.list" :key="index" class="item">
             <div v-if="p.contentId !== 0">
@@ -49,6 +50,7 @@ const showShareModal = () => shareModal.show()
 
 //검색
 const search = () => {
+  store.tourStore.limit = 10;
   console.log('검색', store.tourStore.searchWord)
   store.tourSearchList()
 }
@@ -142,12 +144,37 @@ function setBound() {
 </script>
 
 <style scoped>
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SUITE-Regular';
+}
+
+button {
+  margin-left: 13px;
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #FF3366;
+  background-color: #fbedf2; 
+}
+
+i {
+    font-family: 'Font Awesome 5 Free';
+}
 .map {
   width: 70%;
   /* 맵의 너비를 조절하세요 */
   height: 550px;
   float: left;
   /* 맵을 왼쪽에 배치합니다 */
+  border-radius: 8px;
+  border: 2px solid #198754;
 }
 
 .sidebar {
@@ -165,11 +192,16 @@ function setBound() {
 .item {
   margin: 5px;
   padding: 10px;
-  border: 1px solid #ddd;
-  cursor: grab;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #FF3366;
+  background-color: #fbedf2; 
 }
 
 .trash {
   float: right;
+  margin-top: 3px;
 }
+
+
 </style>

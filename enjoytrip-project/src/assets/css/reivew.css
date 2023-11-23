@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     width: 45%;
-    margin: 10px;
+    margin: 20px;
     padding: 10px;
 
     border-radius: 8px;
@@ -51,17 +51,17 @@ i {
     font-family: 'Font Awesome 5 Free';
 }
 
-
-.icon-container {
-    display: flex;
-    gap: 10px;
-    /* 아이콘들 사이의 간격을 설정 (예시) */
-    margin-left: 40%;
-    margin-bottom: 5px;
+.mytrip-trash-icon {
+    float: right;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    color:#666;
+    /* 오른쪽 마진 설정 */
 }
 
 .review-title-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     /* 아이콘과 제목을 수직 가운데 정렬 */
 }

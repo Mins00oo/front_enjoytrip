@@ -19,7 +19,7 @@
     /* 각 아이템이 동일한 너비를 가지도록 설정 */
     margin: 10px;
     /* 각 아이템 간의 간격 조절 */
-    max-width: 300px;
+    width: 350px;
     /* 각 아이템의 최대 너비 설정 */
     border: 2px solid #198754;
     padding: 10px;
@@ -74,7 +74,7 @@ i {
 }
 .mytrip-plus-icon {
     font-size: 40px;
-    margin-left: 45%;
-    margin-top: 10%;
+    margin-left: 47%;
+    margin-top: 9%;
     color: #99582a;
 }

@@ -19,7 +19,7 @@
       <div class="icon-grid-container">
         <div class="icon-grid-item">
           <font-awesome-icon
-            :icon="['fas', 'users']"
+            :icon="['fas', 'globe']"
             class="icon-large"
             @click="categoryTour('-1')"
           />
@@ -28,7 +28,7 @@
 
         <div class="icon-grid-item">
           <font-awesome-icon
-            :icon="['fas', 'hamburger']"
+            :icon="['fas', 'utensils']"
             class="icon-large"
             @click="categoryTour('39')"
           />
@@ -64,7 +64,7 @@
 
         <div class="icon-grid-item">
           <font-awesome-icon
-            :icon="['fas', 'birthday-cake']"
+            :icon="['fas', 'theater-masks']"
             class="icon-large"
             @click="categoryTour('15')"
           />
@@ -91,7 +91,7 @@
 
         <div class="icon-grid-item">
           <font-awesome-icon
-            :icon="['fas', 'house']"
+            :icon="['fas', 'bed']"
             class="icon-large"
             @click="categoryTour('32')"
           />

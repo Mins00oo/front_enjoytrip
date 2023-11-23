@@ -1,12 +1,9 @@
 <template>
-    <div>
+    <div class="row row-cols-auto">
         <div v-for="(review, index) in store.reviewStore.list" :key="index" class="review-container">
             <div class="review-title-container">
                 <div class="review-title">{{ review.title }}</div>
-                <div class="icon-container">
-                    <i @click="updateReview(review.reviewId)" class="fas fa-pen"></i>
-                    <i @click="deleteReview(review.reviewId)" class="fas fa-trash"></i>
-                </div>
+                <i @click="deleteReview(review.reviewId)" class="fas fa-trash mytrip-trash-icon"></i>
             </div>
             <div class="review-star">
                 <i v-for="n in review.score" :key="n" class="fas fa-star star"></i>

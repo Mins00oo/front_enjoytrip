@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="row row-cols-auto">
         <div v-for="(mytrip, index) in store.mytripStore.mytripList" :key="index" class="mytrip-container mt-3">
             <div class="mytrip-item">
                 <div class="mytrip-title-container">
@@ -14,8 +14,10 @@
                 <div class="mytrip-userCnt mt-2"><i far fa-calendar-alt></i>생성일: {{ mytrip.creDate }}</div>
             </div>
         </div>
-        <div class="mytrip-item add">
-            <i @click="addMytrip" class="fas fa-plus mytrip-plus-icon"></i>
+        <div class="mytrip-container mt-3">
+            <div class="mytrip-item add">
+                <i @click="addMytrip" class="fas fa-plus mytrip-plus-icon"></i>
+            </div>
         </div>
         <add-modal></add-modal>
     </div>

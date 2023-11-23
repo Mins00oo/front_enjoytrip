@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-5 mb-5">
-        <h1>마이트립</h1>
+        <h1 class="mb-4" style="font-weight: bold;">마이트립</h1>
         <mytrip-map></mytrip-map>
         <mytrip-result-list></mytrip-result-list>
     </div>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="row row-cols-auto">
         <div v-for="(tour, index) in store.tourStore.searchResultList" :key="index" class="result-container">
             <div class="result-item">
                 <div class="content-container">
@@ -9,7 +9,6 @@
                     <div class="tour-text">
                         <div class="tour-title-container">
                             <div class="tour-title">{{ tour.title }}</div>
-                            <div class="tour-star">하트여부에따라서 수정{{ tour.favorite }}</div>
                             <i @click="addTour(tour.contentId)" class="fas fa-plus plus"></i>
                         </div>
                         <div class="tour-score">{{ tour.score }}</div>
@@ -18,6 +17,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
