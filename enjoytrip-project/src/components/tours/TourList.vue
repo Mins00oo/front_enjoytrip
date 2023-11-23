@@ -17,13 +17,15 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4" v-for="(item, index) in tourStore.list" :key="index">
-        <div class="card mb-4 product-wap rounded-0">
-          <div class="card h-100 position-relative">
-            <router-link :to="`/detail/${item.contentId}`">
-              <img class="card-img-top" :src="item.firstImage" :alt="item.title" />
-            </router-link>
-          </div>
+      <div class="col-12 col-md-4 mb-4" v-for="(item, index) in tourStore.list" :key="index">
+        <div class="card h-100 position-relative">
+          <router-link :to="`/detail/${item.contentId}`">
+            <img
+              :src="item.firstImage || '/src/assets/img/default_img.png'"
+              class="card-img-top"
+              :alt="item.title"
+            />
+          </router-link>
           <font-awesome-icon
             class="favorite-icon"
             :icon="[item.favorite ? 'fas' : 'far', 'heart']"
@@ -181,6 +183,9 @@ watch(selectOption, (newVal) => {
       tourStore.how = 'asc'
       break
   }
+  tourStore.currentPage = 1
+  tourStore.offset = 0
+  tourStore.limit = 9
   tourList()
 })
 </script>

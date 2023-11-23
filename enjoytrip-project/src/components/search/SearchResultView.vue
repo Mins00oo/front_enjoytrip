@@ -48,13 +48,19 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4" v-for="(item, index) in tourStore.searchResultList" :key="index">
-            <div class="card mb-4 product-wap rounded-0">
-              <div class="card h-100 position-relative">
-                <router-link :to="`/detail/${item.contentId}`">
-                  <img class="card-img-top" :src="item.firstImage" :alt="item.title" />
-                </router-link>
-              </div>
+          <div
+            class="col-12 col-md-4 mb-4"
+            v-for="(item, index) in tourStore.searchResultList"
+            :key="index"
+          >
+            <div class="card h-100 position-relative">
+              <router-link :to="`/detail/${item.contentId}`">
+                <img
+                  :src="item.firstImage || '/src/assets/img/default_img.png'"
+                  class="card-img-top"
+                  :alt="item.title"
+                />
+              </router-link>
               <font-awesome-icon
                 class="favorite-icon"
                 :icon="[item.favorite ? 'fas' : 'far', 'heart']"
@@ -161,6 +167,9 @@ const content = ref('')
 const submitSearch = () => {
   tourStore.sidoCode = localSidoCode.value
   tourStore.gugunCode = localGugunCode.value
+  tourStore.offset = 0
+  tourStore.limit = 9
+  tourStore.currentPage = 1
   console.log('재검색!!')
   tourSearchList()
 }
