@@ -24,3 +24,11 @@
     cursor: pointer;
     z-index: 10; /* 확실히 상위에 위치하도록 z-index 설정 */
   }
+
+  .filter-select {
+    margin-right: 15px; /* 필터링과 재검색 아이콘 사이 간격 */
+  }
+  
+  .search-icon {
+    font-size: 1.25rem; /* 아이콘 크기 조절 */
+  }

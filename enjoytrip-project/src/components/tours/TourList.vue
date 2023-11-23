@@ -34,9 +34,6 @@
             <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
               item.title
             }}</a>
-            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-              <!-- 여기에 사이즈나 색상 등의 정보를 표시할 수 있음 -->
-            </ul>
             <ul class="list-unstyled d-flex justify-content-center mb-1">
               <li v-for="n in 5" :key="`star-${index}-${n}`">
                 <i
@@ -53,32 +50,46 @@
         </div>
       </div>
     </div>
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center">
+        <li v-if="prev" class="page-item">
+          <a class="page-link" href="#" aria-label="Previous" @click="movePage(startPageIndex - 1)">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
         <li
-          v-for="page in 10"
-          :key="page"
+          v-for="index in endPageIndex - startPageIndex + 1"
+          :key="index"
+          v-bind:class="{ active: startPageIndex + index - 1 == tourStore.currentPage }"
           class="page-item"
-          :class="{ active: page === tourStore.currentPage }"
         >
-          <a class="page-link" href="#" @click.prevent="changePage(page)">
-            {{ page }}
+          <a @click="movePage(startPageIndex + index - 1)" class="page-link">{{
+            startPageIndex + index - 1
+          }}</a>
+          <!-- href 는 그대로, 커서 모양 유지-->
+        </li>
+        <li v-if="next" class="page-item">
+          <a class="page-link" href="#" aria-label="Next" @click="movePage(endPageIndex + 1)">
+            <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
       </ul>
     </nav>
+    {{ tourStore.startPageIndex }}
   </div>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import http from '@/common/axios.js'
 import { useTourStore } from '../../stores/tourStore'
 import { useAuthStore } from '@/stores/userStore'
 
 const { setLogout } = useAuthStore()
 const selectOption = ref('0')
-const { tourStore, tourList } = useTourStore()
+const { startPageIndex, endPageIndex, prev, next } = storeToRefs(useTourStore()) // destructuring 에 의한 reactive 손실 보정
+const { tourStore, tourList, setTourMovePage } = useTourStore()
 //관광지 아이디 넣어주면 됨!!
 
 tourStore.currentPage = 1
@@ -129,10 +140,9 @@ const deleteStar = async (contentId) => {
   }
 }
 
-// 페이지 변경 함수
-const changePage = (page) => {
-  tourStore.currentPage = page
-  tourStore.offset = page - 1
+// pagination
+const movePage = (pageIndex) => {
+  setTourMovePage(pageIndex)
   tourList()
   window.scroll(0, 0)
 }

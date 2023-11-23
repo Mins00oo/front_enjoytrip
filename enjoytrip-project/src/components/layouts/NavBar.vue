@@ -82,17 +82,28 @@
 
 <script setup>
 import { useAuthStore } from '@/stores/userStore'
+import { useTourStore } from '../../stores/tourStore'
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import { Modal } from 'bootstrap'
 import http from '@/common/axios.js'
 import SearchWordModal from '../search/SearchWordModal.vue'
 
+const { tourStore } = useTourStore()
 const { authStore, setLogout } = useAuthStore()
 const router = useRouter()
 let searchWordModal = null
 
-const showSearchModal = () => searchWordModal.show()
+const showSearchModal = () => {
+  tourStore.searchWord = ''
+  tourStore.againSearchWord = ''
+  tourStore.category = ''
+  tourStore.sidoCode = ''
+  tourStore.gugunCode = ''
+  tourStore.option = 'title'
+  tourStore.how = 'asc'
+  searchWordModal.show()
+}
 
 onMounted(() => {
   searchWordModal = new Modal(document.getElementById('templatemo_search'))
