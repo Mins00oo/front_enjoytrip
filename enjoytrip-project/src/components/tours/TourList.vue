@@ -2,7 +2,7 @@
   <div class="col-lg-9">
     <div class="row">
       <div class="col-md-6">
-        <h3 style="font-weight: bold !important;">여행 장소</h3>
+        <h3 style="font-weight: bold !important">여행 장소</h3>
       </div>
       <div class="col-md-6 pb-4">
         <div class="d-flex">
@@ -33,9 +33,12 @@
           />
 
           <div class="card-body">
-            <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
-              item.title
-            }}</a>
+            <ul class="list-unstyled d-flex justify-content-between">
+              <li></li>
+              <li class="text-muted text-right">{{ item.addr1 }}</li>
+            </ul>
+
+            {{ item.title }}
             <ul class="list-unstyled d-flex justify-content-center mb-1">
               <li v-for="n in 5" :key="`star-${index}-${n}`">
                 <i
@@ -46,8 +49,9 @@
                   class="fa fa-star"
                 ></i>
               </li>
+              &nbsp; &nbsp; &nbsp;
+              <p class="text-muted text-center">{{ item.reviewCount }} reviews</p>
             </ul>
-            <p class="text-center mb-0">{{ item.addr1 }}</p>
           </div>
         </div>
       </div>

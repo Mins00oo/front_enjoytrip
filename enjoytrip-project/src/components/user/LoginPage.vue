@@ -22,7 +22,7 @@
           data-bs-whatever="@mdo"
           @click="showSendEmailModal()"
         >
-          비밀번호 찾기
+          비밀번호 재설정
         </button>
       </p>
     </div>
@@ -64,8 +64,8 @@ const login = async () => {
 
   try {
     let { data } = await http.post('/login', loginObj)
-    console.log(loginObj);
-    console.log(data);
+    console.log(loginObj)
+    console.log(data)
     if (data.result == 'success') {
       // 세션 스토리지에 저장
       sessionStorage.setItem('isLogin', 'true')

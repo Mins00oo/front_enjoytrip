@@ -2,20 +2,13 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-lg-3">
-        <h1 class="h2 pb-4">Categories</h1>
-        <ul class="list-unstyled templatemo-accordion">
-          <ul class="collapse show list-unstyled pl-3">
-            <li><a class="text-decoration-none" @click="TourCategory('')">전체</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('12')">관광지</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('14')">문화시설</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('15')">축제공연행사</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('25')">여행코스</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('28')">레포츠</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('32')">숙박</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('38')">쇼핑</a></li>
-            <li><a class="text-decoration-none" @click="TourCategory('39')">음식점</a></li>
-          </ul>
-        </ul>
+        <h1 class="h2 pb-4" style="font-weight: bold !important">Categories</h1>
+        <div v-for="category in categories" :key="category.id" class="category-box">
+          <i :class="category.icon"></i>
+          <a class="category" @click="TourCategory(category.id)">
+            {{ category.name }}
+          </a>
+        </div>
       </div>
       <div class="col-lg-9">
         <div class="row">
@@ -141,6 +134,19 @@ const route = useRoute()
 const router = useRouter()
 const selectOption = ref('0')
 const category = ref('')
+
+const categories = [
+  { id: '', name: '전체', icon: 'fas fa-globe' },
+  { id: '12', name: '관광지', icon: 'fas fa-archway' },
+  { id: '14', name: '문화시설', icon: 'fas fa-synagogue' },
+  { id: '15', name: '축제공연행사', icon: 'fas fa-theater-masks' },
+  { id: '25', name: '여행코스', icon: 'fas fa-map' },
+  { id: '28', name: '레포츠', icon: 'fas fa-running' },
+  { id: '32', name: '숙박', icon: 'fas fa-bed' },
+  { id: '38', name: '쇼핑', icon: 'fas fa-shopping-cart' },
+  { id: '39', name: '음식점', icon: 'fas fa-utensils' }
+]
+
 const { tourStore, tourSearchList, store, setTourMovePage } = useTourStore()
 const { setLogout } = useAuthStore()
 //관광지 아이디 넣어주면 됨!!
@@ -183,6 +189,7 @@ const handleStar = (item) => {
 }
 
 const addStar = async (contentId) => {
+  console.log(contentId)
   content.value = contentId
   const starObj = {
     contentId: contentId
@@ -190,6 +197,7 @@ const addStar = async (contentId) => {
 
   try {
     let { data } = await http.post('tours/stars', starObj)
+    console.log('즐겨찾기 후 리턴', data)
     if (data.result == 'login') {
       alert('로그인 후 사용 가능합니다.')
       doLogout()
@@ -198,7 +206,8 @@ const addStar = async (contentId) => {
     } else {
       tourStore.sidoCode = localSidoCode.value
       tourStore.gugunCode = localGugunCode.value
-
+      tourStore.offset = 0
+      tourStore.limit = 9
       tourSearchList()
     }
   } catch (error) {
