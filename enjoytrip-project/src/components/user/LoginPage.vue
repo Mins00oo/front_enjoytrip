@@ -6,7 +6,7 @@
         <input type="password" placeholder="비밀번호" v-model="authStore.userPassword" />
       </form>
 
-      <button @click="login">로그인</button>
+      <button @click="login" style="border-radius: 5px;">로그인</button>
       <p class="message">
         아직 회원이 아니신가요?
         <router-link to="/register">회원가입</router-link>

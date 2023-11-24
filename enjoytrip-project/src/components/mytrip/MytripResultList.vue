@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="more-button-container">
-    <button @click="loadMore" class="btn btn-primary">더보기</button>
+    <button @click="loadMore" class="btn" style="background-color: #198754; color: white; margin-top: 20px; margin-left: 32.5%;">더보기</button>
   </div>
 </template>
 

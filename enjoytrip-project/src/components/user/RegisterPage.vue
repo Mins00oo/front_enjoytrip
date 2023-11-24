@@ -102,7 +102,7 @@
         <p class="message">이미 회원이신가요? <a href="/login">로그인</a></p>
       </form>
 
-      <button @click="register()">회원가입</button>
+      <button @click="register()" style="border-radius: 5px !important; margin-top: 15px;">회원가입</button>
     </div>
   </div>
 </template>
