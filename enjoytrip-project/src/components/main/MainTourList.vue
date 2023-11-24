@@ -3,49 +3,33 @@
     <div class="container py-5">
       <div class="row text-center py-3">
         <div class="col-lg-6 m-auto">
-          <h1 class="h1">추천 관광지</h1>
+          <h1 class="h1"
+            style="font-family: 'SUITE-Regular' !important; font-weight: bold !important; font-size: 35px !important; margin-bottom: 30px;">
+            추천 관광지</h1>
         </div>
       </div>
       <div class="row">
-        <div
-          class="col-12 col-md-4 mb-4"
-          v-for="(item, index) in tourStore.mainTourRecommendList"
-          :key="index"
-        >
+        <div class="col-12 col-md-4 mb-4" v-for="(item, index) in tourStore.mainTourRecommendList" :key="index">
           <div class="card h-100 position-relative">
             <router-link :to="`/detail/${item.contentId}`">
-              <img
-                :src="item.firstImage || '/src/assets/img/default_img.png'"
-                class="card-img-top"
-                :alt="item.title"
-              />
+              <img :src="item.firstImage || '/src/assets/img/default_img.png'" class="card-img-top" :alt="item.title" />
             </router-link>
-            <font-awesome-icon
-              class="favorite-icon"
-              :icon="[item.favorite ? 'fas' : 'far', 'heart']"
-              @click.stop="handleStar(item)"
-            />
+            <font-awesome-icon class="favorite-icon" :icon="[item.favorite ? 'fas' : 'far', 'heart']"
+              @click.stop="handleStar(item)" />
 
             <div class="card-body">
-              <ul class="list-unstyled d-flex justify-content-between">
-                <li></li>
-                <li class="text-muted text-right">{{ item.addr1 }}</li>
-              </ul>
-
-              {{ item.title }}
+              <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
+                item.title
+              }}</a>
               <ul class="list-unstyled d-flex justify-content-center mb-1">
                 <li v-for="n in 5" :key="`star-${index}-${n}`">
-                  <i
-                    :class="{
-                      'text-warning': n <= item.averageScore,
-                      'text-muted': n > item.averageScore
-                    }"
-                    class="fa fa-star"
-                  ></i>
+                  <i :class="{
+                    'text-warning': n <= item.averageScore,
+                    'text-muted': n > item.averageScore
+                  }" class="fa fa-star"></i>
                 </li>
-                &nbsp; &nbsp; &nbsp;
-                <p class="text-muted text-center">{{ item.reviewCount }} reviews</p>
               </ul>
+              <p class="text-center mb-0">{{ item.addr1 }}</p>
             </div>
           </div>
         </div>

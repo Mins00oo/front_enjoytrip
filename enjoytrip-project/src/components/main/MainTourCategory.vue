@@ -2,7 +2,7 @@
   <section class="container py-5">
     <div class="row text-center pt-3">
       <div class="col-lg-6 m-auto">
-        <h2 class="h2">대표 지역별</h2>
+        <h2 class="h2" style="font-family: 'SUITE-Regular' !important; font-weight: bold !important; font-size: 35px !important;">대표 지역별</h2>
       </div>
     </div>
     <div class="row">
@@ -39,6 +39,21 @@ const goToCategoryView = (region) => {
 </script>
 
 <style>
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SUITE-Regular';
+}
+
+i {
+    font-family: 'Font Awesome 5 Free';
+}
+
 .city-card {
   text-align: center;
   background-color: #f9f9f9;
