@@ -8,7 +8,11 @@
       <div class="result-item">
         <div class="content-container">
           <div class="image-container">
-            <img class="tour-image" :src="tour.firstImage" :alt="tour.title" />
+            <img
+              class="tour-image"
+              :src="tour.firstImage || '/src/assets/img/default_img.png'"
+              :alt="tour.title"
+            />
           </div>
           <div class="tour-text">
             <div class="tour-title-container">
@@ -22,10 +26,14 @@
       </div>
     </div>
   </div>
+  <div class="more-button-container">
+    <button @click="loadMore" class="btn btn-primary">더보기</button>
+  </div>
 </template>
 
 <script setup>
 import http from '@/common/axios.js'
+import { ref } from 'vue'
 import { useTourStore } from '../../stores/tourStore'
 import { useMytripStore } from '../../stores/mytripStore'
 
@@ -33,6 +41,7 @@ import { useMytripStore } from '../../stores/mytripStore'
 // 아래와같이 진행하면 안됨!! --> 다른 component와 공유 불가능
 // const { tourStore, tourSearchList } = useTourStore()
 
+const { tourStore } = useTourStore()
 const store = useTourStore()
 const mStore = useMytripStore()
 const localLimit = ref(10)
@@ -55,6 +64,12 @@ const addTour = async (contentId) => {
   } else {
     alert('이미 추가된 관광지 입니다!')
   }
+}
+
+const loadMore = () => {
+  localLimit.value += localLimit.value
+  tourStore.limit = localLimit.value
+  store.tourSearchList()
 }
 
 const isTourContain = (list, id) => {
