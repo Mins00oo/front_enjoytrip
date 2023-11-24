@@ -119,19 +119,44 @@ function loadMap() {
   loadMaker()
 }
 
+// 주소로 좌표를 검색하는 함수
+//지도에 표시할 이름 줄이는 함수
+function limitLength(name) {
+  var new_name = name;
+  if (name.length > 10) {
+    new_name = name.slice(0, 10) + "...";
+  }
+  return new_name;
+}
+
 // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
 let bounds = new kakao.maps.LatLngBounds()
 
 function loadMaker() {
   bounds = new kakao.maps.LatLngBounds()
+  var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+  var imageSize = new kakao.maps.Size(24, 35); 
+  // 마커 이미지를 생성합니다    
+  var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
   for (var i = 0; i < mStore.mytripStore.len; i++) {
+    //인포윈도우 생성
+    // var iwContent = '<div style="padding:5px;">'+mStore.mytripStore.list.title+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    // iwRemoveable = true;
+
+    // // 인포윈도우를 생성합니다
+    // var infowindow = new kakao.maps.InfoWindow({
+    //     content : iwContent,
+    //     removable : iwRemoveable
+    // });
+
     //마커 객체
     let marker = new window.kakao.maps.Marker({
       title: mStore.mytripStore.list[i].title,
       position: new kakao.maps.LatLng(
         mStore.mytripStore.list[i].latitude,
         mStore.mytripStore.list[i].longitude
-      )
+      ),
+      image : markerImage // 마커 이미지 
     })
     marker.setMap(map.value)
     // LatLngBounds 객체에 좌표를 추가합니다
@@ -141,6 +166,13 @@ function loadMaker() {
         mStore.mytripStore.list[i].longitude
       )
     )
+    // // 마커에 클릭이벤트를 등록합니다
+    // kakao.maps.event.addListener(marker, 'click', function() {
+    //   // 마커 위에 인포윈도우를 표시합니다
+    //       console.log('클릭1')
+    //   infowindow.setMap(map.value, marker)
+    //   console.log('클릭2')
+    // })
   }
   setBound()
 }
