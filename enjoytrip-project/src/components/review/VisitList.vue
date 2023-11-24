@@ -3,7 +3,10 @@
     <div class="col-md-4" v-for="(visit, index) in dataList" v-bind:key="index">
       <!--디테일 페이지 연동하기-->
       <div class="image-container">
-        <img :src="visit.firstImage" class="responsive-image" />
+        <img
+          :src="visit.firstImage || '/src/assets/img/default_img.png'"
+          class="responsive-image"
+        />
         <div class="overlay">
           <router-link :to="`/detail/${visit.contentId}`" class="link-style">
             <p>{{ visit.title }}</p>
@@ -21,9 +24,9 @@
 import { ref, onMounted } from 'vue'
 import http from '@/common/axios.js'
 import { useAuthStore } from '@/stores/userStore'
-import { useReviewStore } from "../../stores/reivewStore";
-import WriteReviewModal from "./modal/WriteReviewModal.vue";
-import { storeToRefs } from "pinia";
+import { useReviewStore } from '../../stores/reivewStore'
+import WriteReviewModal from './modal/WriteReviewModal.vue'
+import { storeToRefs } from 'pinia'
 import { Modal } from 'bootstrap'
 
 // //Modal 세팅
@@ -47,7 +50,6 @@ const writeReview = async (contentId) => {
   list()
 }
 
-
 const list = async () => {
   try {
     let { data } = await http.get('/tours/users')
@@ -62,7 +64,6 @@ const list = async () => {
   }
 }
 list()
-
 
 const doLogout = () => {
   setLogout({
