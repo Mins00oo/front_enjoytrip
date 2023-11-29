@@ -28,7 +28,7 @@
           </router-link>
           <font-awesome-icon
             class="favorite-icon"
-            :icon="[item.favorite ? 'fas' : 'far', 'heart']"
+            :icon="[authStore.isLogin && item.favorite ? 'fas' : 'far', 'heart']"
             @click.stop="handleStar(item)"
           />
 
@@ -92,7 +92,7 @@ import http from '@/common/axios.js'
 import { useTourStore } from '../../stores/tourStore'
 import { useAuthStore } from '@/stores/userStore'
 
-const { setLogout } = useAuthStore()
+const { setLogout, authStore } = useAuthStore()
 const selectOption = ref('0')
 const { startPageIndex, endPageIndex, prev, next } = storeToRefs(useTourStore()) // destructuring 에 의한 reactive 손실 보정
 const { tourStore, tourList, setTourMovePage } = useTourStore()
@@ -159,7 +159,9 @@ const doLogout = () => {
     isLogin: false,
     userNickName: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+    userName: '',
+    userPassword: ''
   })
 }
 

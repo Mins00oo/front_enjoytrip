@@ -27,7 +27,13 @@
     </div>
   </div>
   <div class="more-button-container">
-    <button @click="loadMore" class="btn" style="background-color: #198754; color: white; margin-top: 20px; margin-left: 32.5%;">더보기</button>
+    <button
+      @click="loadMore"
+      class="btn"
+      style="background-color: #198754; color: white; margin-top: 20px; margin-left: 32.5%"
+    >
+      더보기
+    </button>
   </div>
 </template>
 
@@ -46,6 +52,7 @@ const store = useTourStore()
 const mStore = useMytripStore()
 const localLimit = ref(10)
 const localOffset = ref(0)
+store.tourStore.searchResultList = []
 
 const addTour = async (contentId) => {
   //추가할 관광지가 이미 마이트립 내에 존재하는지 확인

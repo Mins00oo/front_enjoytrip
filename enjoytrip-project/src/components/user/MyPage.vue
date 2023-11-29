@@ -78,7 +78,7 @@ import UserModifyModal from './modal/UserModifyModal.vue'
 import StarList from '../star/StarList.vue'
 import ReviewList from '../review/ReviewList.vue'
 import VisitList from '../review/VisitList.vue'
-import MyTripList from "../mytrip/MyTripList.vue"
+import MyTripList from '../mytrip/MyTripList.vue'
 import UserDeleteModal from './modal/UserDeleteModal.vue'
 import ChangePasswordModal from './modal/ChangePasswordModal.vue'
 
@@ -163,7 +163,9 @@ const doLogout = () => {
     isLogin: false,
     userNickName: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+    userName: '',
+    userPassword: ''
   })
   router.push('/login')
 }

@@ -46,7 +46,8 @@ export const useAuthStore = defineStore('authStore', () => {
     authStore.userName = payload.userName
     authStore.userId = payload.userId
     authStore.userNickName = payload.userNickName
-    // authStore.userEmail = payload.userEmail
+    authStore.userEmail = payload.userEmail
+    authStore.userPassword = payload.userPassword
   }
 
   return { authStore, setLogin, setLogout, logout }

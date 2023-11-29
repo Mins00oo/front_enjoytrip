@@ -3,19 +3,38 @@
     <div class="container py-5">
       <div class="row text-center py-3">
         <div class="col-lg-6 m-auto">
-          <h1 class="h1"
-            style="font-family: 'SUITE-Regular' !important; font-weight: bold !important; font-size: 35px !important; margin-bottom: 30px;">
-            추천 관광지</h1>
+          <h1
+            class="h1"
+            style="
+              font-family: 'SUITE-Regular' !important;
+              font-weight: bold !important;
+              font-size: 35px !important;
+              margin-bottom: 30px;
+            "
+          >
+            추천 관광지
+          </h1>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-md-4 mb-4" v-for="(item, index) in tourStore.mainTourRecommendList" :key="index">
+        <div
+          class="col-12 col-md-4 mb-4"
+          v-for="(item, index) in tourStore.mainTourRecommendList"
+          :key="index"
+        >
           <div class="card h-100 position-relative">
             <router-link :to="`/detail/${item.contentId}`">
-              <img :src="item.firstImage || '/src/assets/img/default_img.png'" class="card-img-top" :alt="item.title" />
+              <img
+                :src="item.firstImage || '/src/assets/img/default_img.png'"
+                class="card-img-top"
+                :alt="item.title"
+              />
             </router-link>
-            <font-awesome-icon class="favorite-icon" :icon="[item.favorite ? 'fas' : 'far', 'heart']"
-              @click.stop="handleStar(item)" />
+            <font-awesome-icon
+              class="favorite-icon"
+              :icon="[authStore.isLogin && item.favorite ? 'fas' : 'far', 'heart']"
+              @click.stop="handleStar(item)"
+            />
 
             <div class="card-body">
               <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
@@ -23,10 +42,13 @@
               }}</a>
               <ul class="list-unstyled d-flex justify-content-center mb-1">
                 <li v-for="n in 5" :key="`star-${index}-${n}`">
-                  <i :class="{
-                    'text-warning': n <= item.averageScore,
-                    'text-muted': n > item.averageScore
-                  }" class="fa fa-star"></i>
+                  <i
+                    :class="{
+                      'text-warning': n <= item.averageScore,
+                      'text-muted': n > item.averageScore
+                    }"
+                    class="fa fa-star"
+                  ></i>
                 </li>
               </ul>
               <p class="text-center mb-0">{{ item.addr1 }}</p>
@@ -40,14 +62,12 @@
 
 <script setup>
 import { useTourStore } from '../../stores/tourStore'
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import http from '@/common/axios.js'
 import { useAuthStore } from '@/stores/userStore'
 
-const { setLogout } = useAuthStore()
-const router = useRouter()
-const { tourStore, setTourDetail, mainTourRecommendList } = useTourStore()
+const { setLogout, authStore } = useAuthStore()
+const { tourStore, mainTourRecommendList } = useTourStore()
 const content = ref('')
 
 const handleStar = (item) => {
@@ -99,7 +119,9 @@ const doLogout = () => {
     isLogin: false,
     userNickName: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+    userName: '',
+    userPassword: ''
   })
 }
 </script>

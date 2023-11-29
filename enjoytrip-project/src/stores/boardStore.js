@@ -65,6 +65,7 @@ export const useBoardStore = defineStore('boardStore', () => {
 
     try {
       let { data } = await http.get('/boards', { params }) // params: params shorthand property, let response 도 제거
+      console.log(data)
       if (data.result == 'login') {
         doLogout()
       } else {

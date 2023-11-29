@@ -17,7 +17,7 @@
 
               <font-awesome-icon
                 class="favorite-icon"
-                :icon="[tour.favorite ? 'fas' : 'far', 'heart']"
+                :icon="[authStore.isLogin && tour.favorite ? 'fas' : 'far', 'heart']"
                 @click.stop="handleStar(tour)"
               />
               <div class="card-body">
@@ -77,7 +77,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { onMounted, watch, ref } from 'vue'
 import http from '@/common/axios.js'
 import { useTourStore } from '../stores/tourStore'
+import { useAuthStore } from '@/stores/userStore'
 
+const { authStore } = useAuthStore()
 const { tourDetail, tourStore, tourRelatedList } = useTourStore()
 const route = useRoute()
 const router = useRouter()

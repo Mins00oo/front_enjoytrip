@@ -28,7 +28,9 @@ import { useReviewStore } from '../../stores/reivewStore'
 import WriteReviewModal from './modal/WriteReviewModal.vue'
 import { storeToRefs } from 'pinia'
 import { Modal } from 'bootstrap'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 // //Modal 세팅
 const store = useReviewStore()
 let writeModal = null
@@ -65,12 +67,15 @@ const list = async () => {
 }
 list()
 
+// logout 처리 별도 method
 const doLogout = () => {
   setLogout({
     isLogin: false,
     userNickName: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+    userName: '',
+    userPassword: ''
   })
   router.push('/login')
 }

@@ -2,18 +2,18 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-lg-3">
-        <h1 class="h2 pb-4" style="font-weight: bold !important;">Categories</h1>
+        <h1 class="h2 pb-4" style="font-weight: bold !important">Categories</h1>
         <div v-for="category in categories" :key="category.id" class="category-box">
-            <i :class="category.icon"></i>
-            <a class="category" @click="TourCategory(category.id)">
+          <i :class="category.icon"></i>
+          <a class="category" @click="TourCategory(category.id)">
             {{ category.name }}
-            </a>
+          </a>
         </div>
       </div>
       <div class="col-lg-9">
         <div class="row">
           <div class="col-md-6">
-            <h3 style="font-weight: bold !important;">여행 장소</h3>
+            <h3 style="font-weight: bold !important">여행 장소</h3>
           </div>
           <div class="col-md-6 pb-4">
             <div class="d-flex">
@@ -41,24 +41,27 @@
               </div>
               <font-awesome-icon
                 class="favorite-icon"
-                :icon="[item.favorite ? 'fas' : 'far', 'heart']"
+                :icon="[authStore.isLogin && item.favorite ? 'fas' : 'far', 'heart']"
                 @click.stop="handleStar(item)"
               />
 
               <div class="card-body">
-              <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
-                item.title
-              }}</a>
-              <ul class="list-unstyled d-flex justify-content-center mb-1">
-                <li v-for="n in 5" :key="`star-${index}-${n}`">
-                  <i :class="{
-                    'text-warning': n <= item.averageScore,
-                    'text-muted': n > item.averageScore
-                  }" class="fa fa-star"></i>
-                </li>
-              </ul>
-              <p class="text-center mb-0">{{ item.addr1 }}</p>
-            </div>
+                <a :href="`/shop-single/${item.contentId}`" class="h3 text-decoration-none">{{
+                  item.title
+                }}</a>
+                <ul class="list-unstyled d-flex justify-content-center mb-1">
+                  <li v-for="n in 5" :key="`star-${index}-${n}`">
+                    <i
+                      :class="{
+                        'text-warning': n <= item.averageScore,
+                        'text-muted': n > item.averageScore
+                      }"
+                      class="fa fa-star"
+                    ></i>
+                  </li>
+                </ul>
+                <p class="text-center mb-0">{{ item.addr1 }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -102,10 +105,12 @@
 import { ref, watch } from 'vue'
 import http from '@/common/axios.js'
 import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/stores/userStore'
 import { useTourStore } from '../../stores/tourStore'
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 
+const { authStore } = useAuthStore()
 const router = useRouter()
 const selectOption = ref('0')
 const category = ref('')
@@ -235,7 +240,9 @@ const doLogout = () => {
     isLogin: false,
     userNickName: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+    userName: '',
+    userPassword: ''
   })
   router.push('/login')
 }

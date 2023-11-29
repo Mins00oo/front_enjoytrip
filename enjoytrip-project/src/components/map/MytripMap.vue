@@ -2,29 +2,33 @@
   <div>
     <!-- 검색 바 -->
     <div class="input-group mb-3">
-      <input type="text" v-model="store.tourStore.searchWord" class="form-control form-control-lg"
-        placeholder="Search Here" />
+      <input
+        type="text"
+        v-model="store.tourStore.searchWord"
+        class="form-control form-control-lg"
+        placeholder="Search Here"
+      />
       <button @click="search" type="button" class="input-group-text btn-success">
         <i class="fas fa-search"></i> Search
       </button>
     </div>
-    <button @click="setBound" style="font-weight: bold !important;"><i class="fas fa-map-marker-alt icon"></i> 마커 한눈에
-      보기</button>
-    <button @click="showShareModal" style="font-weight: bold !important;"><i class="fas fa-user-plus icon"></i> 친구
-      추가하기</button>
+    <button @click="setBound" style="font-weight: bold !important">
+      <i class="fas fa-map-marker-alt icon"></i> 마커 한눈에 보기
+    </button>
+    <button @click="showShareModal" style="font-weight: bold !important">
+      <i class="fas fa-user-plus icon"></i> 친구 추가하기
+    </button>
     <div class="container mt-3 mb-3">
       <div id="map" class="map"></div>
       <div class="sidebar">
-        <h3 style="font-weight: bold; margin-left: 10px;">List</h3>
+        <h3 style="font-weight: bold; margin-left: 10px">List</h3>
         <!-- 현재 관광지 표시하기 -->
         <div v-for="(p, index) in mStore.mytripStore.list" :key="index" class="item">
-          <div v-if="p.contentId !== 0" style="font-weight: bold !important;">
+          <div v-if="p.contentId !== 0" style="font-weight: bold !important">
             {{ p.contentTitle }}
             <i @click="deleteTour(p.contentId)" class="fas fa-trash trash"></i>
           </div>
-          <div v-if="p.contentId === 0">
-            관광지를 추가해주세요!
-          </div>
+          <div v-if="p.contentId === 0">관광지를 추가해주세요!</div>
         </div>
       </div>
     </div>
@@ -41,6 +45,7 @@ import { Modal } from 'bootstrap'
 
 const store = useTourStore()
 const mStore = useMytripStore()
+store.tourStore.searchWord = ''
 
 let shareModal = null
 
@@ -52,7 +57,7 @@ const showShareModal = () => shareModal.show()
 
 //검색
 const search = () => {
-  store.tourStore.limit = 10;
+  store.tourStore.limit = 10
   console.log('검색', store.tourStore.searchWord)
   store.tourSearchList()
 }
@@ -117,9 +122,9 @@ function loadMap() {
 const limitLength = (targetName) => {
   var name = targetName
   if (name.length > 8) {
-    name = name.slice(0, 8) + "...";
+    name = name.slice(0, 8) + '...'
   }
-  return name;
+  return name
 }
 
 // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
@@ -127,10 +132,10 @@ let bounds = new kakao.maps.LatLngBounds()
 
 function loadMaker() {
   bounds = new kakao.maps.LatLngBounds()
-  var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-  var imageSize = new kakao.maps.Size(24, 35);
-  // 마커 이미지를 생성합니다    
-  var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+  var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png'
+  var imageSize = new kakao.maps.Size(24, 35)
+  // 마커 이미지를 생성합니다
+  var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
   for (var i = 0; i < mStore.mytripStore.len; i++) {
     //마커 객체
     let marker = new window.kakao.maps.Marker({
@@ -139,7 +144,7 @@ function loadMaker() {
         mStore.mytripStore.list[i].latitude,
         mStore.mytripStore.list[i].longitude
       ),
-      image: markerImage // 마커 이미지 
+      image: markerImage // 마커 이미지
     })
     marker.setMap(map.value)
     // LatLngBounds 객체에 좌표를 추가합니다
@@ -155,22 +160,23 @@ function loadMaker() {
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function () {
       //인포윈도우 생성
-      var iwContent = html +
-	              '<a href="https://map.naver.com/p/search/' +
-	              marker.Gb +
-                '" style="color:#198754; font-family: \'SUITE-Regular\';" target="_blank">' +
-                limitLength(marker.Gb)+
-                '</a>' +
-                '</div>',
-        iwRemoveable = true;
+      var iwContent =
+          html +
+          '<a href="https://map.naver.com/p/search/' +
+          marker.Gb +
+          '" style="color:#198754; font-family: \'SUITE-Regular\';" target="_blank">' +
+          limitLength(marker.Gb) +
+          '</a>' +
+          '</div>',
+        iwRemoveable = true
 
       // 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({
         content: iwContent,
         removable: iwRemoveable
-      });
+      })
       // infowindow.setMap(map.value, marker)
-      infowindow.open(map.value, marker);
+      infowindow.open(map.value, marker)
       console.log('클릭2')
     })
   }
@@ -187,7 +193,8 @@ function setBound() {
 <style scoped>
 @font-face {
   font-family: 'SUITE-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2')
+    format('woff2');
   font-weight: 400;
   font-style: normal;
 }

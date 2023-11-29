@@ -39,22 +39,7 @@ import { useTourStore } from '../../stores/tourStore'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const { tourStore, setTourDetail } = useTourStore()
-
-const tourDetail = async (contentId) => {
-  router.push({ name: 'TourDetail', params: { contentId: contentId } })
-}
-
-// logout 처리 별도 method
-const doLogout = () => {
-  setLogout({
-    isLogin: false,
-    userNickName: '',
-    userId: '',
-    userEmail: ''
-  })
-  router.push('/login')
-}
+const { tourStore } = useTourStore()
 </script>
 
 <style scoped>

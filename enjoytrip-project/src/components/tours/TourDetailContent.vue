@@ -136,7 +136,9 @@ const doLogout = () => {
     isLogin: false,
     userNickName: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+    userName: '',
+    userPassword: ''
   })
 }
 

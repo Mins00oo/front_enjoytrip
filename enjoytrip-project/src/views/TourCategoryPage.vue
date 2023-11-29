@@ -23,7 +23,11 @@
             <div class="card mb-4 product-wap rounded-0">
               <div class="card h-100 position-relative">
                 <router-link :to="`/detail/${item.contentId}`">
-                  <img class="card-img-top" :src="item.firstImage" :alt="item.title" />
+                  <img
+                    class="card-img-top"
+                    :src="item.firstImage || '/src/assets/img/default_img.png'"
+                    :alt="item.title"
+                  />
                 </router-link>
               </div>
               <font-awesome-icon
@@ -156,7 +160,9 @@ const doLogout = () => {
     isLogin: false,
     userNickName: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+    userName: '',
+    userPassword: ''
   })
 }
 

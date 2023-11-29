@@ -14,7 +14,7 @@ import RegisterPage from '@/components/user/RegisterPage.vue'
 import MyPage from '@/components/user/MyPage.vue'
 import { useAuthStore } from '@/stores/userStore'
 //Mytrip 관련 추가
-import MytripPage from '@/components/mytrip/MytripView.vue'
+import MytripPage from '@/components/mytrip/MyTripView.vue'
 import MytripDetailPage from '@/components/mytrip/MytripDetail.vue'
 
 const router = createRouter({

@@ -117,7 +117,9 @@ const logout = async () => {
         isLogin: false,
         userNickName: '',
         userId: '',
-        userEmail: ''
+        userEmail: '',
+        userName: '',
+        userPassword: ''
       })
       console.log(authStore)
       alert('로그아웃 되었습니다.')
@@ -131,15 +133,16 @@ const logout = async () => {
 
 <style scoped>
 @font-face {
-    font-family: 'SUITE-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
+  font-family: 'SUITE-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2')
+    format('woff2');
+  font-weight: 400;
+  font-style: normal;
 }
 
 * {
-    font-family: 'SUITE-Regular';
-    font-weight: bold !important;
+  font-family: 'SUITE-Regular';
+  font-weight: bold !important;
 }
 
 .nav-link {
@@ -147,8 +150,6 @@ const logout = async () => {
 }
 
 i {
-    font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 5 Free';
 }
-
-
 </style>

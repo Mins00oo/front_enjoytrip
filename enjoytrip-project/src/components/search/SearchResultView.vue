@@ -56,7 +56,7 @@
               </router-link>
               <font-awesome-icon
                 class="favorite-icon"
-                :icon="[item.favorite ? 'fas' : 'far', 'heart']"
+                :icon="[authStore.isLogin && item.favorite ? 'fas' : 'far', 'heart']"
                 @click.stop="handleStar(item)"
               />
 
@@ -148,7 +148,7 @@ const categories = [
 ]
 
 const { tourStore, tourSearchList, store, setTourMovePage } = useTourStore()
-const { setLogout } = useAuthStore()
+const { setLogout, authStore } = useAuthStore()
 //관광지 아이디 넣어주면 됨!!
 
 // 쿼리 파라미터 접근
@@ -305,7 +305,9 @@ const doLogout = () => {
     isLogin: false,
     userNickName: '',
     userId: '',
-    userEmail: ''
+    userEmail: '',
+    userName: '',
+    userPassword: ''
   })
 }
 
