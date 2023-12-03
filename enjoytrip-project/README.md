@@ -1,35 +1,47 @@
-# enjoytrip-project
+# 🌱 Avocado
 
-This template should help get you started developing with Vue 3 in Vite.
+## ⭐ 프로젝트 소개
+> 본 프로젝트는 SSAFY 10기에서 진행한 프로젝트로 공공데이터를 활용한 여행 관광지 소개 프로젝트입니다
+## Project Repository
+- [프론트엔드](https://github.com/Mins00oo/front_enjoytrip/tree/main/enjoytrip-project)
+- [백엔드](https://github.com/Mins00oo/EnjoyTripPrj)
 
-## Recommended IDE Setup
+## 🎈 시스템 아키텍처
+![시스템 아키텍처](https://github.com/Mins00oo/front_enjoytrip/assets/109537583/2d31a80f-a9ac-4af2-be8a-671a0d9c14bf)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## ✨ ERD
+![image](https://github.com/Mins00oo/front_enjoytrip/assets/109537583/774759cf-63f2-489f-9877-6a992d450fd6)
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+## 설치 및 실행
+##### 1. 프로젝트 git clone
+##### 2. 설치 및 실행
+```bash
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## ✔ 사용 기술
+### Frontend
+- ```JavaScript```
+- ```Vue.js``` : 3
+- ```Axios```
+- ```ESLint```
+- ```Prettier```
 
-```sh
-npm run build
-```
+### Backend
+- ```Java```: 8
+- ```Spring Boot```: 2.7.17
+- ```MySQL```
+- ```MyBatis```
 
-### Lint with [ESLint](https://eslint.org/)
+### Cloud
+- ```AWS EC2```
+- ```AWS RDS```
+- ```Nginx```
+- ```Docker```
 
-```sh
-npm run lint
-```
+### Tool
+- ```Git```
+- ```Mattermost```
+- ```VS Code```
+- ```STS```
